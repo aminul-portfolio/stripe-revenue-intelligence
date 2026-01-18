@@ -1,15 +1,15 @@
 from django.db.models import Count
 from django.db.models.functions import TruncMonth
+
 from subscriptions.models import Subscription
 
 
 def subscription_kpis(start, end):
-    # Total subscriptions CREATED in the window (all statuses)
-    in_window = Subscription.objects.filter(created_at__range=(start, end))
+    window = Subscription.objects.filter(created_at__range=(start, end))
 
-    total = in_window.count()
-    active = in_window.filter(status="active").count()
-    canceled = in_window.filter(status="canceled").count()
+    total = window.count()
+    active = window.filter(status="active").count()
+    canceled = window.filter(status="canceled").count()
 
     churn = (canceled / total * 100) if total else 0
 
