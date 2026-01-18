@@ -14,8 +14,7 @@ jobs:
       DJANGO_SETTINGS_MODULE: "purelaka.settings"
       PYTHONUNBUFFERED: "1"
       PAYMENTS_USE_STRIPE: "0"
-      # If your settings require SECRET_KEY at import time, uncomment:
-      # DJANGO_SECRET_KEY: "ci-not-secret"
+      DJANGO_SECRET_KEY: "ci-not-secret"
 
     steps:
       - name: Checkout
