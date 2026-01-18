@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}My Account | PureLaka{% endblock %}
+
+{% block content %}
+<div class="section-head">
+  <h1>My Account</h1>
+  <p class="muted">Overview of your orders, subscriptions, and wishlist.</p>
+</div>
+
+<div class="grid2">
+  <div class="card form">
+    <h3>Profile</h3>
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email|default:"—" }}</p>
+    <p><strong>Role:</strong> {{ user_role|default:"customer" }}</p>
+    <div class="actions" style="margin-top:10px;">
+      <a class="btn ghost" href="/accounts/password_change/">Change Password</a>
+      <a class="btn ghost" href="/accounts/logout/">Logout</a>
+    </div>
+  </div>
+
+  <div class="card form">
+    <h3>Quick Links</h3>
+    <div class="actions" style="flex-wrap:wrap;">
+      <a class="btn primary" href="{% url 'product-list' %}">Shop</a>
+      <a class="btn ghost" href="{% url 'cart' %}">Cart</a>
+      <a class="btn ghost" href="{% url 'my-wishlist' %}">Wishlist</a>
+      <a class="btn ghost" href="{% url 'my-subscriptions' %}">Subscriptions</a>
+    </div>
+  </div>
+</div>
+
+<div class="grid2" style="margin-top:16px;">
+  <div class="card">
+    <div class="form">
+      <h3>Recent Orders</h3>
+      {% if orders %}
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Status</th>
+              <th>Total</th>
+              <th>Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for o in orders %}
+              <tr>
+                <td><a class="link" href="{% url 'order-detail' o.id %}">#{{ o.id }}</a></td>
+                <td>{{ o.status }}</td>
+                <td>£{{ o.total }}</td>
+                <td class="muted">{{ o.created_at|date:"Y-m-d" }}</td>
+                <td>
+                  {% if o.status == "pending" %}
+                    <a class="btn" href="{% url 'start-payment' o.id %}">Pay now</a>
+                  {% elif o.status == "paid" %}
+                    <span class="muted">Paid</span>
+                  {% else %}
+                    <span class="muted">—</span>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p class="muted">No orders yet.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="form">
+      <h3>Subscriptions</h3>
+      {% if subs %}
+        <table class="table">
+          <thead><tr><th>ID</th><th>Status</th><th>Product</th><th>Created</th></tr></thead>
+          <tbody>
+            {% for s in subs %}
+              <tr>
+                <td>{{ s.id }}</td>
+                <td>{{ s.status }}</td>
+                <td>{{ s.product_name }}</td>
+                <td class="muted">{{ s.created_at|date:"Y-m-d" }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <p class="muted">No subscriptions yet.</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="card" style="margin-top:16px;">
+  <div class="form">
+    <h3>Wishlist</h3>
+    {% if wishlist_items %}
+      <div class="grid products">
+        {% for it in wishlist_items %}
+          <article class="card product-card">
+            <div class="product-thumb"></div>
+            <div class="product-body">
+              <h3><a href="{% url 'product-detail' it.product.slug %}">{{ it.product.name }}</a></h3>
+              <div class="product-meta">
+                <span class="price">£{{ it.product.price }}</span>
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="muted">No wishlist items yet.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

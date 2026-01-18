@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Checkout | PureLaka{% endblock %}
+
+{% block content %}
+<h1>Checkout</h1>
+
+{% if PAYMENTS_USE_STRIPE %}
+  <p class="muted">Stripe payments are enabled (test mode).</p>
+{% else %}
+  <p class="muted">Payments are running in mock mode. Enable Stripe via .env to test real payments.</p>
+{% endif %}
+
+<form method="post" class="card form">
+  {% csrf_token %}
+  <div class="grid2">
+    <div>
+      <label class="label">Email</label>
+      <input class="input" name="email" required>
+    </div>
+    <div>
+      <label class="label">Full Name</label>
+      <input class="input" name="name">
+    </div>
+    <div>
+      <label class="label">Address Line 1</label>
+      <input class="input" name="line1">
+    </div>
+    <div>
+      <label class="label">City</label>
+      <input class="input" name="city">
+    </div>
+    <div>
+      <label class="label">Postcode</label>
+      <input class="input" name="postcode">
+    </div>
+    <div>
+      <label class="label">Country (2 letters)</label>
+      <input class="input" name="country" value="GB">
+    </div>
+  </div>
+
+  <button class="btn primary" type="submit">Proceed to Payment</button>
+</form>
+{% endblock %}

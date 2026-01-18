@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Add Payment Method | PureLaka{% endblock %}
+{% block content %}
+<h1>Add Payment Method</h1>
+<p class="muted">Add a card so your subscription can be activated.</p>
+
+<div class="card" style="max-width:640px;">
+  <div id="payment-element"></div>
+
+  <div style="margin-top:12px; display:flex; gap:10px; align-items:center;">
+    <button id="submit" class="btn primary" type="button">Save Card</button>
+    <span id="pm-status" class="muted"></span>
+  </div>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  const stripe = Stripe("{{ stripe_pk }}");
+  const elements = stripe.elements({ clientSecret: "{{ client_secret }}" });
+
+  const paymentElement = elements.create("payment");
+  paymentElement.mount("#payment-element");
+
+  const statusEl = document.getElementById("pm-status");
+  const submitBtn = document.getElementById("submit");
+  const completeUrl = window.location.origin + "{% url 'subscriptions-add-pm-complete' %}";
+
+  submitBtn.addEventListener("click", async () => {
+    submitBtn.disabled = true;
+    statusEl.textContent = "Saving card...";
+
+    const { error } = await stripe.confirmSetup({
+      elements,
+      confirmParams: { return_url: completeUrl },
+      redirect: "always",
+    });
+
+    if (error) {
+      submitBtn.disabled = false;
+      statusEl.textContent = "";
+      alert(error.message);
+    }
+  });
+</script>
+
+{% endblock %}

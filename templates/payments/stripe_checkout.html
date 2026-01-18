@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}Secure Checkout | PureLaka{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <h1>Secure Checkout</h1>
+  <p class="muted">Complete your payment securely via Stripe.</p>
+</section>
+
+<div class="grid-2">
+  <div class="card">
+    <h3>Order Summary</h3>
+    <div class="kv">
+      <div><span class="muted">Order</span><br><strong>#{{ order.id }}</strong></div>
+      <div><span class="muted">Total</span><br><strong>£{{ order.total }}</strong></div>
+      <div><span class="muted">Status</span><br><strong>{{ order.status|title }}</strong></div>
+    </div>
+
+    <p class="muted" style="margin-top:12px;">
+      After payment, Stripe confirms the result and our webhook marks the order as paid.
+      If you return immediately, the status may still show Pending until the webhook completes.
+    </p>
+
+    <a class="btn ghost" href="{% url 'order-detail' order.id %}">Back to Order</a>
+  </div>
+
+  <div class="card">
+    <h3>Payment</h3>
+
+    {% if not client_secret %}
+      <div class="msg warning">
+        Payment has already been initiated for this order (or the client secret was not provided).
+        Please return to the order page.
+      </div>
+      <a class="btn" href="{% url 'order-detail' order.id %}">Go to Order</a>
+    {% else %}
+      <form id="payment-form">
+        <div id="payment-element" class="stripe-box"></div>
+
+        <div id="error-message" class="msg error" style="display:none; margin-top:12px;"></div>
+
+        <button id="submit" class="btn" type="submit" style="margin-top:14px;">
+          Pay £{{ order.total }}
+        </button>
+
+        <p class="muted" style="margin-top:10px;">
+          Test card: 4242 4242 4242 4242 — any future date — any CVC.
+        </p>
+      </form>
+
+      <script src="https://js.stripe.com/v3/"></script>
+      <script>
+        (function () {
+          const clientSecret = "{{ client_secret|escapejs }}";
+          const publishableKey = "{{ stripe_publishable_key|default:''|escapejs }}";
+
+          const errBox = document.getElementById("error-message");
+          const submitBtn = document.getElementById("submit");
+          const form = document.getElementById("payment-form");
+
+          if (!publishableKey) {
+            errBox.style.display = "block";
+            errBox.textContent =
+              "Stripe publishable key is missing. Add STRIPE_PUBLISHABLE_KEY to .env and expose it from the view.";
+            submitBtn.disabled = true;
+            return;
+          }
+
+          const stripe = Stripe(publishableKey);
+          const elements = stripe.elements({ clientSecret });
+
+          const paymentElement = elements.create("payment", {
+            layout: "tabs"
+          });
+          paymentElement.mount("#payment-element");
+
+          form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            errBox.style.display = "none";
+            errBox.textContent = "";
+
+            const { error } = await stripe.confirmPayment({
+              elements,
+              confirmParams: {
+                // Use order detail as your "return" page for now (demo-safe)
+                return_url: window.location.origin + "{% url 'order-detail' order.id %}"
+              }
+            });
+
+            if (error) {
+              errBox.style.display = "block";
+              errBox.textContent = error.message || "Payment failed. Please try again.";
+              submitBtn.disabled = false;
+            }
+          });
+        })();
+      </script>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

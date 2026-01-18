@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Home | PureLaka{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-left">
+    <h1>Luxury Awaits</h1>
+    <p>Premium skincare crafted with science-backed formulas and a luxury experience.</p>
+    <div class="hero-actions">
+      <a class="btn primary" href="{% url 'product-list' %}">Shop Now</a>
+      <a class="btn ghost" href="{% url 'analytics-dashboard' %}">View Analytics</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-card">
+      <div class="hero-card-title">PureLaka Beauty</div>
+      <div class="hero-card-sub">Gentle. Effective. Luxury.</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Featured Products</h2>
+    <a class="link" href="{% url 'product-list' %}">View all</a>
+  </div>
+  <div class="grid products">
+    {% for p in featured %}
+      <article class="card product-card">
+        <div class="product-thumb"></div>
+        <div class="product-body">
+          <h3><a href="{% url 'product-detail' p.slug %}">{{ p.name }}</a></h3>
+          <div class="product-meta">
+            <span class="price">£{{ p.price }}</span>
+            <button class="heart" data-product="{{ p.id }}" aria-label="Wishlist">♡</button>
+          </div>
+          <form method="post" action="{% url 'cart-add' %}">
+            {% csrf_token %}
+            <input type="hidden" name="product_id" value="{{ p.id }}">
+            <input type="hidden" name="qty" value="1">
+            <button class="btn small" type="submit">Add to Cart</button>
+          </form>
+        </div>
+      </article>
+    {% empty %}
+      <p>No products yet. Run: <code>python manage.py seed_demo</code></p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
+

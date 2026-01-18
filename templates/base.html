@@ -1,0 +1,102 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}PureLaka Commerce Platform{% endblock %}</title>
+
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <script defer src="{% static 'js/app.js' %}"></script>
+  <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+</head>
+
+<body>
+  <header class="nav-shell">
+    <div class="nav-inner">
+      <a class="brand" href="{% url 'home' %}">PureLaka</a>
+
+      <nav class="nav-links">
+        <a href="{% url 'product-list' %}">Products</a>
+        <a href="{% url 'cart' %}">
+          Cart <span class="pill">{{ cart.count|default:0 }}</span>
+        </a>
+
+        {% if user.is_authenticated %}
+          <a href="{% url 'my-wishlist' %}">Wishlist</a>
+          <a href="{% url 'my-subscriptions' %}">Subscriptions</a>
+        {% endif %}
+
+        {% if user.is_staff %}
+          <a href="{% url 'analytics-dashboard' %}">Analytics</a>
+          <a href="{% url 'monitoring-issues' %}">Monitoring</a>
+        {% endif %}
+      </nav>
+
+      <div class="nav-right">
+        {% if user.is_authenticated %}
+          <span class="role">Role: {{ user_role|default:"customer" }}</span>
+
+          <a href="{% url 'account-dashboard' %}">My Account</a>
+
+          {% if user.is_staff %}
+            <a href="/admin/">Admin</a>
+          {% endif %}
+
+          <form method="post" action="{% url 'logout' %}" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="linklike">Logout</button>
+          </form>
+        {% else %}
+          <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+          <div class="msg {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <h4>PureLaka Commerce Platform</h4>
+          <p>Luxury e-commerce with analytics, monitoring, and auditability.</p>
+        </div>
+
+        <div>
+          <h5>Links</h5>
+          <a href="{% url 'product-list' %}">Shop</a><br>
+
+          {% if user.is_authenticated %}
+            <a href="{% url 'account-dashboard' %}">My Account</a><br>
+          {% endif %}
+
+          {% if user.is_staff %}
+            <a href="{% url 'analytics-dashboard' %}">Analytics</a><br>
+            <a href="{% url 'monitoring-issues' %}">Monitoring</a>
+          {% endif %}
+        </div>
+
+        <div>
+          <h5>Contact</h5>
+          <p>info@purelaka.com</p>
+          <p>London, UK</p>
+        </div>
+      </div>
+
+      <div class="copyright">© PureLaka Commerce Platform</div>
+    </div>
+  </footer>
+</body>
+</html>

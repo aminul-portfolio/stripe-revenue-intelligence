@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Cart | PureLaka{% endblock %}
+{% block content %}
+<h1>Your Cart</h1>
+
+{% if cart.items %}
+  <div class="card">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Price</th>
+          <th>Total</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in cart.items %}
+          <tr>
+            <td>
+              <strong>{{ i.product.name }}</strong>
+              {% if i.variant %}<div class="muted">{{ i.variant.name }}</div>{% endif %}
+            </td>
+            <td>
+              <form method="post" action="{% url 'cart-update' %}" class="inline">
+                {% csrf_token %}
+                <input type="hidden" name="key" value="{{ i.key }}">
+                <input class="input small" type="number" name="qty" min="0" value="{{ i.qty }}">
+                <button class="btn small" type="submit">Update</button>
+              </form>
+            </td>
+            <td>£{{ i.price }}</td>
+            <td>£{{ i.line_total }}</td>
+            <td>
+              <form method="post" action="{% url 'cart-remove' %}">
+                {% csrf_token %}
+                <input type="hidden" name="key" value="{{ i.key }}">
+                <button class="btn danger small" type="submit">Remove</button>
+              </form>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="cart-summary">
+      <div><strong>Subtotal:</strong> £{{ cart.total }}</div>
+      <div class="actions">
+        <form method="post" action="{% url 'cart-clear' %}">
+          {% csrf_token %}
+          <button class="btn ghost" type="submit">Clear Cart</button>
+        </form>
+        <a class="btn primary" href="{% url 'checkout' %}">Proceed to Checkout</a>
+      </div>
+    </div>
+  </div>
+{% else %}
+  <p>Your cart is empty.</p>
+  <a class="btn primary" href="{% url 'product-list' %}">Browse Products</a>
+{% endif %}
+{% endblock %}
+

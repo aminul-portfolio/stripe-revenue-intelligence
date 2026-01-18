@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Products | PureLaka{% endblock %}
+{% block content %}
+<div class="section-head">
+  <h1>Shop</h1>
+  <p class="muted">Premium skincare products designed for sensitive skin.</p>
+</div>
+
+<div class="grid products">
+  {% for p in products %}
+    <article class="card product-card">
+      <div class="product-thumb"></div>
+      <div class="product-body">
+        <h3><a href="{% url 'product-detail' p.slug %}">{{ p.name }}</a></h3>
+        <div class="product-meta">
+          <span class="price">£{{ p.price }}</span>
+          <button class="heart" data-product="{{ p.id }}" aria-label="Wishlist">♡</button>
+        </div>
+        <form method="post" action="{% url 'cart-add' %}">
+          {% csrf_token %}
+          <input type="hidden" name="product_id" value="{{ p.id }}">
+          <input type="hidden" name="qty" value="1">
+          <button class="btn small" type="submit">Add to Cart</button>
+        </form>
+      </div>
+    </article>
+  {% endfor %}
+</div>
+{% endblock %}
+

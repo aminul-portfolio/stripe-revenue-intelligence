@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Confirm Subscription | PureLaka{% endblock %}
+
+{% block content %}
+<h1>Confirm Subscription Payment</h1>
+<p class="muted">Complete the first payment to activate subscription #{{ sub.id }}.</p>
+
+<div class="card" style="max-width:640px;">
+  <form id="payment-form">
+    <div id="payment-element"></div>
+    <div id="payment-errors" class="muted" style="margin-top:10px;"></div>
+
+    <div style="margin-top:14px;">
+      <button class="btn primary" id="submit-btn" type="submit">Pay Now</button>
+      <a class="btn" href="{% url 'my-subscriptions' %}" style="margin-left:8px;">Back</a>
+    </div>
+  </form>
+</div>
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+  const stripe = Stripe("{{ stripe_pk }}");
+  const elements = stripe.elements({ clientSecret: "{{ client_secret }}" });
+
+  const paymentElement = elements.create("payment");
+  paymentElement.mount("#payment-element");
+
+  const form = document.getElementById("payment-form");
+  const errorsEl = document.getElementById("payment-errors");
+  const btn = document.getElementById("submit-btn");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    btn.disabled = true;
+    errorsEl.textContent = "";
+
+    const { error } = await stripe.confirmPayment({
+      elements,
+      confirmParams: {
+        return_url: window.location.origin + "{% url 'my-subscriptions' %}",
+      },
+      redirect: "if_required",
+    });
+
+    if (error) {
+      errorsEl.textContent = error.message || "Payment failed.";
+      btn.disabled = false;
+      return;
+    }
+
+    // Success without redirect
+    window.location.href = "{% url 'my-subscriptions' %}";
+  });
+</script>
+{% endblock %}

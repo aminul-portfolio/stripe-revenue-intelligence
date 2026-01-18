@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Wishlist | PureLaka{% endblock %}
+{% block content %}
+<h1>Wishlist</h1>
+<div class="grid products">
+  {% for it in items %}
+    <article class="card product-card">
+      <div class="product-thumb"></div>
+      <div class="product-body">
+        <h3><a href="{% url 'product-detail' it.product.slug %}">{{ it.product.name }}</a></h3>
+        <div class="product-meta">
+          <span class="price">£{{ it.product.price }}</span>
+        </div>
+      </div>
+    </article>
+  {% empty %}
+    <p>No items yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}
+

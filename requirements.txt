@@ -1,0 +1,5 @@
+Django>=5.0,<6.0
+python-dotenv>=1.0.1
+plotly>=5.20.0
+stripe>=9.0.0
+

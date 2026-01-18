@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% block title %}Subscriptions | PureLaka{% endblock %}
+{% block content %}
+<h1>Subscriptions</h1>
+<p class="muted">Subscriptions to support churn + MRR analytics (Stripe-backed).</p>
+
+<div class="actions" style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+  <a class="btn" href="{% url 'subscriptions-add-pm' %}">
+    {% if has_default_pm %}Update Card{% else %}Add Card{% endif %}
+  </a>
+
+  <form method="post" action="{% url 'subscriptions-create' %}" style="display:inline;">
+    {% csrf_token %}
+    <button class="btn primary" type="submit" {% if not has_default_pm %}disabled{% endif %}>
+      Create Subscription
+    </button>
+  </form>
+
+  {% if not has_default_pm %}
+    <span class="muted">Add a card first to activate subscriptions.</span>
+  {% endif %}
+</div>
+
+<div class="card">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Status</th>
+        <th>Product</th>
+        <th>Period End</th>
+        <th>MRR</th>
+        <th>Created</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for s in subs %}
+        <tr>
+          <td>{{ s.id }}</td>
+
+          <td>
+            {# Status logic: canceled vs cancel scheduled vs normal #}
+            {% if s.status == "canceled" %}
+              <span class="badge">canceled</span>
+            {% elif s.cancel_at_period_end %}
+              <span class="badge">cancel_scheduled</span>
+            {% else %}
+              <span class="badge">{{ s.status }}</span>
+            {% endif %}
+
+            {# Optional hint for incomplete state #}
+            {% if s.status == "incomplete" %}
+              <span class="muted" style="margin-left:8px;">Awaiting payment</span>
+            {% endif %}
+          </td>
+
+          <td>{{ s.product_name|default:"—" }}</td>
+
+          <td>
+            {% if s.current_period_end %}
+              {{ s.current_period_end|date:"Y-m-d" }}
+            {% else %}
+              —
+            {% endif %}
+          </td>
+
+          <td>
+            {% if s.mrr_pennies %}
+              £{{ s.mrr_gbp|floatformat:2 }}
+            {% else %}
+              —
+            {% endif %}
+          </td>
+
+          <td>
+            {% if s.created_at %}
+              {{ s.created_at|date:"Y-m-d" }}
+            {% else %}
+              —
+            {% endif %}
+          </td>
+
+          <td style="white-space:nowrap;">
+            {% if s.status == "canceled" %}
+              <span class="muted">Canceled</span>
+
+            {% elif s.cancel_at_period_end %}
+              <form method="post" action="{% url 'subscriptions-reactivate' s.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button class="btn small" type="submit">Reactivate</button>
+              </form>
+
+            {% else %}
+              <form method="post" action="{% url 'subscriptions-cancel' s.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button class="btn danger small" type="submit">Cancel</button>
+              </form>
+            {% endif %}
+          </td>
+        </tr>
+
+      {% empty %}
+        <tr>
+          <td colspan="7">No subscriptions yet.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

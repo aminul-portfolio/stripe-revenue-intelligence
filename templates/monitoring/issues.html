@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Monitoring | PureLaka{% endblock %}
+{% block content %}
+<div class="section-head">
+  <h1>Data Quality Monitoring</h1>
+  <form method="post">
+    {% csrf_token %}
+    <button class="btn primary" type="submit">Run Checks</button>
+  </form>
+</div>
+
+<div class="card">
+  <table class="table">
+    <thead><tr><th>Detected</th><th>Type</th><th>Ref</th><th>Resolved</th><th>Description</th></tr></thead>
+    <tbody>
+      {% for i in issues %}
+        <tr>
+          <td>{{ i.detected_at|date:"Y-m-d H:i" }}</td>
+          <td>{{ i.issue_type }}</td>
+          <td>{{ i.reference_id }}</td>
+          <td>{{ i.resolved }}</td>
+          <td class="muted">{{ i.description }}</td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="5">No issues detected.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
+

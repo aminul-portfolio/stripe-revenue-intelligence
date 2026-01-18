@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}Order #{{ order.id }} | PureLaka{% endblock %}
+
+{% block content %}
+<section class="page-head">
+  <h1>Order #{{ order.id }}</h1>
+</section>
+
+<div class="card">
+  <div class="row" style="display:flex; gap:18px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap;">
+    <div>
+      <div><strong>Status:</strong> {{ order.status|title }}</div>
+      <div><strong>Total:</strong> £{{ order.total }}</div>
+
+      {% if order.stripe_payment_intent %}
+        <div style="margin-top:8px;">
+          <span class="muted">PaymentIntent:</span>
+          <code>{{ order.stripe_payment_intent }}</code>
+        </div>
+      {% endif %}
+
+      {% if order.stripe_charge_id %}
+        <div style="margin-top:6px;">
+          <span class="muted">Charge:</span>
+          <code>{{ order.stripe_charge_id }}</code>
+        </div>
+      {% endif %}
+
+      {% if order.refund_status and order.refund_status != "none" %}
+        <div style="margin-top:10px;">
+          <span class="muted">Refund:</span>
+          <strong>{{ order.refund_status|title }}</strong>
+          <span class="muted">({{ order.refund_amount_pennies }} pennies)</span>
+          {% if order.refunded_at %}
+            <div class="muted" style="margin-top:4px;">Refunded at: {{ order.refunded_at }}</div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+      {# Customer payment CTA #}
+      {% if order.status == "pending" %}
+        <a class="btn primary" href="{% url 'start-payment' order.id %}">Pay now</a>
+      {% elif order.status == "paid" %}
+        <span class="msg success" style="margin:0;">Payment received.</span>
+      {% elif order.status == "cancelled" %}
+        <span class="msg warning" style="margin:0;">This order is cancelled.</span>
+      {% elif order.status == "fulfilled" %}
+        <span class="msg info" style="margin:0;">This order is fulfilled.</span>
+      {% endif %}
+
+      {# Ops/Admin lifecycle actions (POST-only) #}
+      {% if request.user.is_authenticated and request.user.is_staff %}
+        {% if order.status == "pending" %}
+          <form method="post" action="{% url 'order-cancel' order.id %}" style="display:inline;">
+            {% csrf_token %}
+            <input type="hidden" name="reason" value="Cancelled from order detail (staff)" />
+            <button type="submit" class="btn danger">Cancel</button>
+          </form>
+        {% endif %}
+
+        {% if order.status == "paid" %}
+          <form method="post" action="{% url 'order-fulfill' order.id %}" style="display:inline;">
+            {% csrf_token %}
+            <input type="hidden" name="note" value="Fulfilled from order detail (staff)" />
+            <button type="submit" class="btn success">Mark fulfilled</button>
+          </form>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+
+  <hr>
+
+  <h3>Items</h3>
+  <ul>
+    {% for i in order.items.all %}
+      <li>{{ i.product_name }} — {{ i.qty }} x £{{ i.unit_price }} = £{{ i.line_total }}</li>
+    {% empty %}
+      <li class="muted">No items found.</li>
+    {% endfor %}
+  </ul>
+
+  {% if order.status == "pending" %}
+    <p class="muted" style="margin-top:12px;">
+      Click <strong>Pay now</strong> to complete payment.
+      {% if PAYMENTS_USE_STRIPE %}
+        Stripe will confirm payment and the webhook will mark the order as <strong>paid</strong>.
+      {% else %}
+        You are in <strong>mock mode</strong>; clicking Pay now will mark the order as <strong>paid</strong> immediately.
+      {% endif %}
+    </p>
+  {% endif %}
+</div>
+{% endblock %}
