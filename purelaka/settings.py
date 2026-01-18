@@ -1,11 +1,19 @@
 from pathlib import Path
 import os
+
 from dotenv import load_dotenv
+from django.core.exceptions import ImproperlyConfigured
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env", override=False)
 
-SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-key-change-me")
+# Accept both common env names to avoid CI/local mismatch.
+SECRET_KEY = (
+    os.getenv("DJANGO_SECRET_KEY")
+    or os.getenv("SECRET_KEY")
+    or "dev-secret-key-change-me"
+)
+
 DEBUG = os.getenv("DEBUG", "True").lower() == "true"
 
 ALLOWED_HOSTS = [
@@ -15,6 +23,10 @@ ALLOWED_HOSTS = [
 CSRF_TRUSTED_ORIGINS = [
     o.strip() for o in os.getenv("CSRF_TRUSTED_ORIGINS", "").split(",") if o.strip()
 ]
+
+# Developer-friendly defaults (does not affect production if DEBUG=False)
+if DEBUG and not ALLOWED_HOSTS:
+    ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 INSTALLED_APPS = [
@@ -79,7 +91,6 @@ DATABASES = {
     }
 }
 
-
 LANGUAGE_CODE = "en-gb"
 TIME_ZONE = "UTC"
 USE_I18N = True
@@ -94,6 +105,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# Stripe config (safe defaults for CI/tests when PAYMENTS_USE_STRIPE=0)
 STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY", "")
 STRIPE_WEBHOOK_SECRET = os.getenv("STRIPE_WEBHOOK_SECRET", "")
 STRIPE_PUBLISHABLE_KEY = os.getenv("STRIPE_PUBLISHABLE_KEY", "")
@@ -105,6 +117,21 @@ PAYMENTS_USE_STRIPE = os.getenv("PAYMENTS_USE_STRIPE", "0").lower() in (
     "yes",
 )
 
+# Fail-fast only when Stripe is enabled
+if PAYMENTS_USE_STRIPE:
+    missing = [
+        name
+        for name, value in {
+            "STRIPE_SECRET_KEY": STRIPE_SECRET_KEY,
+            "STRIPE_WEBHOOK_SECRET": STRIPE_WEBHOOK_SECRET,
+            "STRIPE_PUBLISHABLE_KEY": STRIPE_PUBLISHABLE_KEY,
+        }.items()
+        if not value
+    ]
+    if missing:
+        raise ImproperlyConfigured(
+            "PAYMENTS_USE_STRIPE=1 but missing required env vars: " + ", ".join(missing)
+        )
 
 LOGIN_REDIRECT_URL = "/account/"
 LOGOUT_REDIRECT_URL = "/"
