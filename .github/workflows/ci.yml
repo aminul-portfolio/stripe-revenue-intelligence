@@ -2,7 +2,9 @@ name: CI
 
 on:
   push:
+    branches: ["main"]
   pull_request:
+    branches: ["main"]
 
 jobs:
   test:
@@ -10,7 +12,6 @@ jobs:
 
     env:
       PAYMENTS_USE_STRIPE: "0"
-      DJANGO_SETTINGS_MODULE: "purelaka.settings"
 
     steps:
       - name: Checkout
@@ -30,8 +31,17 @@ jobs:
       - name: Django system check
         run: python manage.py check
 
+      - name: Migrations check (no missing migrations)
+        run: python manage.py makemigrations --check --dry-run
+
+      - name: Run migrations (CI DB)
+        run: python manage.py migrate --noinput
+
       - name: Tests
         run: python manage.py test
+
+      - name: Migrate (prepare DB for run_checks)
+        run: python manage.py migrate --noinput
 
       - name: Monitoring gate
         run: python manage.py run_checks --fail-on-issues
@@ -43,4 +53,4 @@ jobs:
         run: ruff format --check .
 
       - name: Dependency audit
-        run: pip-audit
+        run: pip-audit -r requirements.txt
