@@ -14,7 +14,8 @@ urlpatterns = [
     path("subscriptions/", include("subscriptions.urls")),
     path("wishlist/", include("wishlist.urls")),
     path("analytics/", include("analyticsapp.urls")),
-    path("monitoring/", include("monitoring.urls")),
+    path("monitoring/", include(("monitoring.urls", "monitoring"), namespace="monitoring")),
+
 ]
 
 

@@ -29,7 +29,8 @@
 
         {% if user.is_staff %}
           <a href="{% url 'analytics-dashboard' %}">Analytics</a>
-          <a href="{% url 'monitoring-issues' %}">Monitoring</a>
+          <a href="{% url 'monitoring:monitoring-issues' %}">Monitoring</a>
+
         {% endif %}
       </nav>
 
@@ -84,7 +85,8 @@
 
           {% if user.is_staff %}
             <a href="{% url 'analytics-dashboard' %}">Analytics</a><br>
-            <a href="{% url 'monitoring-issues' %}">Monitoring</a>
+            <a href="{% url 'monitoring:monitoring-issues' %}">Monitoring</a>
+
           {% endif %}
         </div>
 

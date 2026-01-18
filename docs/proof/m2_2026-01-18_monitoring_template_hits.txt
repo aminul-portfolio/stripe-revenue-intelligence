@@ -1,0 +1,2 @@
+﻿C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\templates\base.html:32:<a href="{% url 'monitoring-issues' %}">Monitoring</a>
+C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\templates\base.html:87:<a href="{% url 'monitoring-issues' %}">Monitoring</a>
