@@ -1,16 +1,30 @@
-# Secrets
+# Secrets (never commit)
 .env
 .env.*
 !.env.example
 
-# Local DB
+# Local DB / artifacts
 db.sqlite3
+*.sqlite3
+*.log
 
 # Python venv / caches
 .venv/
 venv/
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Build / packaging
+dist/
+build/
+*.egg-info/
 
 # IDE
 .idea/
