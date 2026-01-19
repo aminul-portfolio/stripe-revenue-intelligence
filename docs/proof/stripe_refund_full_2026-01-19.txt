@@ -1,0 +1,18 @@
+Proof: Stripe full refund updates Order fields (full) and reconciliation remains green.
+
+Stripe CLI:
+- refund_id: pyr_1SrRzd1vHUgpaSdvpZIrSKEM
+- payment_intent: pi_3SrRoU1vHUgpaSdv06Q0J7a8
+- amount_pennies: 6400
+- status: succeeded
+
+Order:
+- id: 50
+- status: paid
+- refund_status: full
+- refund_amount_pennies: 6500
+- refunded_at: 2026-01-19 23:36:23.726064+00:00
+
+run_checks:
+- Issues: open=0, resolved=3
+Result: PASS
