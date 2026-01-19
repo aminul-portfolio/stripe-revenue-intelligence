@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>£30k Master Checklist Tracker</title>
+  <link rel="stylesheet" href="./styles.css" />
+
+  <!-- Markdown renderer (client-side) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="brand">
+        <div class="title">£30k Master Checklist</div>
+        <div class="subtitle">Revenue Intelligence for Stripe Commerce</div>
+      </div>
+
+      <div class="actions">
+        <button id="btnExpandAll" class="btn secondary">Expand all</button>
+        <button id="btnCollapseAll" class="btn secondary">Collapse all</button>
+        <button id="btnExport" class="btn primary">Export progress (JSON)</button>
+        <button id="btnImport" class="btn secondary">Import progress</button>
+        <input id="fileImport" type="file" accept="application/json" hidden />
+        <button id="btnClear" class="btn danger">Clear local progress</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <div class="panel-head">
+        <h1>Tracker UI</h1>
+        <p class="muted">
+          This UI reads <code>docs/30k_master_checklist.md</code> and stores checkbox state locally (per browser).
+          Use Export/Import to move progress between devices or preserve evidence.
+        </p>
+      </div>
+
+      <div class="toolbar">
+        <input id="search" type="text" placeholder="Search tasks (e.g., run_checks, StripeEvent, Milestone 2)..." />
+        <div class="hint muted">Tip: Use Export after each milestone for audit-proof records.</div>
+      </div>
+
+      <div id="content" class="content"></div>
+    </section>
+  </main>
+
+  <footer class="container footer muted">
+    <div>
+      Canonical file: <code>docs/30k_master_checklist.md</code> • UI state: <code>localStorage</code> • Built for evidence-led delivery.
+    </div>
+  </footer>
+
+  <script src="./app.js"></script>
+</body>
+</html>
