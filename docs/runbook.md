@@ -1,13 +1,15 @@
-# PureLaka Enterprise — Runbook
+# Operations Runbook — Revenue Intelligence for Stripe Commerce
 
-Project: PureLaka_Commerce_Platform_LAUNCH_READY  
-Stack: Django 5.2.10, Python 3.12.3 (Windows)
+This runbook describes how to run, validate, and operate the system safely.
 
-## 1) Definition-of-Done Gates (must stay green)
+## 1) Quick start (local dev)
 
-Run from project root with venv active:
+### Prerequisites
+- Python 3.12.x
+- Virtual environment activated
+- SQLite (dev default)
 
-```powershell
-python manage.py test
-python manage.py test analyticsapp -v 2
-python manage.py run_checks --fail-on-issues
+### Install
+```bash
+python -m pip install -U pip
+pip install -r requirements.txt
