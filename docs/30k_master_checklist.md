@@ -5,6 +5,8 @@
 **Implementation principle:** Operations Control (foundation) + Reporting Automation (delivery)
 **Target outcome:** A deployable, testable, documented, decision-grade analytics product with low buyer risk.
 
+> **Naming discipline (avoid buyer confusion):** Keep repo name, README title, and this document aligned. If repo slug differs from product name, add a one-line mapping in README (e.g., “Repo: stripe-revenue-intelligence; Product: PureLaka Commerce Platform”).
+
 ---
 
 ## 0) What this checklist is for (the structure you want to rely on)
@@ -44,9 +46,11 @@ Run from project root with venv active.
 
 * [ ] `ruff check .`
 * [ ] `ruff format --check .`
-* [ ] `pip-audit`
+* [ ] `pip-audit -r requirements.txt`
 
 > **Policy for pip-audit:** any High/Critical finding must be fixed (upgrade dependency) or explicitly documented with a remediation plan/date in `docs/security.md`.
+
+> **PowerShell note (proof capture):** when redirecting output for native commands, PowerShell may show a `NativeCommandError` banner even when the command succeeds. Treat `$LASTEXITCODE` as authoritative, and keep the full output in `docs/proof/`.
 
 ### Proof artifacts (every milestone)
 
@@ -140,9 +144,10 @@ Choose ONE and enforce it everywhere:
 
 ---
 
-## M1.4 Subscription status mismatch in analytics fixed (canceled vs cancelled)
+## M1.4 Subscription status mismatch in analytics fixed (canonical: canceled; legacy: cancelled)
 
 **Requirement:** one canonical spelling everywhere (recommended `canceled`).
+**Legacy allowance:** historical migrations/comments may contain `cancelled`, but active code/tests/docs must use canonical `canceled`.
 
 **Paths to verify**
 
@@ -230,7 +235,7 @@ Choose ONE and enforce it everywhere:
 * [ ] `python manage.py check --deploy`
 * [ ] `ruff check .`
 * [ ] `ruff format --check .`
-* [ ] `pip-audit`
+* [ ] `pip-audit -r requirements.txt`
 
 **Acceptance**
 
@@ -260,7 +265,7 @@ Choose ONE and enforce it everywhere:
 **Rules to enforce in services**
 
 * [ ] `pending → paid → fulfilled`
-* [ ] `pending → cancelled`
+* [ ] `pending → canceled`
 * [ ] `paid → refund` (partial/full) handled by explicit policy decision
 
 **Paths to verify**
