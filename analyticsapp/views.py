@@ -2,6 +2,7 @@ import csv
 import json
 from decimal import Decimal
 
+from audit.services.logger import log_event
 from django.db.models import Count, Sum
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -64,8 +65,6 @@ def dashboard(request):
     prod = top_products_rollup(days, limit=10)
 
     # --- Subs still live for now ---
-    # Note: start/end isn't needed for snapshot work; subs module can remain live for now.
-    # If your subscription_kpis currently expects (start, end), keep it as-is:
     start = timezone.now() - timezone.timedelta(days=days)
     end = timezone.now()
     subs = subscription_kpis(start, end)
@@ -193,6 +192,14 @@ def export_kpi_summary_csv(request):
     days = int(request.GET.get("days", 30))
     days = days if days in (7, 30, 90) else 30
 
+    log_event(
+        event_type="analytics_export",
+        entity_type="kpi_summary_csv",
+        entity_id=f"{days}d",
+        user=request.user,
+        metadata={"days": days},
+    )
+
     snap = snapshot_kpis(days)
     rev = snap["rev"]
     cust = snap["cust"]
@@ -249,6 +256,14 @@ def export_orders_csv(request):
     days = int(request.GET.get("days", 30))
     days = days if days in (7, 30, 90) else 30
 
+    log_event(
+        event_type="analytics_export",
+        entity_type="orders_csv",
+        entity_id=f"{days}d",
+        user=request.user,
+        metadata={"days": days},
+    )
+
     # Export is still raw orders for the window; snapshot mismatch check will guard this.
     start = timezone.now() - timezone.timedelta(days=days)
     end = timezone.now()
@@ -293,6 +308,14 @@ def export_products_csv(request):
     days = int(request.GET.get("days", 30))
     days = days if days in (7, 30, 90) else 30
 
+    log_event(
+        event_type="analytics_export",
+        entity_type="products_csv",
+        entity_id=f"{days}d",
+        user=request.user,
+        metadata={"days": days},
+    )
+
     response = HttpResponse(content_type="text/csv")
     response["Content-Disposition"] = f'attachment; filename="best_sellers_{days}d.csv"'
     w = csv.writer(response)
@@ -309,6 +332,14 @@ def export_products_csv(request):
 def export_customers_csv(request):
     days = int(request.GET.get("days", 30))
     days = days if days in (7, 30, 90) else 30
+
+    log_event(
+        event_type="analytics_export",
+        entity_type="customers_csv",
+        entity_id=f"{days}d",
+        user=request.user,
+        metadata={"days": days},
+    )
 
     start = timezone.now() - timezone.timedelta(days=days)
     end = timezone.now()

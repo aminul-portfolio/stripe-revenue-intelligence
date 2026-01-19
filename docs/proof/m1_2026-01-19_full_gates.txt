@@ -1,0 +1,400 @@
+﻿PureLaka — M1 Full Gates Proof
+Timestamp: 2026-01-19 22:23:27
+
+=== python manage.py check ===
+System check identified no issues (0 silenced).
+
+=== python manage.py test ===
+python : Creating test database for alias 'default'...
+At line:1 char:1
++ python manage.py test 2>&1 | Out-File $proof -Append -Encoding utf8
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Creating test d...as 'default'...:String 
+   ) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+FFFFFFFFFFFFFFF.FFF....F...FFFFFFF....F.......FFFF
+======================================================================
+FAIL: test_analyst_allowed_analytics 
+(accounts.tests.test_rbac_views.RBACTestCase.test_analyst_allowed_analytics)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\accoun
+ts\tests\test_rbac_views.py", line 50, in test_analyst_allowed_analytics
+    self.assertEqual(r.status_code, 200)
+AssertionError: 301 != 200
+
+======================================================================
+FAIL: test_analytics_requires_login 
+(accounts.tests.test_rbac_views.RBACTestCase.test_analytics_requires_login)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\accoun
+ts\tests\test_rbac_views.py", line 35, in test_analytics_requires_login
+    self.assertEqual(r.status_code, 302)
+AssertionError: 301 != 302
+
+======================================================================
+FAIL: test_customer_forbidden_analytics 
+(accounts.tests.test_rbac_views.RBACTestCase.test_customer_forbidden_analytics)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\accoun
+ts\tests\test_rbac_views.py", line 40, in test_customer_forbidden_analytics
+    self.assertEqual(r.status_code, 403)
+AssertionError: 301 != 403
+
+======================================================================
+FAIL: test_export_orders_csv_allows_ops_and_analyst (accounts.tests.test_rbac_views.RB
+ACTestCase.test_export_orders_csv_allows_ops_and_analyst)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\accoun
+ts\tests\test_rbac_views.py", line 55, in 
+test_export_orders_csv_allows_ops_and_analyst
+    self.assertEqual(r.status_code, 200)
+AssertionError: 301 != 200
+
+======================================================================
+FAIL: test_monitoring_ops_or_analyst 
+(accounts.tests.test_rbac_views.RBACTestCase.test_monitoring_ops_or_analyst)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\accoun
+ts\tests\test_rbac_views.py", line 66, in test_monitoring_ops_or_analyst
+    self.assertEqual(r.status_code, 403)
+AssertionError: 301 != 403
+
+======================================================================
+FAIL: test_ops_allowed_analytics 
+(accounts.tests.test_rbac_views.RBACTestCase.test_ops_allowed_analytics)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\accoun
+ts\tests\test_rbac_views.py", line 45, in test_ops_allowed_analytics
+    self.assertEqual(r.status_code, 200)
+AssertionError: 301 != 200
+
+======================================================================
+FAIL: test_dashboard_allows_staff_analyst (analyticsapp.tests.test_access.AnalyticsAcc
+essTests.test_dashboard_allows_staff_analyst)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\analyt
+icsapp\tests\test_access.py", line 71, in test_dashboard_allows_staff_analyst
+    self.assertEqual(resp.status_code, 200)
+AssertionError: 301 != 200
+
+======================================================================
+FAIL: test_dashboard_blocked_for_logged_in_non_staff (analyticsapp.tests.test_access.A
+nalyticsAccessTests.test_dashboard_blocked_for_logged_in_non_staff)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\analyt
+icsapp\tests\test_access.py", line 57, in 
+test_dashboard_blocked_for_logged_in_non_staff
+    self.assertIn(resp.status_code, (403, 404))
+AssertionError: 301 not found in (403, 404)
+
+======================================================================
+FAIL: test_dashboard_blocked_for_staff_customer_role (analyticsapp.tests.test_access.A
+nalyticsAccessTests.test_dashboard_blocked_for_staff_customer_role)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\analyt
+icsapp\tests\test_access.py", line 94, in 
+test_dashboard_blocked_for_staff_customer_role
+    self.assertIn(resp.status_code, (403, 404))
+AssertionError: 301 not found in (403, 404)
+
+======================================================================
+FAIL: test_dashboard_redirects_when_unauthenticated (analyticsapp.tests.test_access.An
+alyticsAccessTests.test_dashboard_redirects_when_unauthenticated)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\analyt
+icsapp\tests\test_access.py", line 39, in 
+test_dashboard_redirects_when_unauthenticated
+    self.assertIn("login", resp["Location"].lower())
+AssertionError: 'login' not found in 'https://testserver/analytics/dashboard/'
+
+======================================================================
+FAIL: test_exports_allow_staff_ops 
+(analyticsapp.tests.test_access.AnalyticsAccessTests.test_exports_allow_staff_ops)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\analyt
+icsapp\tests\test_access.py", line 78, in test_exports_allow_staff_ops
+    self.assertEqual(resp.status_code, 200)
+AssertionError: 301 != 200
+
+======================================================================
+FAIL: test_exports_blocked_for_logged_in_non_staff (analyticsapp.tests.test_access.Ana
+lyticsAccessTests.test_exports_blocked_for_logged_in_non_staff)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\analyt
+icsapp\tests\test_access.py", line 64, in test_exports_blocked_for_logged_in_non_staff
+    self.assertIn(resp.status_code, (403, 404))
+AssertionError: 301 not found in (403, 404)
+
+======================================================================
+FAIL: test_exports_redirect_when_unauthenticated (analyticsapp.tests.test_access.Analy
+ticsAccessTests.test_exports_redirect_when_unauthenticated)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\analyt
+icsapp\tests\test_access.py", line 49, in test_exports_redirect_when_unauthenticated
+    self.assertIn("login", resp["Location"].lower())
+AssertionError: 'login' not found in 
+'https://testserver/analytics/export/orders/?days=30'
+
+======================================================================
+FAIL: test_admin_can_export_and_audit_called (analyticsapp.tests.test_exports_csv.Anal
+yticsExportsCsvTests.test_admin_can_export_and_audit_called)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\AppData\Local\Programs\Python\Python312\Lib\unittest\mock.py", 
+line 1390, in patched
+    return func(*newargs, **newkeywargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\analyt
+icsapp\tests\test_exports_csv.py", line 79, in test_admin_can_export_and_audit_called
+    self.assertEqual(r.status_code, 200)
+AssertionError: 301 != 200
+
+======================================================================
+FAIL: test_customer_forbidden_or_hidden (analyticsapp.tests.test_exports_csv.Analytics
+ExportsCsvTests.test_customer_forbidden_or_hidden)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\analyt
+icsapp\tests\test_exports_csv.py", line 57, in test_customer_forbidden_or_hidden
+    self.assertIn(r.status_code, (403, 404))
+AssertionError: 301 not found in (403, 404)
+
+======================================================================
+FAIL: test_ops_can_export_and_audit_called (analyticsapp.tests.test_exports_csv.Analyt
+icsExportsCsvTests.test_ops_can_export_and_audit_called)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\AppData\Local\Programs\Python\Python312\Lib\unittest\mock.py", 
+line 1390, in patched
+    return func(*newargs, **newkeywargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\analyt
+icsapp\tests\test_exports_csv.py", line 65, in test_ops_can_export_and_audit_called
+    self.assertEqual(r.status_code, 200)
+AssertionError: 301 != 200
+
+======================================================================
+FAIL: test_analyst_can_export_and_is_audited (analyticsapp.tests.test_exports_csv_audi
+t.ExportAuditTests.test_analyst_can_export_and_is_audited)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\AppData\Local\Programs\Python\Python312\Lib\unittest\mock.py", 
+line 1390, in patched
+    return func(*newargs, **newkeywargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\analyt
+icsapp\tests\test_exports_csv_audit.py", line 50, in 
+test_analyst_can_export_and_is_audited
+    self.assertEqual(r.status_code, 200)
+AssertionError: 301 != 200
+
+======================================================================
+FAIL: test_customer_denied 
+(analyticsapp.tests.test_exports_csv_audit.ExportAuditTests.test_customer_denied)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\analyt
+icsapp\tests\test_exports_csv_audit.py", line 43, in test_customer_denied
+    self.assertIn(r.status_code, (403, 404))
+AssertionError: 301 not found in (403, 404)
+
+======================================================================
+FAIL: test_home_sets_basic_security_headers (core.tests.test_security_headers.Security
+HeadersTests.test_home_sets_basic_security_headers)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\core\t
+ests\test_security_headers.py", line 9, in test_home_sets_basic_security_headers
+    self.assertIn("X-Frame-Options", resp.headers)
+AssertionError: 'X-Frame-Options' not found in {'Content-Type': 'text/html; 
+charset=utf-8', 'Location': 'https://testserver/', 'X-Content-Type-Options': 
+'nosniff', 'Referrer-Policy': 'same-origin', 'Cross-Origin-Opener-Policy': 
+'same-origin'}
+
+======================================================================
+FAIL: test_customer_cannot_cancel 
+(orders.tests.test_ops_endpoints.OpsOrderEndpointsTests.test_customer_cannot_cancel)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\orders
+\tests\test_ops_endpoints.py", line 51, in test_customer_cannot_cancel
+    self.assertIn(r.status_code, (302, 403))
+AssertionError: 301 not found in (302, 403)
+
+======================================================================
+FAIL: test_ops_can_cancel_pending 
+(orders.tests.test_ops_endpoints.OpsOrderEndpointsTests.test_ops_can_cancel_pending)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\orders
+\tests\test_ops_endpoints.py", line 61, in test_ops_can_cancel_pending
+    self.assertEqual(r.status_code, 302)
+AssertionError: 301 != 302
+
+======================================================================
+FAIL: test_ops_can_fulfill_paid 
+(orders.tests.test_ops_endpoints.OpsOrderEndpointsTests.test_ops_can_fulfill_paid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\orders
+\tests\test_ops_endpoints.py", line 70, in test_ops_can_fulfill_paid
+    self.assertEqual(r.status_code, 302)
+AssertionError: 301 != 302
+
+======================================================================
+FAIL: test_ops_can_view_any_order_detail (orders.tests.test_order_access.OrderAccessTe
+stCase.test_ops_can_view_any_order_detail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\orders
+\tests\test_order_access.py", line 53, in test_ops_can_view_any_order_detail
+    self.assertEqual(r.status_code, 200)
+AssertionError: 301 != 200
+
+======================================================================
+FAIL: test_other_customer_cannot_view_order_detail (orders.tests.test_order_access.Ord
+erAccessTestCase.test_other_customer_cannot_view_order_detail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\orders
+\tests\test_order_access.py", line 48, in test_other_customer_cannot_view_order_detail
+    self.assertEqual(r.status_code, 404)
+AssertionError: 301 != 404
+
+Found 50 test(s).
+System check identified no issues (0 silenced).
+======================================================================
+FAIL: test_owner_can_view_order_detail 
+(orders.tests.test_order_access.OrderAccessTestCase.test_owner_can_view_order_detail)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\orders
+\tests\test_order_access.py", line 43, in test_owner_can_view_order_detail
+    self.assertEqual(r.status_code, 200)
+AssertionError: 301 != 200
+
+======================================================================
+FAIL: test_start_payment_enforces_access (orders.tests.test_order_access.OrderAccessTe
+stCase.test_start_payment_enforces_access)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\.venv\
+Lib\site-packages\django\test\utils.py", line 456, in inner
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\orders
+\tests\test_order_access.py", line 59, in test_start_payment_enforces_access
+    self.assertEqual(r.status_code, 404)
+AssertionError: 301 != 404
+
+======================================================================
+FAIL: test_non_owner_gets_404_on_start_payment (orders.tests.test_payment_start_access
+.PaymentStartAccessTests.test_non_owner_gets_404_on_start_payment)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\orders
+\tests\test_payment_start_access.py", line 43, in 
+test_non_owner_gets_404_on_start_payment
+    self.assertEqual(r.status_code, 404)
+AssertionError: 301 != 404
+
+======================================================================
+FAIL: test_subscriptions_page_renders_for_logged_in_user (subscriptions.tests.test_smo
+ke.SubscriptionsSmokeTests.test_subscriptions_page_renders_for_logged_in_user)
+Logged-in user should be able to view subscriptions without 500.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\subscr
+iptions\tests\test_smoke.py", line 32, in 
+test_subscriptions_page_renders_for_logged_in_user
+    self.assertIn(resp.status_code, (200, 302, 403))
+AssertionError: 301 not found in (200, 302, 403)
+
+======================================================================
+FAIL: test_subscriptions_requires_login (subscriptions.tests.test_smoke.SubscriptionsS
+mokeTests.test_subscriptions_requires_login)
+Subscriptions should not be publicly accessible.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\subscr
+iptions\tests\test_smoke.py", line 22, in test_subscriptions_requires_login
+    self.assertIn(resp.status_code, (302, 403))
+AssertionError: 301 not found in (302, 403)
+
+======================================================================
+FAIL: test_wishlist_page_renders_for_logged_in_user (wishlist.tests.test_smoke.Wishlis
+tSmokeTests.test_wishlist_page_renders_for_logged_in_user)
+Logged-in user should be able to view wishlist without 500.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\wishli
+st\tests\test_smoke.py", line 32, in test_wishlist_page_renders_for_logged_in_user
+    self.assertIn(resp.status_code, (200, 302, 403))
+AssertionError: 301 not found in (200, 302, 403)
+
+======================================================================
+FAIL: test_wishlist_requires_login 
+(wishlist.tests.test_smoke.WishlistSmokeTests.test_wishlist_requires_login)
+Wishlist should not be publicly accessible.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\wishli
+st\tests\test_smoke.py", line 22, in test_wishlist_requires_login
+    self.assertIn(resp.status_code, (302, 403))
+AssertionError: 301 not found in (302, 403)
+
+----------------------------------------------------------------------
+Ran 50 tests in 59.596s
+
+FAILED (failures=31)
+Destroying test database for alias 'default'...
+
+
+=== python manage.py run_checks --fail-on-issues ===
+Snapshots built for 90 day(s). created=0, updated=90, product_rows_upserted=12
+Issues: 0 (open=0, resolved=3)
+
+Breakdown:
+ - analytics_snapshot_reconciliation / resolved: 1
+ - invalid_order_state / resolved: 1
+ - payment_mismatch / resolved: 1
+
+Latest 10 open issues:
+ - (none open)
+
+=== python manage.py makemigrations --check --dry-run ===
+No changes detected
+
+=== ruff check . ===
+All checks passed!
+
+=== ruff format --check . ===
+186 files already formatted
+
+=== pip-audit -r requirements.txt ===
+pip-audit : No known vulnerabilities found
+At line:1 char:1
++ pip-audit -r requirements.txt 2>&1 | Out-File $proof -Append -Encodin ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (No known vulnerabilities found:String) [ 
+   ], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+=== DJANGO_SETTINGS_MODULE=purelaka.settings_prod ; python manage.py check --deploy ===
+System check identified no issues (0 silenced).
