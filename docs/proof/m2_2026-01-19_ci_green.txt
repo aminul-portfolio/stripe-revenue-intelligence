@@ -1,0 +1,22 @@
+CI green proof — 2026-01-19
+
+Repo: aminul-portfolio/stripe-revenue-intelligence
+Workflow: CI (.github/workflows/ci.yml)
+Branch: main
+Commit: 1b307b9
+
+Result: SUCCESS
+
+Key steps (all PASS):
+- Install dependencies (locked)
+- Ruff (lint)
+- Ruff (format check)
+- Django system check
+- Migrations check
+- Run migrations (CI DB)
+- Run tests
+- Run monitoring checks (fail on issues)
+- pip-audit (runtime)
+
+Notes:
+- Formatting fix applied locally via `ruff format .` and pushed.
