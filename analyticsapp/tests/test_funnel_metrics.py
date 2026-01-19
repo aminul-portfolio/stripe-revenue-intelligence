@@ -34,7 +34,9 @@ def _build_required_kwargs(model_cls, *, depth=0):
                 # last resort: try NULL if allowed (but it shouldn't be here if required)
                 continue
             rel_model = f.remote_field.model
-            rel_obj = rel_model.objects.create(**_build_required_kwargs(rel_model, depth=depth + 1))
+            rel_obj = rel_model.objects.create(
+                **_build_required_kwargs(rel_model, depth=depth + 1)
+            )
             kwargs[f.name] = rel_obj
             continue
 
@@ -46,7 +48,10 @@ def _build_required_kwargs(model_cls, *, depth=0):
             kwargs[f.name] = f"test-{f.name}"
         elif isinstance(f, models.EmailField):
             kwargs[f.name] = "test@example.com"
-        elif isinstance(f, (models.IntegerField, models.PositiveIntegerField, models.BigIntegerField)):
+        elif isinstance(
+            f,
+            (models.IntegerField, models.PositiveIntegerField, models.BigIntegerField),
+        ):
             kwargs[f.name] = 1
         elif isinstance(f, (models.BooleanField,)):
             kwargs[f.name] = False
@@ -59,7 +64,9 @@ def _build_required_kwargs(model_cls, *, depth=0):
         else:
             # If you hit this, your Product model has a required field of a type we didn't cover.
             # We'll extend the factory based on the traceback.
-            raise AssertionError(f"Unsupported required field: {model_cls.__name__}.{f.name} ({type(f)})")
+            raise AssertionError(
+                f"Unsupported required field: {model_cls.__name__}.{f.name} ({type(f)})"
+            )
 
     return kwargs
 
@@ -67,10 +74,18 @@ def _build_required_kwargs(model_cls, *, depth=0):
 class WishlistFunnelTests(TestCase):
     def setUp(self):
         User = get_user_model()
-        self.u_wish_only = User.objects.create_user("wish_only", "wish_only@example.com", "pass12345")
-        self.u_wish_and_buy = User.objects.create_user("wish_buy", "wish_buy@example.com", "pass12345")
-        self.u_buy_only = User.objects.create_user("buy_only", "buy_only@example.com", "pass12345")
-        self.u_wish_outside = User.objects.create_user("wish_out", "wish_out@example.com", "pass12345")
+        self.u_wish_only = User.objects.create_user(
+            "wish_only", "wish_only@example.com", "pass12345"
+        )
+        self.u_wish_and_buy = User.objects.create_user(
+            "wish_buy", "wish_buy@example.com", "pass12345"
+        )
+        self.u_buy_only = User.objects.create_user(
+            "buy_only", "buy_only@example.com", "pass12345"
+        )
+        self.u_wish_outside = User.objects.create_user(
+            "wish_out", "wish_out@example.com", "pass12345"
+        )
 
         self.p1 = Product.objects.create(**_build_required_kwargs(Product))
         self.p2 = Product.objects.create(**_build_required_kwargs(Product))
@@ -94,28 +109,38 @@ class WishlistFunnelTests(TestCase):
         Wishlist.objects.filter(id=w3.id).update(created_at=t_out)
 
         # Completed purchase in-window by wish_and_buy (should count)
-        o1 = Order.objects.create(user=self.u_wish_and_buy, email="wish_buy@example.com", status="paid")
+        o1 = Order.objects.create(
+            user=self.u_wish_and_buy, email="wish_buy@example.com", status="paid"
+        )
         Order.objects.filter(id=o1.id).update(created_at=t_in)
 
         # Completed purchase in-window by buy_only (should NOT count because not in wish_users)
-        o2 = Order.objects.create(user=self.u_buy_only, email="buy_only@example.com", status="paid")
+        o2 = Order.objects.create(
+            user=self.u_buy_only, email="buy_only@example.com", status="paid"
+        )
         Order.objects.filter(id=o2.id).update(created_at=t_in)
 
         # Non-completed order in-window by wish_only (should NOT count)
-        o3 = Order.objects.create(user=self.u_wish_only, email="wish_only@example.com", status="pending")
+        o3 = Order.objects.create(
+            user=self.u_wish_only, email="wish_only@example.com", status="pending"
+        )
         Order.objects.filter(id=o3.id).update(created_at=t_in)
 
         # Purchase in-window by wish_outside (should NOT count because wishlist is out of window)
-        o4 = Order.objects.create(user=self.u_wish_outside, email="wish_out@example.com", status="paid")
+        o4 = Order.objects.create(
+            user=self.u_wish_outside, email="wish_out@example.com", status="paid"
+        )
         Order.objects.filter(id=o4.id).update(created_at=t_in)
 
         # Extra wishlist + extra order for same user should still count as 1 distinct
         w_extra = Wishlist.objects.create(user=self.u_wish_and_buy, product=self.p1)
         Wishlist.objects.filter(id=w_extra.id).update(created_at=t_in)
-        o_extra = Order.objects.create(user=self.u_wish_and_buy, email="wish_buy@example.com", status="fulfilled")
+        o_extra = Order.objects.create(
+            user=self.u_wish_and_buy, email="wish_buy@example.com", status="fulfilled"
+        )
         Order.objects.filter(id=o_extra.id).update(created_at=t_in)
 
         kpis = wishlist_funnel(start, end)
 
-        self.assertEqual(kpis["wish_users"], 2)        # wish_only + wish_and_buy
-        self.assertEqual(kpis["purchased_users"], 1)   # wish_and_buy only
+        self.assertEqual(kpis["wish_users"], 2)  # wish_only + wish_and_buy
+        self.assertEqual(kpis["purchased_users"], 1)  # wish_and_buy only
