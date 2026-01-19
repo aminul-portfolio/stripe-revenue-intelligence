@@ -33,3 +33,7 @@ build/
 # OS
 .DS_Store
 Thumbs.db
+
+# Local Stripe replay artifacts
+tmp_*.json
+
