@@ -2,153 +2,104 @@
 
 ## Current milestone
 
-* Milestone: **M3 Revenue Intelligence layer (in progress)**
-* Current step: **M3.2 Security baseline + CI hygiene proven (settings/.env.example + security headers test + proofs captured)**
+- Milestone: **M2 Operations Control hardened (in progress)**
+- Current step: **Close M2 proof discipline and RBAC/audit coverage; keep all gates green**
+- Next milestone after M2: **M3 Revenue Intelligence layer (in progress / expanding)**
 
 ## Runtime baseline
 
-* Python: 3.12.3
-* DB (dev): SQLite
-* Target DB (buyer-ready): Postgres (Milestone 4 via Docker Compose)
+- Python: 3.12.3
+- Framework: Django 5.2.10
+- DB (dev): SQLite
+- Target DB (buyer-ready): Postgres (Milestone 4 via Docker Compose)
 
-## Gates (latest: 2026-01-19)
+## Release gates (latest verified: 2026-01-19)
 
-* `python manage.py check`: PASS
-* `python manage.py test`: PASS (**44 tests**)
-* `python manage.py run_checks --fail-on-issues`: PASS (**open=0, resolved=3**)
-* `python manage.py makemigrations --check --dry-run`: PASS *(via CI)*
-* `python manage.py check --deploy`: PASS *(via CI / prod-like settings mode)*
-* `ruff check .`: PASS
-* `ruff format --check .`: PASS *(after `ruff format .` on 2026-01-19)*
-* `pip-audit -r requirements.txt`: PASS *(no known vulnerabilities)*
+All gates below are required to remain green locally and in CI.
 
-> Note: PowerShell may print a `NativeCommandError` banner when piping/redirection is used (e.g., `Tee-Object`) even if the command succeeds. Treat `$LASTEXITCODE=0` as the authoritative success signal; keep the output as proof.
+- `python manage.py check`: PASS
+- `python manage.py test`: PASS (**50 tests**)
+- `python manage.py run_checks --fail-on-issues`: PASS (**open=0, resolved=3**)
+- `python manage.py makemigrations --check --dry-run`: PASS
+- `python manage.py check --deploy`: PASS (prod-like settings)
+  - Run with: `DJANGO_SETTINGS_MODULE=purelaka.settings_prod`
+- `ruff check .`: PASS
+- `ruff format --check .`: PASS
+- `pip-audit -r requirements.txt`: PASS (no known vulnerabilities)
+
+### Important settings note (prevents false test failures)
+
+- `purelaka.settings_prod` enables deployment protections such as `SECURE_SSL_REDIRECT=True`.
+- If you run the test suite with `DJANGO_SETTINGS_MODULE=purelaka.settings_prod`, Django’s test client will receive **301 redirects to https://testserver/** for many endpoints.
+- Therefore:
+  - Run **tests and normal gates** with default settings (`purelaka.settings`).
+  - Run **deploy gate only** with prod settings:
+    - `DJANGO_SETTINGS_MODULE=purelaka.settings_prod python manage.py check --deploy`
+  - After running the deploy gate in PowerShell, clear it:
+    - `Remove-Item Env:DJANGO_SETTINGS_MODULE -ErrorAction SilentlyContinue`
+
+> Note: PowerShell may show a `NativeCommandError` banner when piping/redirection is used (e.g., `Tee-Object`) even if the command succeeds. Treat `$LASTEXITCODE=0` as the authoritative success signal and keep outputs as proof.
 
 ## Notes (chronological)
 
-* 2026-01-18: Monitoring namespace + smoke test stabilized; templates fixed to use namespaced URL reverse.
-* 2026-01-18: Per-app proofs added (payments/orders/monitoring/accounts/analyticsapp/wishlist); tracker assets committed.
-* 2026-01-18: Wishlist tests made discoverable (added `wishlist/tests/__init__.py` + smoke tests).
-* 2026-01-19: Stripe live smoke executed successfully using Stripe CLI (manual, local):
-
-  * Webhook listener forwarded to `/payments/webhook/`
-  * Events observed as HTTP 200 (created/succeeded/charge/mandate updates)
-  * Latest order verified as `paid` with `stripe_payment_intent` and `stripe_charge_id`
-  * Secrets redacted in proof notes
-* 2026-01-19: CI pipeline confirmed green (ruff check, ruff format check, system check, migrations check, tests, run_checks, pip-audit).
-* 2026-01-19: Formatting fix applied (`ruff format .`) and pushed; CI remains green.
-* 2026-01-19: Security baseline introduced and documented:
-
-  * `settings.py` supports `DJANGO_SECRET_KEY` or `SECRET_KEY` (dev fallback only)
-  * Stripe env validation enforced only when `PAYMENTS_USE_STRIPE=1`
-  * Security headers/cookie flags/HSTS toggled automatically by `DEBUG`
-  * `core.context_processors.payments_flags` wired into templates
-  * Added `core/tests/test_security_headers.py` (smoke)
-* 2026-01-19: Status spelling normalization completed for active code and docs:
-
-  * Canonical spelling: **canceled**
-  * Legacy spelling allowed only in historical narrative and/or old migrations; active code/tests/docs use canonical spelling.
+- 2026-01-18: Monitoring namespace + smoke test stabilized; templates fixed to use namespaced URL reverse.
+- 2026-01-19: CI confirmed green on main for core gates and engineering gates.
+- 2026-01-19: RBAC regression resolved; roles service updated with deterministic role assignment for tests/support.
+- 2026-01-19: Analytics exports hardened:
+  - CSV exports protected by RBAC (ops/analyst/admin allowed; customer denied/hidden)
+  - Export actions generate audit events (verified by tests)
+  - Added export tests for CSV + audit expectations
+- 2026-01-19: Deploy gate made reproducible:
+  - Introduced `purelaka/settings_prod.py` for `check --deploy` (prod-like toggles)
+  - HSTS flags set to satisfy deploy checks in prod-like mode
+  - Confirmed that leaving `DJANGO_SETTINGS_MODULE` set to `settings_prod` causes test redirects (301); added policy to prevent confusion.
+- 2026-01-19: Migration drift fixed:
+  - Added `orders/migrations/0005_alter_order_status.py`
+  - `makemigrations --check --dry-run` now clean
 
 ## Evidence (proof artifacts)
 
-### 2026-01-18 (M2 proofs)
+### M1 consolidated proof (authoritative)
+- `docs/proof/m1_2026-01-19_full_gates.txt`
 
-* `docs/proof/m2_2026-01-18_check.txt`
-* `docs/proof/m2_2026-01-18_run_checks.txt`
-* `docs/proof/m2_2026-01-18_test_payments.txt`
-* `docs/proof/m2_2026-01-18_test_orders.txt`
-* `docs/proof/m2_2026-01-18_test_monitoring.txt`
-* `docs/proof/m2_2026-01-18_test_accounts.txt`
-* `docs/proof/m2_2026-01-18_test_analyticsapp.txt`
-* `docs/proof/m2_2026-01-18_test_wishlist.txt`
-* `docs/proof/m2_2026-01-18_monitoring_template_hits.txt`
-
-### 2026-01-19 (CI + security + Stripe live smoke)
-
-* `docs/proof/m2_2026-01-19_ci_green.txt`
-
-* `docs/proof/m2_2026-01-19_tests.txt`
-
-* `docs/proof/m2_2026-01-19_run_checks.txt`
-
-* `docs/proof/m2_2026-01-19_ruff_check.txt`
-
-* `docs/proof/m2_2026-01-19_ruff_format_check.txt`
-
-* `docs/proof/m2_2026-01-19_pip_audit.txt`
-
-* `docs/proof/m3_2026-01-19_check.txt`
-
-* `docs/proof/m3_2026-01-19_tests.txt`
-
-* `docs/proof/m3_2026-01-19_run_checks.txt`
-
-* `docs/proof/m3_2026-01-19_ruff_check.txt`
-
-* `docs/proof/m3_2026-01-19_ruff_format_check.txt`
-
-* `docs/proof/m3_2026-01-19_pip_audit.txt`
-
-* `docs/proof/m3_2026-01-19_tests_2.txt`
-
-* `docs/proof/m3_2026-01-19_ruff_check_2.txt`
-
-* `docs/proof/m3_2026-01-19_ruff_format_check_2.txt`
-
-* `docs/proof/m3_2026-01-19_pip_audit_2.txt`
-
-* `docs/proof/m3_2026-01-19_migrate_canceled_fix.txt`
-
-* `docs/proof/m3_2026-01-19_tests_canceled_fix.txt`
-
-* `docs/proof/m3_2026-01-19_run_checks_canceled_fix.txt`
-
-* `docs/proof/m3_2026-01-19_ruff_check_canceled_fix.txt`
-
-* `docs/proof/m3_2026-01-19_ruff_format_canceled_fix.txt`
-
-* `docs/proof/m3_2026-01-19_pip_audit_canceled_fix.txt`
-
-* `docs/proof/stripe_live_2026-01-19_notes.txt`
-
-* `docs/stripe_live_smoke_checklist.md`
-
-* `docs/security.md`
+> Policy: prefer a single consolidated proof per milestone over many fragmented proof files.
 
 ## Completed
 
-### Milestone 1 — Audit-clean & runnable
+### Milestone 1 — Audit-clean & runnable (complete)
 
-* Wishlist included and wired (routes/templates/tests)
-* Monitoring checks stable; negative-case proven (open → resolved workflow)
-* StripeEvent correctness + idempotency boundary validated by tests
-* Deterministic tests: pass with `PAYMENTS_USE_STRIPE=0`
-* Repo hygiene: `.env`, db, venv excluded; proofs stored under `docs/proof/`
-* CI established and green on main (quality + security gates)
+- Wishlist included and wired (routes/templates/tests)
+- Monitoring checks stable; negative-case proven (open → resolved workflow)
+- Deterministic tests: pass with `PAYMENTS_USE_STRIPE=0`
+- Repo hygiene: `.env`, db, venv excluded; proofs stored under `docs/proof/`
+- CI established and green on main (quality + security gates)
+- Deploy gate reproducible via `purelaka.settings_prod` and `check --deploy`
+- Full gate proof captured in `docs/proof/m1_2026-01-19_full_gates.txt`
+
+## In progress
 
 ### Milestone 2 — Operations Control hardened
 
-* Order lifecycle rules enforced and tested
-* Refund mapping updates order refund fields; reconciliation checks stable
-* Stock decrement on payment success (oversell prevention via transactional locking)
-* RBAC boundaries enforced across analytics/exports/monitoring/orders/payments
-* Monitoring UI endpoints exist and are protected; URL namespace fixed
-* Audit logging present for key operational actions (per existing implementation)
+- Order lifecycle rules enforced and tested (keep expanding coverage as features are added)
+- Refund mapping and reconciliation checks present; monitoring remains green
+- Stock decrement/oversell prevention present (ensure concurrency coverage is preserved)
+- RBAC boundaries enforced across analytics/exports/monitoring/orders/payments
+- Audit logging present for operational actions; exports now audited
 
 ### Milestone 3 — Revenue Intelligence layer (partial)
 
-* Snapshot system and KPIs operational (7/30/90 windows, daily series)
-* Wishlist-to-purchase funnel metric integrated into snapshot KPIs
-* Security baseline added (headers/cookies/HSTS toggling; deploy-friendly defaults)
+- Snapshot system and KPI windows operational (7/30/90)
+- Daily series charts operational
+- BI-ready exports present (CSV) with RBAC + audit expectations covered by tests
 
 ## Top blockers (max 3)
 
-1. **KPI contract completeness:** `docs/kpi_definitions.md` must be the single source of truth for every KPI shown (and match implementation).
-2. **Buyer-grade packaging gap:** Docker/Postgres path not yet implemented (Milestone 4 dependency).
-3. **Acceptance matrix/runbook gap:** need `docs/acceptance_matrix.md` + `docs/runbook.md` to make claims defensible for sale.
+1. **KPI contract completeness:** `docs/kpi_definitions.md` must be the single source of truth for every KPI shown, and must match implementation.
+2. **Buyer-grade packaging:** Docker/Postgres path not yet implemented (Milestone 4).
+3. **Buyer due-diligence docs:** need `docs/acceptance_matrix.md` + `docs/runbook.md` to make claims defensible for sale.
 
-## Next 3 actions
+## Next 3 actions (strict, step-by-step)
 
-1. **KPI definitions (M3.1):** create/complete `docs/kpi_definitions.md` and cross-check against dashboard + snapshot fields.
-2. **Exports + audit (M3.3):** ensure exports are BI-ready (stable headers), RBAC-protected, and generate audit events; capture sample export proof.
-3. **Milestone 4 scaffolding plan:** draft Docker Compose (web + db + redis) and a deployment checklist, but do not implement until M3 deliverables are stable.
+1. **KPI definitions (M3):** create/complete `docs/kpi_definitions.md` and cross-check against dashboard + snapshot fields.
+2. **RBAC matrix + acceptance mapping (Overlay A):** add `docs/rbac_matrix.md` and begin `docs/acceptance_matrix.md` mapping claims → code → tests → demo steps.
+3. **Runbook skeleton (Overlay D/E):** add `docs/runbook.md` with “fresh install” steps and the exact gate commands (local + CI).
