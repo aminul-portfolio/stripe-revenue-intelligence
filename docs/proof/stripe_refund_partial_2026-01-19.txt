@@ -1,0 +1,18 @@
+Proof: Stripe partial refund updates Order fields and reconciliation remains green.
+
+Stripe CLI:
+- refund_id: pyr_1SrRxk1vHUgpaSdvfe70fJYb
+- payment_intent: pi_3SrRoU1vHUgpaSdv06Q0J7a8
+- amount_pennies: 100
+- status: succeeded
+
+Order:
+- id: 50
+- status: paid
+- refund_status: partial
+- refund_amount_pennies: 100
+- refunded_at: 2026-01-19 23:34:26.947202+00:00
+
+run_checks:
+- Issues: open=0, resolved=3
+Result: PASS
