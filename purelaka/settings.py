@@ -28,7 +28,6 @@ CSRF_TRUSTED_ORIGINS = [
 if DEBUG and not ALLOWED_HOSTS:
     ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
-
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -74,7 +73,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "accounts.context_processors.user_role",
                 "cart.context_processors.cart_summary",
-                "core.context_processors.payments_flags",  # ✅ add this
+                "core.context_processors.payments_flags",
             ],
         },
     }
@@ -87,7 +86,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
-        "OPTIONS": {"timeout": 30},  # important
+        "OPTIONS": {"timeout": 30},
     }
 }
 
@@ -136,3 +135,24 @@ if PAYMENTS_USE_STRIPE:
 LOGIN_REDIRECT_URL = "/account/"
 LOGOUT_REDIRECT_URL = "/"
 LOGIN_URL = "/accounts/login/"
+
+# ----------------------------
+# Security baseline (M3)
+# ----------------------------
+# Keep dev/CI safe and simple; tighten automatically when DEBUG=False.
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+# Cookies and transport security (only enforced when DEBUG=False)
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+
+# Reasonable browser protections
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = "DENY"
+REFERRER_POLICY = "same-origin"
+
+# HSTS only when DEBUG=False (so localhost isn’t affected)
+SECURE_HSTS_SECONDS = 0 if DEBUG else 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = False if DEBUG else True
+SECURE_HSTS_PRELOAD = False if DEBUG else True
