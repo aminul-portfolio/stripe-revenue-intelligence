@@ -1,0 +1,22 @@
+Stripe live smoke (manual) — 2026-01-19
+
+Listener:
+- stripe.exe path: C:\Users\sumon\Downloads\stripe_1.34.0_windows_x86_64\stripe.exe
+- forward-to: http://127.0.0.1:8000/payments/webhook/
+- webhook secret (redacted): whsec_06a539a8...83c5
+
+Events observed (all 200):
+- payment_intent.created: evt_3SrHMn1vHUgpaSdv01UTbg4K
+- payment_intent.succeeded: evt_3SrHMn1vHUgpaSdv0aja7VLv
+- charge.succeeded: evt_3SrHMn1vHUgpaSdv01VeLU1k
+- charge.updated: evt_3SrHMn1vHUgpaSdv0Te68u33
+- mandate.updated: evt_1SrHNH1vHUgpaSdvHtMQBBdV
+
+Order verification (Django shell):
+- order_id: 48
+- status: paid
+- total: 85.00
+- payment_intent: pi_3SrHMn1vHUgpaSdv0LWsVTAI
+- charge_id: py_3SrHMn1vHUgpaSdv0Fzmh80a
+- refund_status: none
+- refund_amount_pennies: 0
