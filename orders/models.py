@@ -9,7 +9,7 @@ class Order(models.Model):
         ("pending", "Pending"),
         ("paid", "Paid"),
         ("fulfilled", "Fulfilled"),
-        ("cancelled", "Cancelled"),
+        ("canceled", "Canceled"),
     )
 
     REFUND_STATUS = (

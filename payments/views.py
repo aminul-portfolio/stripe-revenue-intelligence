@@ -23,7 +23,7 @@ def start_payment(request, order_id: int):
         return redirect("order-detail", order_id=order.id)
 
     # ✅ Safety: block invalid states
-    if order.status in ("cancelled", "fulfilled"):
+    if order.status in ("canceled", "fulfilled"):
         messages.error(request, f"Cannot pay an order that is {order.status}.")
         return redirect("order-detail", order_id=order.id)
 

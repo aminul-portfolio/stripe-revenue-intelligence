@@ -83,7 +83,8 @@ def order_cancel(request, order_id: int):
 
     try:
         updated = cancel_order(order=order, actor=request.user, reason=reason)
-        messages.success(request, f"Order #{updated.id} cancelled.")
+        messages.success(request, f"Order #{updated.id} canceled.")
+
     except ValidationError as e:
         messages.error(request, str(e))
 
