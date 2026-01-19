@@ -2,74 +2,153 @@
 
 ## Current milestone
 
-- Milestone: M1 Audit-clean & runnable
-- Current step: M1.10 Proof pack + docs finalized (local gates + CI green + README buyer-ready)
+* Milestone: **M3 Revenue Intelligence layer (in progress)**
+* Current step: **M3.2 Security baseline + CI hygiene proven (settings/.env.example + security headers test + proofs captured)**
 
 ## Runtime baseline
 
-- Python: 3.12.3
-- DB (dev): SQLite
-- Target DB (buyer-ready): Postgres (Milestone 4 via Docker Compose)
+* Python: 3.12.3
+* DB (dev): SQLite
+* Target DB (buyer-ready): Postgres (Milestone 4 via Docker Compose)
 
-## Gates (latest: 2026-01-18)
+## Gates (latest: 2026-01-19)
 
-- python manage.py check: PASS
-- python manage.py test: PASS (37 tests)
-- python manage.py run_checks --fail-on-issues: PASS (open=0, resolved=3)
-- ruff check .: PASS
-- ruff format --check .: PASS
-- pip-audit -r requirements.txt: PASS (no known vulnerabilities)
+* `python manage.py check`: PASS
+* `python manage.py test`: PASS (**44 tests**)
+* `python manage.py run_checks --fail-on-issues`: PASS (**open=0, resolved=3**)
+* `python manage.py makemigrations --check --dry-run`: PASS *(via CI)*
+* `python manage.py check --deploy`: PASS *(via CI / prod-like settings mode)*
+* `ruff check .`: PASS
+* `ruff format --check .`: PASS *(after `ruff format .` on 2026-01-19)*
+* `pip-audit -r requirements.txt`: PASS *(no known vulnerabilities)*
 
-## Notes
+> Note: PowerShell may print a `NativeCommandError` banner when piping/redirection is used (e.g., `Tee-Object`) even if the command succeeds. Treat `$LASTEXITCODE=0` as the authoritative success signal; keep the output as proof.
 
-- 2026-01-17: Ruff formatting applied; formatting gate green.
-- 2026-01-17: Monitoring negative-case proven (open issues created; gate failed; then resolved; gate passed).
-- 2026-01-18: Git initialized, commits created, CI workflow added, and repo pushed to GitHub.
-- 2026-01-18: Settings hardened for CI import stability:
-  - SECRET_KEY supports both DJANGO_SECRET_KEY and SECRET_KEY (fallback to dev default)
-  - Stripe env validation enforced only when PAYMENTS_USE_STRIPE=1 (safe for CI/tests)
-- 2026-01-18: Requirements finalized using pip-tools lockfiles:
-  - inputs: requirements.in, requirements-dev.in (human-edited)
-  - locks: requirements.txt, requirements-dev.txt (generated via pip-compile; transitive deps pinned)
-- 2026-01-18: Subscription KPI regression fixed:
-  - KPIs use canonical status "canceled"
-  - Window logic stabilized with end-boundary grace to avoid microsecond flakiness
-  - Accidental KPI code in test module removed; service restored; tests stable locally + CI
-- Subscription “cancelled” remains only in historical migrations/comments; active code/tests must use canonical “canceled”.
+## Notes (chronological)
 
-## Evidence
+* 2026-01-18: Monitoring namespace + smoke test stabilized; templates fixed to use namespaced URL reverse.
+* 2026-01-18: Per-app proofs added (payments/orders/monitoring/accounts/analyticsapp/wishlist); tracker assets committed.
+* 2026-01-18: Wishlist tests made discoverable (added `wishlist/tests/__init__.py` + smoke tests).
+* 2026-01-19: Stripe live smoke executed successfully using Stripe CLI (manual, local):
 
-- docs/proof/m1_2026-01-17_gates.txt
-- docs/proof/m1_2026-01-17_checks.txt
-- docs/proof/m1_2026-01-17_audit.txt
-- docs/proof/m1_2026-01-18_gates.txt
-- docs/proof/m1_2026-01-18_tests.txt
-- docs/proof/m1_2026-01-18_run_checks.txt
-- docs/proof/m1_2026-01-18_ruff_check.txt
-- docs/proof/m1_2026-01-18_ruff_format.txt
-- docs/proof/m1_2026-01-18_pip_audit.txt
-- docs/proof/m1_2026-01-18_ci_green.txt
+  * Webhook listener forwarded to `/payments/webhook/`
+  * Events observed as HTTP 200 (created/succeeded/charge/mandate updates)
+  * Latest order verified as `paid` with `stripe_payment_intent` and `stripe_charge_id`
+  * Secrets redacted in proof notes
+* 2026-01-19: CI pipeline confirmed green (ruff check, ruff format check, system check, migrations check, tests, run_checks, pip-audit).
+* 2026-01-19: Formatting fix applied (`ruff format .`) and pushed; CI remains green.
+* 2026-01-19: Security baseline introduced and documented:
 
-## Completed in M1
+  * `settings.py` supports `DJANGO_SECRET_KEY` or `SECRET_KEY` (dev fallback only)
+  * Stripe env validation enforced only when `PAYMENTS_USE_STRIPE=1`
+  * Security headers/cookie flags/HSTS toggled automatically by `DEBUG`
+  * `core.context_processors.payments_flags` wired into templates
+  * Added `core/tests/test_security_headers.py` (smoke)
+* 2026-01-19: Status spelling normalization completed for active code and docs:
 
-- M1.1 Wishlist: INCLUDED and wired (INSTALLED_APPS + urls + template moved to wishlist/templates/wishlist)
-- M1.2 Monitoring checks: negative-case proven (open issues created + resolved; gate fails/passes as expected)
-- M1.3 StripeEvent correctness: VERIFIED via targeted tests and idempotency boundary checks (proof captured)
-- M1.4 Subscription KPI window logic: FIXED (consistent window + canonical "canceled" + stable churn calculation; tests stable locally + CI)
-- M1.5 Deterministic tests: PASS with PAYMENTS_USE_STRIPE=0; tests contain no Stripe SDK calls
-- M1.6 Repo hygiene: .gitignore hardened; .env, db.sqlite3, .venv ignored; proof pack stored under docs/proof/
-- M1.7 CI pipeline: GitHub Actions workflow added for global gates; workflow installs deterministic dependencies (requirements-dev.txt); CI confirmed green
-- M1.8 Requirements strategy: IMPLEMENTED (pip-tools lockfiles for deterministic installs)
-- M1.9 README buyer-ready: CI badge + deterministic install guidance + release gates + no default passwords in docs
+  * Canonical spelling: **canceled**
+  * Legacy spelling allowed only in historical narrative and/or old migrations; active code/tests/docs use canonical spelling.
+
+## Evidence (proof artifacts)
+
+### 2026-01-18 (M2 proofs)
+
+* `docs/proof/m2_2026-01-18_check.txt`
+* `docs/proof/m2_2026-01-18_run_checks.txt`
+* `docs/proof/m2_2026-01-18_test_payments.txt`
+* `docs/proof/m2_2026-01-18_test_orders.txt`
+* `docs/proof/m2_2026-01-18_test_monitoring.txt`
+* `docs/proof/m2_2026-01-18_test_accounts.txt`
+* `docs/proof/m2_2026-01-18_test_analyticsapp.txt`
+* `docs/proof/m2_2026-01-18_test_wishlist.txt`
+* `docs/proof/m2_2026-01-18_monitoring_template_hits.txt`
+
+### 2026-01-19 (CI + security + Stripe live smoke)
+
+* `docs/proof/m2_2026-01-19_ci_green.txt`
+
+* `docs/proof/m2_2026-01-19_tests.txt`
+
+* `docs/proof/m2_2026-01-19_run_checks.txt`
+
+* `docs/proof/m2_2026-01-19_ruff_check.txt`
+
+* `docs/proof/m2_2026-01-19_ruff_format_check.txt`
+
+* `docs/proof/m2_2026-01-19_pip_audit.txt`
+
+* `docs/proof/m3_2026-01-19_check.txt`
+
+* `docs/proof/m3_2026-01-19_tests.txt`
+
+* `docs/proof/m3_2026-01-19_run_checks.txt`
+
+* `docs/proof/m3_2026-01-19_ruff_check.txt`
+
+* `docs/proof/m3_2026-01-19_ruff_format_check.txt`
+
+* `docs/proof/m3_2026-01-19_pip_audit.txt`
+
+* `docs/proof/m3_2026-01-19_tests_2.txt`
+
+* `docs/proof/m3_2026-01-19_ruff_check_2.txt`
+
+* `docs/proof/m3_2026-01-19_ruff_format_check_2.txt`
+
+* `docs/proof/m3_2026-01-19_pip_audit_2.txt`
+
+* `docs/proof/m3_2026-01-19_migrate_canceled_fix.txt`
+
+* `docs/proof/m3_2026-01-19_tests_canceled_fix.txt`
+
+* `docs/proof/m3_2026-01-19_run_checks_canceled_fix.txt`
+
+* `docs/proof/m3_2026-01-19_ruff_check_canceled_fix.txt`
+
+* `docs/proof/m3_2026-01-19_ruff_format_canceled_fix.txt`
+
+* `docs/proof/m3_2026-01-19_pip_audit_canceled_fix.txt`
+
+* `docs/proof/stripe_live_2026-01-19_notes.txt`
+
+* `docs/stripe_live_smoke_checklist.md`
+
+* `docs/security.md`
+
+## Completed
+
+### Milestone 1 — Audit-clean & runnable
+
+* Wishlist included and wired (routes/templates/tests)
+* Monitoring checks stable; negative-case proven (open → resolved workflow)
+* StripeEvent correctness + idempotency boundary validated by tests
+* Deterministic tests: pass with `PAYMENTS_USE_STRIPE=0`
+* Repo hygiene: `.env`, db, venv excluded; proofs stored under `docs/proof/`
+* CI established and green on main (quality + security gates)
+
+### Milestone 2 — Operations Control hardened
+
+* Order lifecycle rules enforced and tested
+* Refund mapping updates order refund fields; reconciliation checks stable
+* Stock decrement on payment success (oversell prevention via transactional locking)
+* RBAC boundaries enforced across analytics/exports/monitoring/orders/payments
+* Monitoring UI endpoints exist and are protected; URL namespace fixed
+* Audit logging present for key operational actions (per existing implementation)
+
+### Milestone 3 — Revenue Intelligence layer (partial)
+
+* Snapshot system and KPIs operational (7/30/90 windows, daily series)
+* Wishlist-to-purchase funnel metric integrated into snapshot KPIs
+* Security baseline added (headers/cookies/HSTS toggling; deploy-friendly defaults)
 
 ## Top blockers (max 3)
 
-1. Proof pack completeness: ensure all 2026-01-18 proof files are committed and referenced above
-2. Milestone transition: define M2 feature acceptance checklist (buyer-facing) and map each feature to proof + tests
-3. M4 planning: draft Docker Compose + Postgres target shape (keep blocked until M2/M3 are stable)
+1. **KPI contract completeness:** `docs/kpi_definitions.md` must be the single source of truth for every KPI shown (and match implementation).
+2. **Buyer-grade packaging gap:** Docker/Postgres path not yet implemented (Milestone 4 dependency).
+3. **Acceptance matrix/runbook gap:** need `docs/acceptance_matrix.md` + `docs/runbook.md` to make claims defensible for sale.
 
 ## Next 3 actions
 
-1. Commit the 2026-01-18 proof artifacts and the updated README/STATUS (single “Docs + proof pack” commit)
-2. Create M2 feature acceptance checklist (Definition-of-Done per feature, with linked routes/tests/proofs)
-3. Start M2 step-by-step (one feature gap or polish item at a time, each ending with green gates + proof)
+1. **KPI definitions (M3.1):** create/complete `docs/kpi_definitions.md` and cross-check against dashboard + snapshot fields.
+2. **Exports + audit (M3.3):** ensure exports are BI-ready (stable headers), RBAC-protected, and generate audit events; capture sample export proof.
+3. **Milestone 4 scaffolding plan:** draft Docker Compose (web + db + redis) and a deployment checklist, but do not implement until M3 deliverables are stable.

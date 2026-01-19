@@ -5,8 +5,6 @@
 **Implementation principle:** Operations Control (foundation) + Reporting Automation (delivery)
 **Target outcome:** A deployable, testable, documented, decision-grade analytics product with low buyer risk.
 
-> **Naming discipline (avoid buyer confusion):** Keep repo name, README title, and this document aligned. If repo slug differs from product name, add a one-line mapping in README (e.g., “Repo: stripe-revenue-intelligence; Product: PureLaka Commerce Platform”).
-
 ---
 
 ## 0) What this checklist is for (the structure you want to rely on)
@@ -50,8 +48,6 @@ Run from project root with venv active.
 
 > **Policy for pip-audit:** any High/Critical finding must be fixed (upgrade dependency) or explicitly documented with a remediation plan/date in `docs/security.md`.
 
-> **PowerShell note (proof capture):** when redirecting output for native commands, PowerShell may show a `NativeCommandError` banner even when the command succeeds. Treat `$LASTEXITCODE` as authoritative, and keep the full output in `docs/proof/`.
-
 ### Proof artifacts (every milestone)
 
 * [ ] Screenshot or copied terminal output showing all gates green (date/time visible)
@@ -63,7 +59,7 @@ Run from project root with venv active.
 
 # Milestone 1 — Audit-clean & runnable (£10k–£15k credibility)
 
-**Objective:** anyone can run it from scratch; no broken modules; no known defects; deterministic tests; CI present.
+**Objective:** anyone can run it from scratch; no broken modules; deterministic tests; CI present.
 **Buyer risk removed:** “Can I run it? Can I trust the tests? Are there hidden defects?”
 
 ## M1.1 Wishlist resolved (non-negotiable)
@@ -144,10 +140,11 @@ Choose ONE and enforce it everywhere:
 
 ---
 
-## M1.4 Subscription status mismatch in analytics fixed (canonical: canceled; legacy: cancelled)
+## M1.4 Subscription status mismatch in analytics fixed (canonical: canceled)
 
-**Requirement:** one canonical spelling everywhere (recommended `canceled`).
-**Legacy allowance:** historical migrations/comments may contain `cancelled`, but active code/tests/docs must use canonical `canceled`.
+**Requirement:** one canonical spelling everywhere (use `canceled`).
+
+**Legacy allowance:** historical migrations/comments may contain older spellings, but **active code/tests/docs must use `canceled`**.
 
 **Paths to verify**
 
@@ -415,6 +412,7 @@ Create `docs/kpi_definitions.md` including:
   * daily revenue/orders/refunds
   * customer repeat metrics
   * product rollups (units + revenue)
+  * funnel metrics (wishlist → purchase) if claimed
 * [ ] Snapshot reconciliation checks exist and are actionable
 * [ ] Defined fix workflow: rebuild snapshots
 
