@@ -11,8 +11,8 @@ Every KPI shown in the dashboard or exports must be defined here and must match 
 
 ### Time boundaries
 
-* A window is defined as ÃÂ¢Ã¢âÂ¬Ãâlast N daysÃÂ¢Ã¢âÂ¬Ãï¿½ relative to `timezone.localdate()` in the application timezone.
-* Unless stated otherwise, ÃÂ¢Ã¢âÂ¬Ãâwithin the windowÃÂ¢Ã¢âÂ¬Ãï¿½ means days **inclusive of today** (N calendar days).
+* A window is defined as **“last N days”** relative to `timezone.localdate()` in the application timezone.
+* Unless stated otherwise, **“within the window”** means days **inclusive of today** (N calendar days).
 * Snapshot-driven KPIs use snapshot days; completeness is surfaced via snapshot metadata (e.g., missing days). If completeness is false, KPI values may be understated.
 
 ## Data sources (authoritative order)
@@ -37,6 +37,27 @@ Every KPI shown in the dashboard or exports must be defined here and must match 
 
 ## KPI glossary
 
+### Export meta fields (KPI summary)
+
+#### 0) Window Days
+
+* **Name:** Window Days
+* **Type:** Integer (days)
+* **Definition:** The selected KPI window size (allowed values: 7, 30, 90).
+* **Source:** Request parameter (echoed in export).
+* **Shown in:** KPI export
+* **Export column:** `window_days`
+
+#### 0.1) Latest Snapshot Day
+
+* **Name:** Latest Snapshot Day
+* **Type:** Date
+* **Definition:** The most recent snapshot day used to compute KPI values for the selected window.
+* **Source:** Snapshots
+* **Notes:** If snapshots are incomplete or lagging, KPI values may be understated and this date helps detect that.
+* **Shown in:** KPI export
+* **Export column:** `latest_snapshot_day`
+
 ### Revenue KPIs
 
 #### 1) Revenue
@@ -46,7 +67,7 @@ Every KPI shown in the dashboard or exports must be defined here and must match 
 * **Definition:** Total gross paid order total within the window.
 * **Source:** Snapshots
 * **Notes:** Revenue is based on paid/fulfilled orders included in snapshots. If snapshot completeness is false, revenue may be understated.
-* **Shown in:** Dashboard (overview), KPI export (`kpi_summary_*d.csv`)
+* **Shown in:** Dashboard (overview), KPI export
 
 #### 2) Orders
 
@@ -74,6 +95,7 @@ Every KPI shown in the dashboard or exports must be defined here and must match 
 * **Source:** Snapshots
 * **Notes:** Refunded Amount is based on refund fields recorded on orders and aggregated by the snapshot system.
 * **Shown in:** Dashboard, KPI export
+* **Export column:** `refunded_amount`
 
 #### 5) Refunded Orders
 
@@ -82,6 +104,7 @@ Every KPI shown in the dashboard or exports must be defined here and must match 
 * **Definition:** Count of orders that have **any recorded refund** within the window (partial or full).
 * **Source:** Snapshots
 * **Shown in:** Dashboard, KPI export
+* **Export column:** `refunded_orders`
 
 #### 6) Refund Rate (Orders %)
 
@@ -98,7 +121,8 @@ Every KPI shown in the dashboard or exports must be defined here and must match 
 * **Type:** Percentage
 * **Definition:** `(Refunded Amount / Revenue) * 100` (**0 if Revenue=0**).
 * **Source:** Derived from snapshot KPIs (Revenue + Refunded Amount).
-* **Shown in:** Dashboard (if displayed)
+* **Shown in:** Dashboard (only if displayed)
+* **Notes:** This KPI is not part of the current export contract unless explicitly added to `docs/contracts/kpi_contract.json`.
 
 ### Customer KPIs
 
@@ -109,6 +133,7 @@ Every KPI shown in the dashboard or exports must be defined here and must match 
 * **Definition:** Number of distinct purchasing customers within the window.
 * **Source:** Snapshots
 * **Shown in:** Dashboard, KPI export
+* **Export column:** `unique_customers`
 
 #### 9) Repeat Customers
 
@@ -117,6 +142,7 @@ Every KPI shown in the dashboard or exports must be defined here and must match 
 * **Definition:** Number of customers with **2+ purchases** (per snapshot logic) within the window.
 * **Source:** Snapshots
 * **Shown in:** Dashboard, KPI export
+* **Export column:** `repeat_customers`
 
 #### 10) Repeat Rate (%)
 
@@ -125,6 +151,7 @@ Every KPI shown in the dashboard or exports must be defined here and must match 
 * **Definition:** `(Repeat Customers / Unique Customers) * 100` (**0 if Unique Customers=0**).
 * **Source:** Snapshots
 * **Shown in:** Dashboard, KPI export
+* **Export column:** `repeat_rate_pct`
 
 ### Funnel KPIs
 
@@ -135,6 +162,7 @@ Every KPI shown in the dashboard or exports must be defined here and must match 
 * **Definition:** Number of distinct users who have at least one wishlist action/state within the window.
 * **Source:** Snapshots
 * **Shown in:** Dashboard funnel, KPI export
+* **Export column:** `wishlisted_users`
 
 #### 12) Purchased Users
 
@@ -143,6 +171,7 @@ Every KPI shown in the dashboard or exports must be defined here and must match 
 * **Definition:** Number of distinct users who purchased within the window (as used by funnel logic).
 * **Source:** Snapshots
 * **Shown in:** Dashboard funnel, KPI export
+* **Export column:** `purchased_users`
 
 ### Product rollups
 
@@ -161,6 +190,7 @@ Every KPI shown in the dashboard or exports must be defined here and must match 
 * **Definition:** Total gross paid revenue per product in the window (as derived by product rollups).
 * **Source:** Snapshot-driven product rollups
 * **Shown in:** Dashboard product chart, products CSV export
+* **Clarification (prevents buyer ambiguity):** Product rollup “Revenue” is derived from paid order totals attributable to products via the platform’s product rollup logic (i.e., allocation from order items / units). It is not a separate Stripe ledger and must reconcile to snapshot revenue within expected aggregation rules.
 
 ## Export schemas (contract)
 
@@ -173,7 +203,6 @@ These schemas are contractual for buyer-readiness. Any change requires:
 **Machine-checkable contract (authoritative):** `docs/contracts/kpi_contract.json`
 
 Tests must validate export headers against this file to prevent silent drift.
-
 
 ### KPI Summary Export (`analytics-export-kpi-summary`)
 
@@ -207,6 +236,9 @@ Tests must validate export headers against this file to prevent silent drift.
   * `RefundStatus`
   * `RefundPennies`
   * `RefundedAt`
+* Notes:
+
+  * `RefundPennies` is the raw stored integer amount (minor units). Any currency formatting is presentation-only.
 
 ### Products Export (`analytics-export-products`)
 
@@ -237,4 +269,3 @@ Until subscription KPIs are snapshot-backed and clearly defined, treat subscript
 
 * Any dashboard KPI change requires updating this file and updating/adding a test.
 * Any export schema change requires a note in `docs/STATUS.md` and, for buyer-readiness, a version tag/release note.
-
