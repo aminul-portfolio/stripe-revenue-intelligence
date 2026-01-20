@@ -3,7 +3,7 @@
 ## Current milestone
 
 * Milestone: **M3 Hardening (in progress)**
-* Current step: **M3.3 Buyer proof-pack indexing + surface contracts (contracts, acceptance matrix, RBAC surface, export contract tests)**
+* Current step: **M3.3 Buyer proof-pack index complete (see Contracts & Proof Index)**
 * M2 closed: **2026-01-20** (exit proofs complete; gates verified)
 
 ## Runtime baseline
@@ -110,6 +110,8 @@ Exports audited (attachments + audit events):
 
 ### M3 proof pack (current)
 
+Buyer entry point: `docs/CONTRACTS_AND_PROOFS.md`
+
 Contracts + tests:
 
 * `docs/contracts/kpi_contract.json`
@@ -124,6 +126,7 @@ RBAC surface contract:
 
 * `accounts/tests/test_rbac_surface_contract.py`
 * `docs/proof/m3_rbac_surface_contract_2026-01-20.txt`
+
 
 ## Completed
 
