@@ -31,7 +31,7 @@ Policy:
 - Manual verification:
   - With Stripe enabled (`PAYMENTS_USE_STRIPE=1`), start payment and verify PaymentIntent created.
 - Proof:
-  - `docs/proof/stripe_live_2026-01-19_notes.txt` (if present)
+  - `docs/proof/stripe_idempotency_2026-01-19.txt` (end-to-end webhook replay proves safe processing boundary)
 
 ### A2. Webhook signature verification
 - Status: ✅ shipped
@@ -42,6 +42,9 @@ Policy:
   - Payments webhook tests (existing suite)
 - Manual verification:
   - Stripe CLI listener forwards events; endpoint returns 200 for valid signatures.
+- Proof:
+  - Covered by test suite (webhook signature verification tests).
+  - Buyer evidence: validated during Stripe CLI smoke (see M2 Stripe proof set).
 
 ### A3. Idempotent event processing boundary (StripeEvent)
 - Status: ✅ shipped
@@ -50,7 +53,25 @@ Policy:
   - `payments/models.py` (`StripeEvent`)
   - `payments/services/*` (router/handlers)
 - Tests:
-  - Payments idempotency tests (existing suite)
+  - Payments idempotency tests (existing suite; ensures StripeEvent prevents duplicates).
+- Manual verification:
+  - Replay the same Stripe event via Stripe CLI; confirm HTTP 200 and no duplicate effects.
+- Proof:
+  - `docs/proof/stripe_idempotency_2026-01-19.txt`
+
+### A4. Refund mapping correctness (partial and full)
+- Status: ✅ shipped
+- Claim: Refund events update Order refund fields deterministically (status, amount, refunded_at).
+- Code:
+  - `payments/services/*` refund handler (maps Stripe refund events to Order fields)
+  - `orders/models.py` (refund fields)
+- Tests:
+  - Refund mapping tests (existing suite)
+- Manual verification:
+  - Trigger partial and full refunds in Stripe; confirm Order updates and `run_checks` remains green.
+- Proof:
+  - `docs/proof/stripe_refund_partial_2026-01-19.txt`
+  - `docs/proof/stripe_refund_full_2026-01-19.txt`
 
 ---
 
@@ -85,6 +106,10 @@ Policy:
   - Existing orders/payments tests that cover stock decrement behavior
 - Manual verification:
   - Attempt to buy beyond stock (should fail or prevent negative stock)
+- Proof:
+  - `docs/proof/stripe_stock_idempotency_2026-01-19.txt` (replay proves no double decrement)
+- Remaining hardening (planned):
+  - Concurrency stress depth (multi-worker contention) not yet proven as a dedicated test scenario.
 
 ---
 
@@ -137,6 +162,11 @@ Policy:
   - `analyticsapp/tests/test_exports_csv.py`
   - `analyticsapp/tests/test_exports_csv_audit.py`
   - `accounts.tests.test_rbac_views`
+- Proof:
+  - `docs/proof/analytics_export_orders_audit_2026-01-19.txt`
+  - `docs/proof/analytics_export_kpi_audit_2026-01-19.txt`
+  - `docs/proof/analytics_export_customers_audit_2026-01-19.txt`
+  - `docs/proof/analytics_export_products_audit_2026-01-20.txt`
 
 ### D4. Export actions are audited
 - Status: ✅ shipped
@@ -180,6 +210,20 @@ Policy:
 - Docs:
   - `docs/kpi_definitions.md`
 
+### F1.1 Export schema contract enforced (no silent drift)
+- Status: ✅ shipped
+- Claim: Export CSV headers are contract-locked; any drift fails tests.
+- Contract (authoritative):
+  - `docs/contracts/kpi_contract.json`
+- Code:
+  - Export endpoints: `analyticsapp/views.py`
+- Tests:
+  - `analyticsapp/tests/test_export_contract.py` (compares live CSV headers to contract file)
+- Manual verification:
+  - Change an export header locally and run `python manage.py test` (must fail).
+- Proof:
+  - `docs/proof/m3_export_contract_tests_2026-01-20.txt`
+
 ### F2. RBAC contract is defined and maintained
 - Status: ✅ shipped
 - Claim: RBAC rules are explicit and test-backed.
@@ -194,4 +238,3 @@ Policy:
 - Runbook and demo walkthrough (Milestone 4)
 - Backup/restore validation (Overlay F)
 - Subscription metrics as decision-grade KPIs (only allowed once defined + snapshot-backed)
-
