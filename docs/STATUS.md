@@ -13,20 +13,20 @@
 * DB (dev): SQLite
 * Target DB (buyer-ready): Postgres (Milestone 4 via Docker Compose)
 
-## Release gates (latest verified: 2026-01-19)
+## Release gates (latest verified: 2026-01-20)
 
-All gates below are required to remain green locally and in CI.
+All gates below must remain green locally and in CI.
 
 * `python manage.py check`: PASS
 * `python manage.py test`: PASS (**50 tests**)
 * `python manage.py run_checks --fail-on-issues`: PASS (**open=0, resolved=3**)
 * `python manage.py makemigrations --check --dry-run`: PASS
-* `python manage.py check --deploy`: PASS (prod-like settings)
-
-  * Run with: `DJANGO_SETTINGS_MODULE=purelaka.settings_prod`
 * `ruff check .`: PASS
 * `ruff format --check .`: PASS
 * `pip-audit -r requirements.txt`: PASS (no known vulnerabilities)
+* Deploy gate (prod-like settings): `python manage.py check --deploy`: PASS
+
+  * Run with: `DJANGO_SETTINGS_MODULE=purelaka.settings_prod`
 
 ### Important settings note (prevents false test failures)
 
@@ -47,7 +47,7 @@ All gates below are required to remain green locally and in CI.
 ## Notes (chronological)
 
 * 2026-01-18: Monitoring namespace + smoke test stabilized; templates fixed to use namespaced URL reverse.
-* 2026-01-19: CI confirmed green on main for core gates and engineering gates.
+* 2026-01-19: CI confirmed green on `main` for core gates and engineering gates.
 * 2026-01-19: RBAC regression resolved; roles service updated with deterministic role assignment for tests/support.
 * 2026-01-19: Analytics exports hardened:
 
@@ -83,6 +83,10 @@ All gates below are required to remain green locally and in CI.
 
   * Orders CSV export returns attachment and writes `AuditLog(event_type=analytics_export)`.
   * KPI summary CSV export returns attachment and writes `AuditLog(event_type=analytics_export)`.
+* 2026-01-20: Remaining analytics exports proven and audited:
+
+  * Customers CSV export returns attachment and writes `AuditLog(event_type=analytics_export)`.
+  * Products CSV export returns attachment and writes `AuditLog(event_type=analytics_export)`.
 * 2026-01-19: Runbook updated with fresh install steps and local/CI gate parity (`docs/runbook.md`).
 
 ## Evidence (proof artifacts)
@@ -93,14 +97,21 @@ All gates below are required to remain green locally and in CI.
 
 > Policy: prefer a single consolidated proof per milestone over many fragmented proof files.
 
-### 2026-01-19 (additional M2 exit proofs)
+### M2 exit proofs (authoritative set)
 
-* `docs/proof/analytics_export_orders_audit_2026-01-19.txt`
-* `docs/proof/analytics_export_kpi_audit_2026-01-19.txt`
+Stripe safety + refunds:
+
 * `docs/proof/stripe_idempotency_2026-01-19.txt`
 * `docs/proof/stripe_stock_idempotency_2026-01-19.txt`
 * `docs/proof/stripe_refund_partial_2026-01-19.txt`
 * `docs/proof/stripe_refund_full_2026-01-19.txt`
+
+Exports audited (attachments + audit events):
+
+* `docs/proof/analytics_export_orders_audit_2026-01-19.txt`
+* `docs/proof/analytics_export_kpi_audit_2026-01-19.txt`
+* `docs/proof/analytics_export_customers_audit_2026-01-19.txt`
+* `docs/proof/analytics_export_products_audit_2026-01-20.txt`
 
 ## Completed
 
@@ -110,7 +121,7 @@ All gates below are required to remain green locally and in CI.
 * Monitoring checks stable; negative-case proven (open → resolved workflow).
 * Deterministic tests: pass with `PAYMENTS_USE_STRIPE=0`.
 * Repo hygiene: `.env`, db, venv excluded; proofs stored under `docs/proof/`.
-* CI established and green on main (quality + security gates).
+* CI established and green on `main` (quality + security gates).
 * Deploy gate reproducible via `purelaka.settings_prod` and `check --deploy`.
 * Full gate proof captured in `docs/proof/m1_2026-01-19_full_gates.txt`.
 
@@ -123,20 +134,20 @@ All gates below are required to remain green locally and in CI.
 * Stock decrement/oversell prevention present; idempotent on webhook replay (proven).
 * RBAC boundaries enforced across analytics/exports/monitoring/orders/payments.
 * Audit logging present for operational actions; analytics exports audited (proven).
-* Proof discipline: core gates are consolidated; targeted proofs added only when they defend a specific claim.
+* Proof discipline: consolidated proof for gates; targeted proofs added only when they defend a specific buyer-facing claim.
 
 ### Milestone 3 — Revenue Intelligence layer (partial)
 
 * Snapshot system and KPI windows operational (7/30/90).
 * Daily series charts operational.
 * BI-ready exports present (CSV) with RBAC + audit expectations covered by tests.
-* KPI definitions exist as a single source of truth and must remain aligned with implementation.
+* KPI definitions exist as a single source of truth and must remain aligned with implementation (`docs/kpi_definitions.md`).
 
 ## Top blockers (max 3)
 
-1. **KPI contract completeness:** `docs/kpi_definitions.md` must be the single source of truth for every KPI shown/exported and must match implementation.
+1. **KPI contract completeness:** `docs/kpi_definitions.md` must define every KPI shown/exported and match implementation (definitions, units, source, edge cases).
 2. **Buyer-grade packaging:** Docker/Postgres path not yet implemented (Milestone 4).
-3. **Buyer due-diligence depth:** `docs/acceptance_matrix.md` and `docs/runbook.md` must remain current and fully trace claims → code/tests → proof.
+3. **Buyer due-diligence depth:** `docs/acceptance_matrix.md` and `docs/runbook.md` must remain current and trace claims → code/tests → proof.
 
 ## Next 3 actions (strict, step-by-step)
 
