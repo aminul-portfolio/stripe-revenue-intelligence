@@ -2,9 +2,9 @@
 
 ## Current milestone
 
-* Milestone: **M2 Operations Control hardened (in progress)**
-* Current step: **M2 exit proofs completed (exports audited + Stripe replay/refunds validated); keep all gates green**
-* Next milestone after M2: **M3 Revenue Intelligence layer (start KPI contract hardening)**
+* Milestone: **M3 Hardening (in progress)**
+* Current step: **M3.1 KPI contract baseline (contract file + drift control)**
+* M2 closed: **2026-01-20** (exit proofs complete; gates verified)
 
 ## Runtime baseline
 

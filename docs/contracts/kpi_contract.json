@@ -1,0 +1,40 @@
+{
+  "windows_days": [7, 30, 90],
+  "exports": {
+    "analytics-export-kpi-summary": [
+      "window_days",
+      "latest_snapshot_day",
+      "revenue",
+      "orders",
+      "aov",
+      "refunded_amount",
+      "refunded_orders",
+      "refund_rate_orders_pct",
+      "unique_customers",
+      "repeat_customers",
+      "repeat_rate_pct",
+      "wishlisted_users",
+      "purchased_users"
+    ],
+    "analytics-export-orders": [
+      "OrderID",
+      "Email",
+      "Total",
+      "Status",
+      "CreatedAt",
+      "RefundStatus",
+      "RefundPennies",
+      "RefundedAt"
+    ],
+    "analytics-export-products": [
+      "Product",
+      "Units",
+      "Revenue"
+    ],
+    "analytics-export-customers": [
+      "Email",
+      "Orders",
+      "TotalSpent"
+    ]
+  }
+}
