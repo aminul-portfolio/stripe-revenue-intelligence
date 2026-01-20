@@ -51,6 +51,7 @@ class TestRBACSurfaceContract(TestCase):
         # If your code uses UserRole for admin paths, keep it explicit.
         UserRole.objects.update_or_create(user=self.admin, defaults={"role": "admin"})
 
+        # analyticsapp is included without a namespace in purelaka/urls.py
         self.analytics_urls = [
             reverse("analytics-dashboard") + "?days=7",
             reverse("analytics-export-kpi-summary"),
@@ -58,7 +59,9 @@ class TestRBACSurfaceContract(TestCase):
             reverse("analytics-export-products"),
             reverse("analytics-export-customers"),
         ]
-        self.monitoring_url = "/monitoring/issues/"
+
+        # monitoring is included with namespace="monitoring" in purelaka/urls.py
+        self.monitoring_url = reverse("monitoring:monitoring-issues")
 
     def _assert_login_redirect(self, response) -> None:
         # Avoid brittle assumptions about exact login URL; just require redirect.
