@@ -33,7 +33,8 @@ Every KPI shown in the dashboard or exports must be defined here and must match 
 
 * **Revenue** is defined as **gross paid order total** for orders included in snapshots.
 * Revenue follows the system-of-record used in snapshots (typically `Order.total` for paid/fulfilled orders).
-* If later the platform introduces explicit tax/shipping/discount breakdowns, this section must be updated to specify whether Revenue is gross (includes shipping/tax) or net (excludes them). Until then, Revenue is **the same total that the order system treats as the paid total.**
+* If later the platform introduces explicit tax/shipping/discount breakdowns, this section must be updated to specify whether Revenue is gross (includes shipping/tax) or net (excludes them).
+* Until then, Revenue is **the same total that the order system treats as the paid total.**
 
 ## KPI glossary
 
@@ -223,6 +224,27 @@ Tests must validate export headers against this file to prevent silent drift.
   * `wishlisted_users`
   * `purchased_users`
 
+#### Implementation mapping (snapshot keys → export columns)
+
+Snapshot KPI keys differ from export column names in a few cases. The mapping below is the authoritative contract-to-implementation bridge:
+
+* `rev.revenue` → `revenue`
+* `rev.orders` → `orders`
+* `rev.aov` → `aov`
+* `rev.refund_amount` → `refunded_amount`
+* `rev.refunded_orders` → `refunded_orders`
+* `rev.refund_rate_orders` → `refund_rate_orders_pct`
+* `cust.unique` → `unique_customers`
+* `cust.repeat` → `repeat_customers`
+* `cust.repeat_rate` → `repeat_rate_pct`
+* `funnel.wish_users` → `wishlisted_users`
+* `funnel.purchased_users` → `purchased_users`
+
+Export meta fields:
+
+* `window_days` is the requested window size (7/30/90).
+* `latest_snapshot_day` is derived from the most recent `AnalyticsSnapshotDaily.day` available at export time.
+
 ### Orders Export (`analytics-export-orders`)
 
 * Source: raw orders within the window (paid/fulfilled)
@@ -236,6 +258,7 @@ Tests must validate export headers against this file to prevent silent drift.
   * `RefundStatus`
   * `RefundPennies`
   * `RefundedAt`
+
 * Notes:
 
   * `RefundPennies` is the raw stored integer amount (minor units). Any currency formatting is presentation-only.
