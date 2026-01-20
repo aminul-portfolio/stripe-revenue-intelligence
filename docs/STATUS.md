@@ -87,6 +87,7 @@ All gates below must remain green locally and in CI.
 
   * Customers CSV export returns attachment and writes `AuditLog(event_type=analytics_export)`.
   * Products CSV export returns attachment and writes `AuditLog(event_type=analytics_export)`.
+* 2026-01-20: Export schema contract tests added; CSV headers enforced against `docs/contracts/kpi_contract.json` (prevents silent drift).
 * 2026-01-19: Runbook updated with fresh install steps and local/CI gate parity (`docs/runbook.md`).
 
 ## Evidence (proof artifacts)
