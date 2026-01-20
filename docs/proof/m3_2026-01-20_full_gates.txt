@@ -1,0 +1,70 @@
+﻿=== M3 CONSOLIDATED GATES PROOF ===
+DATE_UTC=2026-01-20 14:13:05 UTC
+
+## git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	docs/proof/m3_2026-01-20_full_gates.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+## python manage.py check
+System check identified no issues (0 silenced).
+
+## python manage.py test
+python : Creating test database for alias 'default'...
+At line:1 char:1
++ python manage.py test 2>&1 | Out-File -Append -Encoding utf8 $proof
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Creating test d...as 'default'...:String) 
+    [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+........................................................
+----------------------------------------------------------------------
+Ran 56 tests in 62.655s
+
+OK
+Destroying test database for alias 'default'...
+
+Found 56 test(s).
+System check identified no issues (0 silenced).
+
+## python manage.py run_checks --fail-on-issues
+Snapshots built for 90 day(s). created=0, updated=90, product_rows_upserted=14
+Issues: 0 (open=0, resolved=3)
+
+Breakdown:
+ - analytics_snapshot_reconciliation / resolved: 1
+ - invalid_order_state / resolved: 1
+ - payment_mismatch / resolved: 1
+
+Latest 10 open issues:
+ - (none open)
+
+## python manage.py makemigrations --check --dry-run
+No changes detected
+
+## ruff check .
+All checks passed!
+
+## ruff format --check .
+188 files already formatted
+
+## pip-audit -r requirements.txt
+pip-audit : No known vulnerabilities found
+At line:1 char:1
++ pip-audit -r requirements.txt 2>&1 | Out-File -Append -Encoding utf8  ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (No known vulnerabilities found:String) [] 
+   , RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+## deploy check (prod-like)
+DJANGO_SETTINGS_MODULE=purelaka.settings_prod
+System check identified no issues (0 silenced).
