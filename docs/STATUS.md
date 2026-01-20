@@ -48,6 +48,7 @@ All gates below must remain green locally and in CI.
 
 * 2026-01-18: Monitoring namespace + smoke test stabilized; templates fixed to use namespaced URL reverse.
 * 2026-01-19: CI confirmed green on `main` for core gates and engineering gates.
+* 2026-01-19: Runbook updated with fresh install steps and local/CI gate parity (`docs/runbook.md`).
 * 2026-01-19: RBAC regression resolved; roles service updated with deterministic role assignment for tests/support.
 * 2026-01-19: Analytics exports hardened:
   * CSV exports protected by RBAC (ops/analyst/admin allowed; customer denied/hidden).
@@ -56,7 +57,7 @@ All gates below must remain green locally and in CI.
 * 2026-01-19: Deploy gate made reproducible:
   * Introduced `purelaka/settings_prod.py` for `check --deploy` (prod-like toggles).
   * HSTS flags set to satisfy deploy checks in prod-like mode.
-  * Confirmed that leaving `DJANGO_SETTINGS_MODULE` set to `settings_prod` causes test redirects (301); added policy to prevent confusion.
+  * Confirmed that leaving `DJANGO_SETTINGS_MODULE` set to `settings_prod` can cause test redirects (301); added policy to prevent confusion.
 * 2026-01-19: Migration drift fixed:
   * Added `orders/migrations/0005_alter_order_status.py`.
   * `makemigrations --check --dry-run` now clean.
@@ -82,7 +83,9 @@ All gates below must remain green locally and in CI.
 * 2026-01-20: Export schema contract tests added; CSV headers enforced against `docs/contracts/kpi_contract.json`.
 * 2026-01-20: Acceptance matrix expanded to trace buyer-facing claims → code → tests → proofs (`docs/acceptance_matrix.md` + proof snapshot).
 * 2026-01-20: RBAC surface contract test added and stabilized using namespaced URL reversing for monitoring (`reverse("monitoring:monitoring-issues")`) + proof captured.
-* 2026-01-19: Runbook updated with fresh install steps and local/CI gate parity (`docs/runbook.md`).
+* 2026-01-20: Contracts & Proof Index added as the buyer due-diligence entry point (`docs/CONTRACTS_AND_PROOFS.md`).
+* 2026-01-20: Consolidated M3 gates proof captured as a buyer-ready snapshot (`docs/proof/m3_2026-01-20_full_gates.txt`).
+* 2026-01-20: KPI definitions updated (time window boundaries clarified; export contract references reinforced) (`docs/kpi_definitions.md`).
 
 ## Evidence (proof artifacts)
 
@@ -114,6 +117,7 @@ Buyer entry point: `docs/CONTRACTS_AND_PROOFS.md`
 
 Contracts + tests:
 
+* `docs/kpi_definitions.md`
 * `docs/contracts/kpi_contract.json`
 * `analyticsapp/tests/test_export_contract.py`
 * `docs/proof/m3_export_contract_tests_2026-01-20.txt`
@@ -132,8 +136,6 @@ RBAC surface contract:
 Consolidated M3 gates proof (authoritative):
 
 * `docs/proof/m3_2026-01-20_full_gates.txt`
-
-
 
 ## Completed
 
