@@ -1,0 +1,94 @@
+# Contracts & Proof Index — Revenue Intelligence for Stripe Commerce
+
+This document is the buyer-facing index that maps:
+- contracts (what we promise)
+- tests (what enforces it)
+- proof artifacts (what was captured)
+
+Policy:
+- If a claim/contract is not linked here, it is not part of the buyer-ready proof pack.
+- Any change to a contract requires: update contract doc/JSON + update/add a test + update `docs/STATUS.md`.
+
+## 1) Contracts (authoritative)
+
+### KPI meaning contract
+- `docs/kpi_definitions.md`
+  - Defines KPI meaning, windows (7/30/90), boundaries, sources, and edge cases.
+
+### Export schema contract (machine-checkable)
+- `docs/contracts/kpi_contract.json`
+  - Authoritative list of export headers per export type.
+  - Prevents silent schema drift.
+
+### RBAC contract (roles + access rules)
+- `docs/rbac_matrix.md`
+  - Source of truth for role-based access; tests must enforce.
+
+### Acceptance matrix (product claims → code/tests/proofs)
+- `docs/acceptance_matrix.md`
+  - Buyer claim inventory. If it is not here, it is not shipped.
+
+## 2) Tests that enforce the contracts
+
+### Export schema drift control
+- `analyticsapp/tests/test_export_contract.py`
+  - Validates CSV export headers match `docs/contracts/kpi_contract.json`.
+
+### RBAC surface protection (contract-level)
+- `accounts/tests/test_rbac_surface_contract.py`
+  - Prevents accidental exposure of protected analytics/exports/monitoring surfaces.
+  - Uses namespaced monitoring URL reverse: `reverse("monitoring:monitoring-issues")`.
+
+### Core RBAC coverage (existing suite)
+- `accounts/tests/test_rbac_views.py`
+- `analyticsapp/tests/test_access.py`
+- `analyticsapp/tests/test_exports_csv.py`
+- `analyticsapp/tests/test_exports_csv_audit.py`
+- `orders/tests/test_order_access.py`
+- `orders/tests/test_ops_endpoints.py`
+- `orders/tests/test_payment_start_access.py`
+
+## 3) Proof artifacts (what was captured)
+
+### M1 — consolidated gates proof (authoritative)
+- `docs/proof/m1_2026-01-19_full_gates.txt`
+
+### M2 — exit proofs (authoritative set)
+
+Stripe safety + refunds:
+- `docs/proof/stripe_idempotency_2026-01-19.txt`
+- `docs/proof/stripe_stock_idempotency_2026-01-19.txt`
+- `docs/proof/stripe_refund_partial_2026-01-19.txt`
+- `docs/proof/stripe_refund_full_2026-01-19.txt`
+
+Exports audited (attachments + audit events):
+- `docs/proof/analytics_export_orders_audit_2026-01-19.txt`
+- `docs/proof/analytics_export_kpi_audit_2026-01-19.txt`
+- `docs/proof/analytics_export_customers_audit_2026-01-19.txt`
+- `docs/proof/analytics_export_products_audit_2026-01-20.txt`
+
+### M3 — contracts + hardening proofs
+
+Export contract enforcement:
+- `docs/proof/m3_export_contract_tests_2026-01-20.txt`
+
+Acceptance matrix snapshot:
+- `docs/proof/m3_acceptance_matrix_2026-01-20.txt`
+
+RBAC surface contract proof:
+- `docs/proof/m3_rbac_surface_contract_2026-01-20.txt`
+
+## 4) How to re-verify (buyer due-diligence commands)
+
+Core gates:
+- `python manage.py check`
+- `python manage.py test`
+- `python manage.py run_checks --fail-on-issues`
+- `python manage.py makemigrations --check --dry-run`
+- `ruff check .`
+- `ruff format --check .`
+- `pip-audit -r requirements.txt`
+
+Deploy gate (prod-like):
+- `DJANGO_SETTINGS_MODULE=purelaka.settings_prod python manage.py check --deploy`
+- `Remove-Item Env:DJANGO_SETTINGS_MODULE -ErrorAction SilentlyContinue`
