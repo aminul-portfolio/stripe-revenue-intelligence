@@ -115,6 +115,7 @@ Every KPI shown in the dashboard or exports must be defined here and must match 
 * **Source:** Snapshots
 * **Shown in:** Dashboard, KPI export
 * **Export column:** `refund_rate_orders_pct`
+* **Unit:** Percentage points (0–100)
 
 #### 7) Refund Rate (Value %)
 
@@ -244,6 +245,11 @@ Export meta fields:
 
 * `window_days` is the requested window size (7/30/90).
 * `latest_snapshot_day` is derived from the most recent `AnalyticsSnapshotDaily.day` available at export time.
+
+Proof artifacts (contract alignment):
+
+* `docs/proof/m3_kpi_inventory_2026-01-20.txt`
+* `docs/proof/m3_kpi_contract_alignment_2026-01-20.txt`
 
 ### Orders Export (`analytics-export-orders`)
 
