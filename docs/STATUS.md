@@ -121,6 +121,7 @@ Contracts + tests:
 * `docs/contracts/kpi_contract.json`
 * `analyticsapp/tests/test_export_contract.py`
 * `docs/proof/m3_export_contract_tests_2026-01-20.txt`
+* `docs/proof/m3_kpi_contract_alignment_2026-01-20.txt`
 
 Claim traceability:
 
@@ -136,6 +137,7 @@ RBAC surface contract:
 Consolidated M3 gates proof (authoritative):
 
 * `docs/proof/m3_2026-01-20_full_gates.txt`
+
 
 ## Completed
 
