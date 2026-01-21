@@ -127,6 +127,8 @@ Contracts + tests:
 * `docs/proof/m3_export_contract_test_verbose_2026-01-20.txt`
 * `docs/proof/m3_kpi_contract_alignment_2026-01-20.txt`
 * `docs/proof/m3_kpi_inventory_2026-01-20.txt`
+* `docs/proof/m3_kpi_contract_completeness_2026-01-21.txt`
+
 
 Payments hardening:
 
@@ -150,6 +152,7 @@ Consolidated M3 gates proof (authoritative):
 * `scripts/gates.ps1`
 * `scripts/deploy_gate.ps1`
 * `docs/proof/m3_deploy_gate_2026-01-21.txt`
+* `docs/proof/m3_kpi_contract_completeness_2026-01-21.txt`
   * Includes timestamp + DJANGO_SETTINGS_MODULE + env cleared confirmation.
 
 ## Completed

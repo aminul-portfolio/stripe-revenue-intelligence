@@ -1,0 +1,9 @@
+M3 KPI CONTRACT COMPLETENESS CHECK
+Date: 2026-01-21
+Contract: docs/contracts/kpi_contract.json
+Definitions: docs/kpi_definitions.md
+
+Total headers checked: 7
+Export types: 2
+
+RESULT: PASS (every contract header appears in docs/kpi_definitions.md)
