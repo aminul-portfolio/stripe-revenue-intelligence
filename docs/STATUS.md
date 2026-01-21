@@ -129,6 +129,8 @@ Contracts + tests:
 * `docs/proof/m3_kpi_contract_alignment_2026-01-20.txt`
 * `docs/proof/m3_kpi_inventory_2026-01-20.txt`
 * `docs/proof/m3_kpi_contract_completeness_2026-01-21.txt`
+* `docs/proof/m3_stock_concurrency_2026-01-21.txt`
+
 
 
 Payments hardening:

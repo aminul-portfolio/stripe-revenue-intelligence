@@ -10,11 +10,14 @@ Policy:
 - Any change to a contract requires: update contract doc/JSON + update/add a test + update `docs/STATUS.md`.
 - Proof files must be reproducible from scripts/commands below and stored under `docs/proof/`.
 
-## 1) Contracts (authoritative)
-
 ### KPI meaning contract
 - `docs/kpi_definitions.md`
   - Defines KPI meaning, windows (7/30/90), boundaries, sources, and edge cases.
+  - Must remain aligned with the export header contract (`docs/contracts/kpi_contract.json`).
+
+KPI contract completeness proof (M3):
+- `docs/proof/m3_kpi_contract_completeness_2026-01-21.txt`
+  - Confirms every header in `docs/contracts/kpi_contract.json` is defined in `docs/kpi_definitions.md`.
 
 ### Export schema contract (machine-checkable)
 - `docs/contracts/kpi_contract.json`
