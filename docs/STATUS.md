@@ -198,4 +198,3 @@ Consolidated M3 gates proof (authoritative):
 1. **KPI contract completeness sweep (M3):** enumerate all KPI fields used by snapshots/dashboard/exports and confirm each is defined in `docs/kpi_definitions.md` with units + edge-case handling.
 2. **Concurrency hardening tests (M3):** add at least one deterministic test that exercises stock decrement/oversell prevention under contention (or the closest reliable approximation in the Django test runner).
 3. **Begin M4 deployment baseline:** introduce Docker Compose + Postgres and prove parity gates (migrate + test + run_checks) on Postgres locally.
-
