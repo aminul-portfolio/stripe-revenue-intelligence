@@ -84,7 +84,7 @@ All gates below must remain green locally and in CI.
 * 2026-01-20: Acceptance matrix expanded to trace buyer-facing claims → code → tests → proofs (`docs/acceptance_matrix.md` + proof snapshot).
 * 2026-01-20: RBAC surface contract test added and stabilized using namespaced URL reversing for monitoring (`reverse("monitoring:monitoring-issues")`) + proof captured.
 * 2026-01-20: Contracts & Proof Index added as the buyer due-diligence entry point (`docs/CONTRACTS_AND_PROOFS.md`).
-* 2026-01-20: Consolidated M3 gates proof captured as a buyer-ready snapshot (`docs/proof/m3_2026-01-20_full_gates.txt`).
+* 2026-01-20: Consolidated M3 gates proof captured as a buyer-ready snapshot (`docs/proof/m3_2026-01-21_full_gates_clean.txt`).
 * 2026-01-20: KPI definitions updated (time window boundaries clarified; export contract references reinforced) (`docs/kpi_definitions.md`).
 
 ## Evidence (proof artifacts)
@@ -138,7 +138,7 @@ RBAC surface contract:
 
 Consolidated M3 gates proof (authoritative):
 
-* `docs/proof/m3_2026-01-20_full_gates.txt`
+* `docs/proof/m3_2026-01-21_full_gates_clean.txt`
 * `scripts/gates.ps1`
 * `scripts/deploy_gate.ps1`
 * `docs/proof/m3_deploy_gate_2026-01-21.txt`
@@ -173,7 +173,7 @@ Consolidated M3 gates proof (authoritative):
 * Acceptance matrix maintained as the buyer-facing claim map (`docs/acceptance_matrix.md`) with a dated snapshot in `docs/proof/`.
 * RBAC matrix remains the source of truth and is test-backed; RBAC surface contract test added to prevent accidental exposure (`accounts/tests/test_rbac_surface_contract.py`).
 * Buyer due-diligence entry point is now centralized in `docs/CONTRACTS_AND_PROOFS.md`.
-* Consolidated M3 gates proof captured: `docs/proof/m3_2026-01-20_full_gates.txt`.
+* Consolidated M3 gates proof captured: `docs/proof/m3_2026-01-21_full_gates_clean.txt`.
 
 ## Top blockers (max 3)
 
