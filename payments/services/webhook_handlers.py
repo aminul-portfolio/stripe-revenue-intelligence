@@ -10,6 +10,10 @@ from orders.models import Order
 from products.models import Product, ProductVariant
 
 
+class StockOversellError(ValueError):
+    """Raised when an order attempts to consume more stock than is available."""
+
+
 def _to_int(value: Any, default: int = 0) -> int:
     try:
         return int(value)
@@ -209,7 +213,10 @@ def handle_payment_intent_succeeded(*, intent: dict) -> None:
                             "sku": variant.sku,
                         },
                     )
-                    raise ValueError("Stock inconsistency detected (variant).")
+                    raise StockOversellError(
+                        f"Variant oversell prevented: variant_id={variant.id} sku={variant.sku} "
+                        f"available={variant.stock} requested={qty} order_id={order.id}"
+                    )
 
                 variant.stock -= qty
                 variant.save(update_fields=["stock"])
@@ -234,7 +241,10 @@ def handle_payment_intent_succeeded(*, intent: dict) -> None:
                             "product": product.name,
                         },
                     )
-                    raise ValueError("Stock inconsistency detected (product).")
+                    raise StockOversellError(
+                        f"Product oversell prevented: product_id={product.id} name={product.name} "
+                        f"available={product.stock} requested={qty} order_id={order.id}"
+                    )
 
                 product.stock -= qty
                 product.save(update_fields=["stock"])
