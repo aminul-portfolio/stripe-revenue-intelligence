@@ -89,6 +89,7 @@ All gates below must remain green locally and in CI.
 * 2026-01-20: KPI definitions updated (time window boundaries clarified; export contract references reinforced) (`docs/kpi_definitions.md`).
 * 2026-01-21: Deploy gate proof upgraded to be self-auditing (timestamp + `DJANGO_SETTINGS_MODULE` + env-cleared confirmation).
 * 2026-01-21: Consolidated M3 gates proof captured as a buyer-ready snapshot (`docs/proof/m3_2026-01-21_full_gates_clean.txt`).
+* 2026-01-21: Payments hardening proof captured: oversell prevention tests (`docs/proof/m3_stock_oversell_prevention_tests_2026-01-21.txt`).
 
 ## Evidence (proof artifacts)
 

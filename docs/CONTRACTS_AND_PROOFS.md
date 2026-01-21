@@ -86,6 +86,7 @@ Export contract enforcement:
 
 Payments hardening proof:
 - `docs/proof/m3_payment_intent_stock_idempotency_tests_2026-01-21.txt`
+- - `docs/proof/m3_stock_oversell_prevention_tests_2026-01-21.txt`
 
 Gates + deploy verification (authoritative):
 - `docs/proof/m3_2026-01-21_full_gates_clean.txt`
