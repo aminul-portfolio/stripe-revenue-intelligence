@@ -71,6 +71,13 @@ Exports audited (attachments + audit events):
 
 Export contract enforcement:
 - `docs/proof/m3_export_contract_tests_2026-01-20.txt`
+- `docs/proof/m3_export_contract_test_verbose_2026-01-20.txt`
+- `docs/proof/m3_kpi_contract_alignment_2026-01-20.txt`
+- `docs/proof/m3_kpi_inventory_2026-01-20.txt`
+- `docs/proof/m3_2026-01-21_full_gates_clean.txt`
+- `docs/proof/m3_deploy_gate_2026-01-21.txt`
+- `scripts/gates.ps1`
+- `scripts/deploy_gate.ps1`
 
 Acceptance matrix snapshot:
 - `docs/proof/m3_acceptance_matrix_2026-01-20.txt`
