@@ -83,6 +83,9 @@ Export contract enforcement:
 - `docs/proof/m3_kpi_contract_alignment_2026-01-20.txt`
 - `docs/proof/m3_kpi_inventory_2026-01-20.txt`
 
+Payments hardening proof:
+- `docs/proof/m3_payment_intent_stock_idempotency_tests_2026-01-21.txt`
+
 Gates + deploy verification (authoritative):
 - `docs/proof/m3_2026-01-21_full_gates_clean.txt`
 - `docs/proof/m3_deploy_gate_2026-01-21.txt`
