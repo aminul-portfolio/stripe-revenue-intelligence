@@ -7,8 +7,10 @@ from django.test import TestCase
 
 from orders.models import Order, OrderItem
 from products.models import Product, ProductVariant
-
-from payments.services.webhook_handlers import handle_payment_intent_succeeded
+from payments.services.webhook_handlers import (
+    StockOversellError,
+    handle_payment_intent_succeeded,
+)
 
 
 class PaymentIntentSucceededStockIdempotencyTests(TestCase):
@@ -208,7 +210,7 @@ class PaymentIntentSucceededStockIdempotencyTests(TestCase):
 
         intent = self._intent_for_order(order, intent_id="pi_ov_prod_1")
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(StockOversellError):
             handle_payment_intent_succeeded(intent=intent)
 
         order.refresh_from_db()
@@ -255,7 +257,7 @@ class PaymentIntentSucceededStockIdempotencyTests(TestCase):
 
         intent = self._intent_for_order(order, intent_id="pi_ov_var_1")
 
-        with self.assertRaises(Exception):
+        with self.assertRaises(StockOversellError):
             handle_payment_intent_succeeded(intent=intent)
 
         order.refresh_from_db()

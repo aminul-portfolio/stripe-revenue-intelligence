@@ -77,7 +77,7 @@ ents_once_on_replay)
 Variant path uses ProductVariant.stock with select_for_update. ... ok
 
 ----------------------------------------------------------------------
-Ran 5 tests in 2.351s
+Ran 5 tests in 2.360s
 
 OK
 Destroying test database for alias 'default' 
