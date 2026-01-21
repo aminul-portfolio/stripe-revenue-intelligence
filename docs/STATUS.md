@@ -128,6 +128,11 @@ Contracts + tests:
 * `docs/proof/m3_kpi_contract_alignment_2026-01-20.txt`
 * `docs/proof/m3_kpi_inventory_2026-01-20.txt`
 
+Payments hardening:
+
+* `payments/tests/test_payment_intent_stock_idempotency.py`
+* `docs/proof/m3_payment_intent_stock_idempotency_tests_2026-01-21.txt`
+
 Claim traceability:
 
 * `docs/acceptance_matrix.md`
@@ -182,7 +187,7 @@ Consolidated M3 gates proof (authoritative):
 ## Top blockers (max 3)
 
 1. **KPI contract completeness:** ensure every KPI shown/exported is defined and matches implementation (units, sources, edge cases, and window logic).
-2. **Hardening coverage gaps:** expand tests for concurrency depth (stock/oversell) and any remaining “manual-only” claims in the acceptance matrix.
+2. **Hardening coverage gaps:** expand tests for concurrency depth (stock/oversell) and any remaining "manual-only" claims in the acceptance matrix.
 3. **Buyer-grade packaging:** Postgres + Docker Compose deployment path is not yet implemented (Milestone 4).
 
 ## Next 3 actions (strict, step-by-step)
@@ -190,3 +195,4 @@ Consolidated M3 gates proof (authoritative):
 1. **KPI contract completeness sweep (M3):** enumerate all KPI fields used by snapshots/dashboard/exports and confirm each is defined in `docs/kpi_definitions.md` with units + edge-case handling.
 2. **Concurrency hardening tests (M3):** add at least one deterministic test that exercises stock decrement/oversell prevention under contention (or the closest reliable approximation in the Django test runner).
 3. **Begin M4 deployment baseline:** introduce Docker Compose + Postgres and prove parity gates (migrate + test + run_checks) on Postgres locally.
+
