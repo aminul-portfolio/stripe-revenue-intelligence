@@ -47,6 +47,7 @@ All gates below must remain green locally and in CI.
 ## Notes (chronological)
 
 * 2026-01-21: Payments hardening proof captured: stock idempotency tests (docs/proof/m3_payment_intent_stock_idempotency_tests_2026-01-21.txt).
+* 2026-01-21: Stock concurrency test added and proof captured (`docs/proof/m3_stock_concurrency_2026-01-21.txt`).
 
 * 2026-01-18: Monitoring namespace + smoke test stabilized; templates fixed to use namespaced URL reverse.
 * 2026-01-19: CI confirmed green on `main` for core gates and engineering gates.
@@ -137,6 +138,9 @@ Payments hardening:
 
 * `payments/tests/test_payment_intent_stock_idempotency.py`
 * `docs/proof/m3_payment_intent_stock_idempotency_tests_2026-01-21.txt`
+
+Stock concurrency proof:
+- `docs/proof/m3_stock_concurrency_2026-01-21.txt`
 
 Claim traceability:
 

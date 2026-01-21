@@ -27,6 +27,12 @@ KPI contract completeness proof (M3):
 ### RBAC contract (roles + access rules)
 - `docs/rbac_matrix.md`
   - Source of truth for role-based access; tests must enforce.
+  
+### Stock & concurrency contract (payments + inventory)
+- Prevent double-decrement on Stripe webhook replay (idempotent handler boundary).
+- Prevent negative stock (oversell raises `StockOversellError` and does not mark order paid).
+- Concurrency safety: stock decrement uses row locks (`select_for_update`) to prevent race-condition double-decrement.
+
 
 ### Acceptance matrix (product claims → code/tests/proofs)
 - `docs/acceptance_matrix.md`
@@ -49,6 +55,10 @@ KPI contract completeness proof (M3):
     - product stock path
     - variant stock path
     - preorder skip path
+    
+### Stock concurrency protection (locking boundary)
+- `payments/tests/test_stock_concurrency.py`
+  - Proves row-locking prevents double-decrement under contention (TransactionTestCase).
 
 ### Core RBAC coverage (existing suite)
 - `accounts/tests/test_rbac_views.py`
@@ -90,6 +100,9 @@ Export contract enforcement:
 Payments hardening proof:
 - `docs/proof/m3_payment_intent_stock_idempotency_tests_2026-01-21.txt`
 - - `docs/proof/m3_stock_oversell_prevention_tests_2026-01-21.txt`
+
+Stock concurrency proof:
+- `docs/proof/m3_stock_concurrency_2026-01-21.txt`
 
 Gates + deploy verification (authoritative):
 - `docs/proof/m3_2026-01-21_full_gates_clean.txt`
