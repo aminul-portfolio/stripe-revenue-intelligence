@@ -34,3 +34,4 @@ tzdata==2025.3
     # via django
 urllib3==2.6.3
     # via requests
+psycopg[binary]==3.2.9

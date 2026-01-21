@@ -10,6 +10,8 @@ Policy:
 - Any change to a contract requires: update contract doc/JSON + update/add a test + update `docs/STATUS.md`.
 - Proof files must be reproducible from scripts/commands below and stored under `docs/proof/`.
 
+## 1) Contracts (what we promise)
+
 ### KPI meaning contract
 - `docs/kpi_definitions.md`
   - Defines KPI meaning, windows (7/30/90), boundaries, sources, and edge cases.
@@ -27,12 +29,11 @@ KPI contract completeness proof (M3):
 ### RBAC contract (roles + access rules)
 - `docs/rbac_matrix.md`
   - Source of truth for role-based access; tests must enforce.
-  
+
 ### Stock & concurrency contract (payments + inventory)
 - Prevent double-decrement on Stripe webhook replay (idempotent handler boundary).
 - Prevent negative stock (oversell raises `StockOversellError` and does not mark order paid).
 - Concurrency safety: stock decrement uses row locks (`select_for_update`) to prevent race-condition double-decrement.
-
 
 ### Acceptance matrix (product claims → code/tests/proofs)
 - `docs/acceptance_matrix.md`
@@ -55,10 +56,15 @@ KPI contract completeness proof (M3):
     - product stock path
     - variant stock path
     - preorder skip path
-    
+
 ### Stock concurrency protection (locking boundary)
 - `payments/tests/test_stock_concurrency.py`
   - Proves row-locking prevents double-decrement under contention (TransactionTestCase).
+
+### Postgres teardown stability (parity reliability)
+- `purelaka/test_runner.py`
+  - Ensures Postgres test DB teardown is reliable by terminating lingering sessions before drop.
+  - Prevents nondeterministic `database ... is being accessed by other users` failures on Docker/WSL.
 
 ### Core RBAC coverage (existing suite)
 - `accounts/tests/test_rbac_views.py`
@@ -100,7 +106,7 @@ Export contract enforcement:
 
 Payments hardening proof:
 - `docs/proof/m3_payment_intent_stock_idempotency_tests_2026-01-21.txt`
-- - `docs/proof/m3_stock_oversell_prevention_tests_2026-01-21.txt`
+- `docs/proof/m3_stock_oversell_prevention_tests_2026-01-21.txt`
 
 Stock concurrency proof:
 - `docs/proof/m3_stock_concurrency_2026-01-21.txt`
@@ -118,10 +124,18 @@ Acceptance matrix snapshot:
 RBAC surface contract proof:
 - `docs/proof/m3_rbac_surface_contract_2026-01-20.txt`
 
+### M4 — deployment baseline proofs (in progress)
+
+Postgres parity gates:
+- `docs/proof/m4_2026-01-21_postgres_parity_gates.txt` — Postgres parity gates (local Docker Compose + `purelaka.settings_postgres`)
+
 ## 4) How to re-verify (buyer due-diligence commands)
 
 Core gates (single consolidated proof):
 - `.\scripts\gates.ps1 -ProofPath "docs/proof/m3_YYYY-MM-DD_full_gates_clean.txt"`
+
+Postgres parity gates (local Docker Compose):
+- `DJANGO_SETTINGS_MODULE=purelaka.settings_postgres .\scripts\gates.ps1 -ProofPath "docs/proof/m4_YYYY-MM-DD_postgres_parity_gates.txt"`
 
 Or run individually:
 - `python manage.py check`

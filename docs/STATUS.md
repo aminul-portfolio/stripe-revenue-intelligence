@@ -2,8 +2,8 @@
 
 ## Current milestone
 
-* Milestone: **M3 Hardening (complete)**
-* Current step: **M4 Deployment baseline (next)**
+* Milestone: **M4 Deployment baseline (in progress)**
+* Current step: **M4.1 Postgres parity baseline (in progress)**
 * M3 closed: **2026-01-21** (exit proofs complete; gates verified)
 
 ## Runtime baseline
@@ -12,20 +12,20 @@
 * Framework: Django 5.2.10
 * DB (dev): SQLite
 * Target DB (buyer-ready): Postgres (Milestone 4 via Docker Compose)
+* Postgres parity settings: `DJANGO_SETTINGS_MODULE=purelaka.settings_postgres`
 
 ## Release gates (latest verified: 2026-01-21)
 
 All gates below must remain green locally and in CI.
 
 * `python manage.py check`: PASS
-* `python manage.py test`: PASS (**59 tests**)
+* `python manage.py test`: PASS (**59+ tests**, see latest proof)
 * `python manage.py run_checks --fail-on-issues`: PASS (**open=0, resolved=3**)
 * `python manage.py makemigrations --check --dry-run`: PASS
 * `ruff check .`: PASS
 * `ruff format --check .`: PASS
 * `pip-audit -r requirements.txt`: PASS (no known vulnerabilities)
 * Deploy gate (prod-like settings): `python manage.py check --deploy`: PASS
-
   * Run with: `DJANGO_SETTINGS_MODULE=purelaka.settings_prod`
 
 ### Important settings note (prevents false test failures)
@@ -33,21 +33,23 @@ All gates below must remain green locally and in CI.
 * `purelaka.settings_prod` enables deployment protections such as `SECURE_SSL_REDIRECT=True`.
 * If you run the test suite with `DJANGO_SETTINGS_MODULE=purelaka.settings_prod`, Django’s test client can receive **301 redirects to `https://testserver/`** for many endpoints.
 * Therefore:
-
-  * Run **tests and normal gates** with default settings (`purelaka.settings`).
+  * Run **tests and normal gates** with default settings (`purelaka.settings`), or Postgres parity settings (`purelaka.settings_postgres`).
   * Run **deploy gate only** with prod settings:
-
     * `DJANGO_SETTINGS_MODULE=purelaka.settings_prod python manage.py check --deploy`
   * After running the deploy gate in PowerShell, clear it:
-
     * `Remove-Item Env:DJANGO_SETTINGS_MODULE -ErrorAction SilentlyContinue`
 
 > Note: PowerShell may show a `NativeCommandError` banner when piping/redirection is used (e.g., `Tee-Object`) even if the command succeeds. Treat `$LASTEXITCODE=0` as the authoritative success signal and keep outputs as proof.
 
 ## Notes (chronological)
 
-* 2026-01-21: Payments hardening proof captured: stock idempotency tests (docs/proof/m3_payment_intent_stock_idempotency_tests_2026-01-21.txt).
+* 2026-01-21: **M4.1 Postgres parity gates captured:** `docs/proof/m4_2026-01-21_postgres_parity_gates.txt`.
+* 2026-01-21: Payments hardening proof captured: stock idempotency tests (`docs/proof/m3_payment_intent_stock_idempotency_tests_2026-01-21.txt`).
 * 2026-01-21: Stock concurrency test added and proof captured (`docs/proof/m3_stock_concurrency_2026-01-21.txt`).
+* 2026-01-21: Deploy gate proof upgraded to be self-auditing (timestamp + `DJANGO_SETTINGS_MODULE` + env-cleared confirmation).
+* 2026-01-21: Consolidated M3 gates proof captured as a buyer-ready snapshot (`docs/proof/m3_2026-01-21_full_gates_clean.txt`).
+* 2026-01-21: Payments hardening proof captured: oversell prevention tests (`docs/proof/m3_stock_oversell_prevention_tests_2026-01-21.txt`).
+* 2026-01-21: Milestone 3 hardening closed (contracts + proofs + gates green).
 
 * 2026-01-18: Monitoring namespace + smoke test stabilized; templates fixed to use namespaced URL reverse.
 * 2026-01-19: CI confirmed green on `main` for core gates and engineering gates.
@@ -88,10 +90,6 @@ All gates below must remain green locally and in CI.
 * 2026-01-20: RBAC surface contract test added and stabilized using namespaced URL reversing for monitoring (`reverse("monitoring:monitoring-issues")`) + proof captured.
 * 2026-01-20: Contracts & Proof Index added as the buyer due-diligence entry point (`docs/CONTRACTS_AND_PROOFS.md`).
 * 2026-01-20: KPI definitions updated (time window boundaries clarified; export contract references reinforced) (`docs/kpi_definitions.md`).
-* 2026-01-21: Deploy gate proof upgraded to be self-auditing (timestamp + `DJANGO_SETTINGS_MODULE` + env-cleared confirmation).
-* 2026-01-21: Consolidated M3 gates proof captured as a buyer-ready snapshot (`docs/proof/m3_2026-01-21_full_gates_clean.txt`).
-* 2026-01-21: Payments hardening proof captured: oversell prevention tests (`docs/proof/m3_stock_oversell_prevention_tests_2026-01-21.txt`).
-* 2026-01-21: Milestone 3 hardening closed (contracts + proofs + gates green).
 
 ## Evidence (proof artifacts)
 
@@ -117,52 +115,26 @@ Exports audited (attachments + audit events):
 * `docs/proof/analytics_export_customers_audit_2026-01-19.txt`
 * `docs/proof/analytics_export_products_audit_2026-01-20.txt`
 
-### M3 proof pack (current)
+### M3 proof pack (authoritative)
 
 Buyer entry point: `docs/CONTRACTS_AND_PROOFS.md`
-
-Contracts + tests:
-
-* `docs/kpi_definitions.md`
-* `docs/contracts/kpi_contract.json`
-* `analyticsapp/tests/test_export_contract.py`
-* `docs/proof/m3_export_contract_tests_2026-01-20.txt`
-* `docs/proof/m3_export_contract_test_verbose_2026-01-20.txt`
-* `docs/proof/m3_kpi_contract_alignment_2026-01-20.txt`
-* `docs/proof/m3_kpi_inventory_2026-01-20.txt`
-* `docs/proof/m3_kpi_parity_inventory_2026-01-21.txt`
-* `docs/proof/m3_kpi_contract_completeness_2026-01-21.txt`
-* `docs/proof/m3_stock_concurrency_2026-01-21.txt`
-
-
-
-Payments hardening:
-
-* `payments/tests/test_payment_intent_stock_idempotency.py`
-* `docs/proof/m3_payment_intent_stock_idempotency_tests_2026-01-21.txt`
-
-Stock concurrency proof:
-- `docs/proof/m3_stock_concurrency_2026-01-21.txt`
-
-Claim traceability:
-
-* `docs/acceptance_matrix.md`
-* `docs/proof/m3_acceptance_matrix_2026-01-20.txt`
-
-RBAC surface contract:
-
-* `docs/rbac_matrix.md`
-* `accounts/tests/test_rbac_surface_contract.py`
-* `docs/proof/m3_rbac_surface_contract_2026-01-20.txt`
 
 Consolidated M3 gates proof (authoritative):
 
 * `docs/proof/m3_2026-01-21_full_gates_clean.txt`
-* `scripts/gates.ps1`
-* `scripts/deploy_gate.ps1`
 * `docs/proof/m3_deploy_gate_2026-01-21.txt`
+
+Key M3 hardening proofs (2026-01-21):
+
+* `docs/proof/m3_payment_intent_stock_idempotency_tests_2026-01-21.txt`
+* `docs/proof/m3_stock_oversell_prevention_tests_2026-01-21.txt`
+* `docs/proof/m3_stock_concurrency_2026-01-21.txt`
+* `docs/proof/m3_kpi_parity_inventory_2026-01-21.txt`
 * `docs/proof/m3_kpi_contract_completeness_2026-01-21.txt`
-  * Includes timestamp + DJANGO_SETTINGS_MODULE + env cleared confirmation.
+
+### M4 proof pack (in progress)
+
+* `docs/proof/m4_2026-01-21_postgres_parity_gates.txt` — Postgres parity gates (Docker Compose + `purelaka.settings_postgres`)
 
 ## Completed
 
@@ -184,26 +156,29 @@ Consolidated M3 gates proof (authoritative):
 * RBAC boundaries enforced across analytics/exports/monitoring/orders/payments.
 * Audit logging present for operational actions; analytics exports audited (proven).
 
+### Milestone 3 — Hardening (complete)
+
+* Buyer due-diligence entry point centralized: `docs/CONTRACTS_AND_PROOFS.md`.
+* KPI meaning contract aligned and enforced via tests and proof artifacts.
+* Export schema contract is machine-checkable and test-enforced.
+* Concurrency and oversell prevention proofs captured (see M3 proof pack).
+* Consolidated M3 gates proof captured: `docs/proof/m3_2026-01-21_full_gates_clean.txt`.
+
 ## In progress
 
-### Milestone 3 — Hardening (in progress)
+### Milestone 4 — Deployment baseline (in progress)
 
-* KPI meaning contract strengthened (`docs/kpi_definitions.md`) and aligned to the windows policy (inclusive of today).
-* Export schema contract baselined as machine-checkable JSON (`docs/contracts/kpi_contract.json`) and enforced via tests (`analyticsapp/tests/test_export_contract.py`).
-* Acceptance matrix maintained as the buyer-facing claim map (`docs/acceptance_matrix.md`) with a dated snapshot in `docs/proof/`.
-* RBAC matrix remains the source of truth and is test-backed; RBAC surface contract test added to prevent accidental exposure (`accounts/tests/test_rbac_surface_contract.py`).
-* Buyer due-diligence entry point is now centralized in `docs/CONTRACTS_AND_PROOFS.md`.
-* Consolidated M3 gates proof captured: `docs/proof/m3_2026-01-21_full_gates_clean.txt`.
-* Deploy gate proof captured: `docs/proof/m3_deploy_gate_2026-01-21.txt`.
+* M4.1: Postgres via Docker Compose + Postgres settings module + parity proof captured.
+* Remaining to close M4.1: proof index updates in `docs/CONTRACTS_AND_PROOFS.md` + commit + push with gates green.
 
 ## Top blockers (max 3)
 
-1. **KPI contract completeness:** ensure every KPI shown/exported is defined and matches implementation (units, sources, edge cases, and window logic).
-2. **Hardening coverage gaps:** expand tests for concurrency depth (stock/oversell) and any remaining "manual-only" claims in the acceptance matrix.
-3. **Buyer-grade packaging:** Postgres + Docker Compose deployment path is not yet implemented (Milestone 4).
+1. **Postgres parity discipline:** ensure all gates run under `purelaka.settings_postgres` and proof is captured consistently.
+2. **Docker/WSL stability:** keep Docker Desktop + WSL updated to avoid local engine interruptions.
+3. **Proof index + closure:** link M4.1 proof in both index docs and commit/push with gates green.
 
 ## Next 3 actions (strict, step-by-step)
 
-1. **KPI contract completeness sweep (M3):** enumerate all KPI fields used by snapshots/dashboard/exports and confirm each is defined in `docs/kpi_definitions.md` with units + edge-case handling.
-2. **Concurrency hardening tests (M3):** add at least one deterministic test that exercises stock decrement/oversell prevention under contention (or the closest reliable approximation in the Django test runner).
-3. **Begin M4 deployment baseline:** introduce Docker Compose + Postgres and prove parity gates (migrate + test + run_checks) on Postgres locally.
+1. Link `docs/proof/m4_2026-01-21_postgres_parity_gates.txt` in `docs/STATUS.md` and `docs/CONTRACTS_AND_PROOFS.md`.
+2. Run consolidated gates once more (Postgres mode) to confirm green after doc edits.
+3. Commit and push the M4.1 baseline changes.
