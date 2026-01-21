@@ -2,9 +2,9 @@
 
 ## Current milestone
 
-* Milestone: **M3 Hardening (in progress)**
-* Current step: **M3.3 Buyer proof-pack index complete (see Contracts & Proof Index)**
-* M2 closed: **2026-01-20** (exit proofs complete; gates verified)
+* Milestone: **M3 Hardening (complete)**
+* Current step: **M4 Deployment baseline (next)**
+* M3 closed: **2026-01-21** (exit proofs complete; gates verified)
 
 ## Runtime baseline
 
@@ -91,6 +91,7 @@ All gates below must remain green locally and in CI.
 * 2026-01-21: Deploy gate proof upgraded to be self-auditing (timestamp + `DJANGO_SETTINGS_MODULE` + env-cleared confirmation).
 * 2026-01-21: Consolidated M3 gates proof captured as a buyer-ready snapshot (`docs/proof/m3_2026-01-21_full_gates_clean.txt`).
 * 2026-01-21: Payments hardening proof captured: oversell prevention tests (`docs/proof/m3_stock_oversell_prevention_tests_2026-01-21.txt`).
+* 2026-01-21: Milestone 3 hardening closed (contracts + proofs + gates green).
 
 ## Evidence (proof artifacts)
 
