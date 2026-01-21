@@ -8,6 +8,7 @@ This document is the buyer-facing index that maps:
 Policy:
 - If a claim/contract is not linked here, it is not part of the buyer-ready proof pack.
 - Any change to a contract requires: update contract doc/JSON + update/add a test + update `docs/STATUS.md`.
+- Proof files must be reproducible from scripts/commands below and stored under `docs/proof/`.
 
 ## 1) Contracts (authoritative)
 
@@ -38,6 +39,13 @@ Policy:
 - `accounts/tests/test_rbac_surface_contract.py`
   - Prevents accidental exposure of protected analytics/exports/monitoring surfaces.
   - Uses namespaced monitoring URL reverse: `reverse("monitoring:monitoring-issues")`.
+
+### Payments stock idempotency (handler boundary)
+- `payments/tests/test_payment_intent_stock_idempotency.py`
+  - Proves `payment_intent.succeeded` handler decrements stock once and is replay-safe:
+    - product stock path
+    - variant stock path
+    - preorder skip path
 
 ### Core RBAC coverage (existing suite)
 - `accounts/tests/test_rbac_views.py`
@@ -74,8 +82,11 @@ Export contract enforcement:
 - `docs/proof/m3_export_contract_test_verbose_2026-01-20.txt`
 - `docs/proof/m3_kpi_contract_alignment_2026-01-20.txt`
 - `docs/proof/m3_kpi_inventory_2026-01-20.txt`
+
+Gates + deploy verification (authoritative):
 - `docs/proof/m3_2026-01-21_full_gates_clean.txt`
 - `docs/proof/m3_deploy_gate_2026-01-21.txt`
+  - Includes timestamp + `DJANGO_SETTINGS_MODULE` + env-cleared confirmation.
 - `scripts/gates.ps1`
 - `scripts/deploy_gate.ps1`
 
@@ -87,7 +98,10 @@ RBAC surface contract proof:
 
 ## 4) How to re-verify (buyer due-diligence commands)
 
-Core gates:
+Core gates (single consolidated proof):
+- `.\scripts\gates.ps1 -ProofPath "docs/proof/m3_YYYY-MM-DD_full_gates_clean.txt"`
+
+Or run individually:
 - `python manage.py check`
 - `python manage.py test`
 - `python manage.py run_checks --fail-on-issues`
@@ -96,6 +110,6 @@ Core gates:
 - `ruff format --check .`
 - `pip-audit -r requirements.txt`
 
-Deploy gate (prod-like):
-- `DJANGO_SETTINGS_MODULE=purelaka.settings_prod python manage.py check --deploy`
+Deploy gate (prod-like, self-auditing proof):
+- `powershell -ExecutionPolicy Bypass -File scripts/deploy_gate.ps1`
 - `Remove-Item Env:DJANGO_SETTINGS_MODULE -ErrorAction SilentlyContinue`
