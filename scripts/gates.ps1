@@ -7,13 +7,39 @@ $ErrorActionPreference = "Stop"
 
 if ([string]::IsNullOrWhiteSpace($ProofPath)) {
   $date = Get-Date -Format "yyyy-MM-dd"
-  $ProofPath = "docs/proof/m3_${date}_full_gates.txt"
+  $ProofPath = "docs/proof/m3_${date}_full_gates_clean.txt"
 }
 
 New-Item -ItemType Directory -Force -Path (Split-Path $ProofPath) | Out-Null
 
+# UTF-8 WITHOUT BOM (buyer-friendly, diff-friendly proof artifacts)
+$Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+
 function Proof-WriteLine([string]$Line) {
-  $Line | Out-File -FilePath $ProofPath -Append -Encoding utf8
+  $sw = New-Object System.IO.StreamWriter($ProofPath, $true, $Utf8NoBom)
+  try {
+    $sw.WriteLine($Line)
+  } finally {
+    $sw.Dispose()
+  }
+}
+
+function Proof-Write([string]$Text) {
+  $sw = New-Object System.IO.StreamWriter($ProofPath, $true, $Utf8NoBom)
+  try {
+    $sw.Write($Text)
+  } finally {
+    $sw.Dispose()
+  }
+}
+
+function Proof-ResetFile() {
+  $sw = New-Object System.IO.StreamWriter($ProofPath, $false, $Utf8NoBom)
+  try {
+    # create/overwrite file with no BOM
+  } finally {
+    $sw.Dispose()
+  }
 }
 
 function Invoke-Gate([string]$Title, [string]$Cmd) {
@@ -23,7 +49,7 @@ function Invoke-Gate([string]$Title, [string]$Cmd) {
   Proof-WriteLine ""
   Proof-WriteLine ("== " + $Title + " ==")
 
-  # Stream output to proof as the command runs (no buffering, no truncation)
+  # Append live output to proof while running (cmd handles redirection reliably)
   $cmdLine = "$Cmd >> `"$ProofPath`" 2>&1"
   cmd /c $cmdLine
 
@@ -33,11 +59,12 @@ function Invoke-Gate([string]$Title, [string]$Cmd) {
   }
 }
 
-# Fresh header (overwrite existing proof file)
-"== PureLaka Gates ==" | Out-File -FilePath $ProofPath -Encoding utf8
-("Timestamp: " + (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")) | Out-File -FilePath $ProofPath -Append -Encoding utf8
-("PWD: " + (Get-Location).Path) | Out-File -FilePath $ProofPath -Append -Encoding utf8
-"" | Out-File -FilePath $ProofPath -Append -Encoding utf8
+# Fresh header (overwrite existing proof file; no BOM)
+Proof-ResetFile
+Proof-WriteLine "== PureLaka Gates =="
+Proof-WriteLine ("Timestamp: " + (Get-Date).ToString("yyyy-MM-dd HH:mm:ss"))
+Proof-WriteLine ("PWD: " + (Get-Location).Path)
+Proof-WriteLine ""
 
 Write-Host "== PureLaka Gates =="
 
