@@ -116,6 +116,7 @@ Every KPI shown in the dashboard or exports must be defined here and must match 
 * **Shown in:** Dashboard, KPI export
 * **Export column:** `refund_rate_orders_pct`
 * **Unit:** Percentage points (0–100)
+* **Implementation note:** The dashboard reads `rev.refund_rate_orders` directly (already in percentage points), and appends `%` in the template. The KPI export maps `rev.refund_rate_orders` → `refund_rate_orders_pct`.
 
 #### 7) Refund Rate (Value %)
 
@@ -125,6 +126,7 @@ Every KPI shown in the dashboard or exports must be defined here and must match 
 * **Source:** Derived from snapshot KPIs (Revenue + Refunded Amount).
 * **Shown in:** Dashboard (only if displayed)
 * **Notes:** This KPI is not part of the current export contract unless explicitly added to `docs/contracts/kpi_contract.json`.
+* **Implementation note:** This KPI is computed in `analyticsapp.views.dashboard()` as `rev["refund_rate_value"]` using snapshot `rev.revenue` and `rev.refund_amount`. It is not a snapshot key today.
 
 ### Customer KPIs
 
