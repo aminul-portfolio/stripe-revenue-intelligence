@@ -1,42 +1,87 @@
-Traceback (most recent call last):
-  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\manage.py", line 14, in <module>
-    main()
-  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\manage.py", line 10, in main
-    execute_from_command_line(sys.argv)
-  File "C:\Users\sumon\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\management\__init__.py", line 442, in execute_from_command_line
-    utility.execute()
-  File "C:\Users\sumon\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\management\__init__.py", line 436, in execute
-    self.fetch_command(subcommand).run_from_argv(self.argv)
-  File "C:\Users\sumon\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\management\commands\test.py", line 24, in run_from_argv
-    super().run_from_argv(argv)
-  File "C:\Users\sumon\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\management\base.py", line 404, in run_from_argv
-    parser = self.create_parser(argv[0], argv[1])
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\sumon\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\management\base.py", line 367, in create_parser
-    self.add_arguments(parser)
-  File "C:\Users\sumon\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\core\management\commands\test.py", line 54, in add_arguments
-    test_runner_class = get_runner(settings, self.test_runner)
-                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\sumon\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\test\utils.py", line 388, in get_runner
-    test_runner_class = test_runner_class or settings.TEST_RUNNER
-                                             ^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\sumon\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\conf\__init__.py", line 102, in __getattr__
-    self._setup(name)
-  File "C:\Users\sumon\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\conf\__init__.py", line 89, in _setup
-    self._wrapped = Settings(settings_module)
-                    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\sumon\AppData\Local\Programs\Python\Python312\Lib\site-packages\django\conf\__init__.py", line 217, in __init__
-    mod = importlib.import_module(self.SETTINGS_MODULE)
-          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "C:\Users\sumon\AppData\Local\Programs\Python\Python312\Lib\importlib\__init__.py", line 90, in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "<frozen importlib._bootstrap>", line 1387, in _gcd_import
-  File "<frozen importlib._bootstrap>", line 1360, in _find_and_load
-  File "<frozen importlib._bootstrap>", line 1331, in _find_and_load_unlocked
-  File "<frozen importlib._bootstrap>", line 935, in _load_unlocked
-  File "<frozen importlib._bootstrap_external>", line 995, in exec_module
-  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
-  File "C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\purelaka\settings.py", line 4, in <module>
-    from dotenv import load_dotenv
-ModuleNotFoundError: No module named 'dotenv'
+﻿python : Creating test database for alias 'default' 
+('file:memorydb_default?mode=memory&cache=shared')...
+At line:1 char:1
++ python manage.py test payments.tests.test_payment_intent_stock_idempo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Creating test d...che=shared')...:Stri 
+   ng) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+Found 5 test(s).
+Operations to perform:
+  Synchronize unmigrated apps: messages, staticfiles
+  Apply all migrations: accounts, admin, analyticsapp, audit, auth, contenttypes, monitoring, orders, payments, products, sessions, subscriptions, wishlist
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying auth.0001_initial... OK
+  Applying accounts.0001_initial... OK
+  Applying accounts.0002_alter_userrole_role... OK
+  Applying accounts.0003_add_customer_role_backfill... OK
+  Applying admin.0001_initial... OK
+  Applying admin.0002_logentry_remove_auto_add... OK
+  Applying admin.0003_logentry_add_action_flag_choices... OK
+  Applying products.0001_initial... OK
+  Applying analyticsapp.0001_initial... OK
+  Applying analyticsapp.0002_analyticsproductdaily... OK
+  Applying audit.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying monitoring.0001_initial... OK
+  Applying monitoring.0002_alter_dataqualityissue_options_and_more... OK
+  Applying monitoring.0003_normalize_issue_types... OK
+  Applying monitoring.0004_alter_dataqualityissue_issue_type... OK
+  Applying orders.0001_initial... OK
+  Applying orders.0002_orderitem_product_orderitem_variant... OK
+  Applying orders.0003_alter_order_options_order_refund_amount_pennies_and_more... OK
+  Applying orders.0004_normalize_canceled_spelling... OK
+  Applying orders.0005_alter_order_status... OK
+  Applying payments.0001_initial... OK
+  Applying payments.0002_stripeevent_payments_st_event_t_af3af6_idx_and_more... OK
+  Applying sessions.0001_initial... OK
+  Applying subscriptions.0001_initial... OK
+  Applying subscriptions.0002_rename_cancelled_at_subscription_canceled_at_and_more... OK
+  Applying subscriptions.0003_stripecustomer... OK
+test_preorder_items_do_not_decrement_stock (payments.tests.test_payment_intent_stock
+_idempotency.PaymentIntentSucceededStockIdempotencyTests.test_preorder_items_do_not_
+decrement_stock)
+If product.is_preorder=True, handler should skip stock decrement. ... ok
+test_product_oversell_raises_and_does_not_decrement_below_zero (payments.tests.test_
+payment_intent_stock_idempotency.PaymentIntentSucceededStockIdempotencyTests.test_pr
+oduct_oversell_raises_and_does_not_decrement_below_zero)
+Hardening: if qty > stock for non-preorder product, handler must raise ... ok
+test_product_stock_decrements_once_on_replay (payments.tests.test_payment_intent_sto
+ck_idempotency.PaymentIntentSucceededStockIdempotencyTests.test_product_stock_decrem
+ents_once_on_replay)
+Proves idempotency at the handler boundary: ... ok
+test_variant_oversell_raises_and_does_not_decrement_below_zero (payments.tests.test_
+payment_intent_stock_idempotency.PaymentIntentSucceededStockIdempotencyTests.test_va
+riant_oversell_raises_and_does_not_decrement_below_zero)
+Hardening: if qty > stock for variant, handler must raise ... ok
+test_variant_stock_decrements_once_on_replay (payments.tests.test_payment_intent_sto
+ck_idempotency.PaymentIntentSucceededStockIdempotencyTests.test_variant_stock_decrem
+ents_once_on_replay)
+Variant path uses ProductVariant.stock with select_for_update. ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 2.351s
+
+OK
+Destroying test database for alias 'default' 
+('file:memorydb_default?mode=memory&cache=shared')...
+
+  Applying wishlist.0001_initial... OK
+System check identified no issues (0 silenced).
