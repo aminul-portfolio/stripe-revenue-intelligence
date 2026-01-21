@@ -178,3 +178,88 @@ class PaymentIntentSucceededStockIdempotencyTests(TestCase):
 
         preorder.refresh_from_db()
         self.assertEqual(preorder.stock, 7)
+
+    def test_product_oversell_raises_and_does_not_decrement_below_zero(self) -> None:
+        """
+        Hardening: if qty > stock for non-preorder product, handler must raise
+        and must not push stock negative.
+        """
+        product = Product.objects.create(
+            name="P_OV1",
+            slug="p-ov1",
+            description="",
+            price=Decimal("10.00"),
+            is_active=True,
+            stock=1,
+            is_preorder=False,
+        )
+
+        order = self._make_order(total=Decimal("20.00"))
+        OrderItem.objects.create(
+            order=order,
+            product=product,
+            variant=None,
+            product_name=product.name,
+            sku="SKU-OV1",
+            unit_price=product.price,
+            qty=2,  # > stock
+            line_total=Decimal("20.00"),
+        )
+
+        intent = self._intent_for_order(order, intent_id="pi_ov_prod_1")
+
+        with self.assertRaises(Exception):
+            handle_payment_intent_succeeded(intent=intent)
+
+        order.refresh_from_db()
+        product.refresh_from_db()
+
+        # Must not silently mark paid on oversell
+        self.assertNotEqual(order.status, "paid")
+        # Must not go negative
+        self.assertEqual(product.stock, 1)
+
+    def test_variant_oversell_raises_and_does_not_decrement_below_zero(self) -> None:
+        """
+        Hardening: if qty > stock for variant, handler must raise
+        and must not push variant stock negative.
+        """
+        parent = Product.objects.create(
+            name="P_OV2",
+            slug="p-ov2",
+            description="",
+            price=Decimal("15.00"),
+            is_active=True,
+            stock=0,
+            is_preorder=False,
+        )
+        variant = ProductVariant.objects.create(
+            product=parent,
+            name="Size XL",
+            sku="SKU-OV2-XL",
+            price_override=None,
+            stock=1,
+        )
+
+        order = self._make_order(total=Decimal("30.00"))
+        OrderItem.objects.create(
+            order=order,
+            product=parent,
+            variant=variant,
+            product_name=parent.name,
+            sku=variant.sku,
+            unit_price=variant.effective_price(),
+            qty=2,  # > stock
+            line_total=Decimal("30.00"),
+        )
+
+        intent = self._intent_for_order(order, intent_id="pi_ov_var_1")
+
+        with self.assertRaises(Exception):
+            handle_payment_intent_succeeded(intent=intent)
+
+        order.refresh_from_db()
+        variant.refresh_from_db()
+
+        self.assertNotEqual(order.status, "paid")
+        self.assertEqual(variant.stock, 1)
