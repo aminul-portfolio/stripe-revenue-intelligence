@@ -96,6 +96,7 @@ Export contract enforcement:
 - `docs/proof/m3_kpi_contract_alignment_2026-01-20.txt`
 - `docs/proof/m3_kpi_inventory_2026-01-20.txt`
 - `docs/proof/m3_kpi_contract_completeness_2026-01-21.txt`
+- `docs/proof/m3_kpi_parity_inventory_2026-01-21.txt`
 
 Payments hardening proof:
 - `docs/proof/m3_payment_intent_stock_idempotency_tests_2026-01-21.txt`

@@ -1,0 +1,9 @@
+M3 KPI PARITY INVENTORY CHECK
+Date: 2026-01-21
+Contract: docs/contracts/kpi_contract.json
+Definitions: docs/kpi_definitions.md
+
+Export key: exports.analytics-export-kpi-summary
+Extracted headers: 13
+
+RESULT: PASS (every contract header appears in docs/kpi_definitions.md)
