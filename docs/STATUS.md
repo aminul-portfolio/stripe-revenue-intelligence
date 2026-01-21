@@ -139,6 +139,9 @@ RBAC surface contract:
 Consolidated M3 gates proof (authoritative):
 
 * `docs/proof/m3_2026-01-20_full_gates.txt`
+* `scripts/gates.ps1`
+* `scripts/deploy_gate.ps1`
+* `docs/proof/m3_deploy_gate_2026-01-21.txt`
 
 
 ## Completed
