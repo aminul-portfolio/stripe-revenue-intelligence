@@ -128,6 +128,7 @@ RBAC surface contract proof:
 
 Postgres parity gates:
 - `docs/proof/m4_2026-01-21_postgres_parity_gates.txt` — Postgres parity gates (local Docker Compose + `purelaka.settings_postgres`)
+- `docs/proof/m4_2026-01-22_dockerfile_gate.txt` — Dockerfile baseline (build + gates)
 
 ## 4) How to re-verify (buyer due-diligence commands)
 
