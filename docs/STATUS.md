@@ -3,7 +3,8 @@
 ## Current milestone
 
 * Milestone: **M4 Deployment baseline (in progress)**
-* Current step: **M4.4 Production-shaped container baseline (Step 3: prod-like compose baseline) (complete)**
+* Current step: **M4.4 Production-shaped container baseline (prod-like compose baseline) (complete)**
+* Next step: **M4.5 Production runbook + reproducible prod-compose commands (in progress)**
 * M3 closed: **2026-01-21** (exit proofs complete; gates verified)
 
 ## Runtime baseline
@@ -44,6 +45,7 @@ All gates below must remain green locally and in CI.
 
 ## Notes (chronological)
 
+* 2026-01-22: **M4.5 STATUS next-step line added; docs/index gates captured (docs-only verification):** `docs/proof/m4_2026-01-22_m45_status_next_step_docs_index_gates.txt`.
 * 2026-01-22: **M4.4 Step 3 rerun docs/index gates captured:** `docs/proof/m4_2026-01-22_prod_compose_rerun_docs_index_gates.txt`.
 * 2026-01-22: **M4.4 Step 3 prod compose full gates re-run from clean rebuild (authoritative rerun):** `docs/proof/m4_2026-01-22_prod_compose_full_gates_rerun_clean.txt`.
 * 2026-01-22: **M4.4 Step 3 after-fix docs/index gates captured (index completeness):** `docs/proof/m4_2026-01-22_after_fix_docs_index_gates.txt`.
@@ -184,6 +186,8 @@ Key M3 hardening proofs (2026-01-21):
 * `docs/proof/m4_2026-01-22_prod_compose_rerun_docs_index_gates.txt` — Docs/index gates after indexing rerun proofs (docs-only change verification)
 * `docs/proof/m4_2026-01-22_prod_compose_full_gates.txt` — M4.4 Step 3 (prod-like compose): full gates run inside container (includes `check --deploy`; PASS confirmed)
 * `docs/proof/m4_2026-01-22_prod_compose_pid1_cmdline.txt` — M4.4 Step 3: PID1 commandline proof (`/proc/1/cmdline` confirms Gunicorn as container process)
+* `docs/proof/m4_2026-01-22_m45_status_next_step_docs_index_gates.txt` — Docs/index gates after adding M4.5 next step line in STATUS (docs-only change verification)
+
 
 ## Completed
 
