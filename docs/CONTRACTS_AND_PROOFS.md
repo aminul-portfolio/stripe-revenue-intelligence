@@ -126,9 +126,13 @@ RBAC surface contract proof:
 
 ### M4 — deployment baseline proofs (in progress)
 
-Postgres parity gates:
+Postgres parity + containerization baseline:
+
 - `docs/proof/m4_2026-01-21_postgres_parity_gates.txt` — Postgres parity gates (local Docker Compose + `purelaka.settings_postgres`)
 - `docs/proof/m4_2026-01-22_dockerfile_gate.txt` — Dockerfile baseline (build + gates)
+- `docs/proof/m4_2026-01-22_compose_web_db_parity_gates.txt` — Docker Compose web+db parity gates (gates executed inside the app container; confirms `vendor=postgresql`, `host=db`, `name=purelaka`)
+- `docs/proof/m4_2026-01-22_docs_index_gates.txt` — Docs/index gates proof after updating `docs/STATUS.md` + `docs/CONTRACTS_AND_PROOFS.md`
+- `docs/proof/m4_2026-01-22_post_index_full_gates.txt` — Post-index full gates snapshot (authoritative “after docs updates” confirmation)
 
 ## 4) How to re-verify (buyer due-diligence commands)
 
