@@ -3,7 +3,7 @@
 ## Current milestone
 
 * Milestone: **M4 Deployment baseline (in progress)**
-* Current step: **M4.1 Postgres parity baseline (in progress)**
+* Current step: **M4.3 Compose web+db baseline (in progress)**
 * M3 closed: **2026-01-21** (exit proofs complete; gates verified)
 
 ## Runtime baseline
@@ -13,13 +13,14 @@
 * DB (dev): SQLite
 * Target DB (buyer-ready): Postgres (Milestone 4 via Docker Compose)
 * Postgres parity settings: `DJANGO_SETTINGS_MODULE=purelaka.settings_postgres`
+* Container baseline: Dockerfile + docker-compose (db + web)
 
-## Release gates (latest verified: 2026-01-21)
+## Release gates (latest verified: 2026-01-22)
 
 All gates below must remain green locally and in CI.
 
 * `python manage.py check`: PASS
-* `python manage.py test`: PASS (**59+ tests**, see latest proof)
+* `python manage.py test`: PASS (**62 tests**, see latest proof)
 * `python manage.py run_checks --fail-on-issues`: PASS (**open=0, resolved=3**)
 * `python manage.py makemigrations --check --dry-run`: PASS
 * `ruff check .`: PASS
@@ -43,6 +44,7 @@ All gates below must remain green locally and in CI.
 
 ## Notes (chronological)
 
+* 2026-01-22: Docs notes chronology updated; gates captured: `docs/proof/m4_2026-01-22_notes_update_gates.txt`.
 * 2026-01-22: **M4 post-index full gates snapshot captured:** `docs/proof/m4_2026-01-22_post_index_full_gates.txt`.
 * 2026-01-22: **M4 docs/index gates captured after updating proof pack:** `docs/proof/m4_2026-01-22_docs_index_gates.txt`.
 * 2026-01-22: **M4.3 Docker Compose web+db parity gates captured:** `docs/proof/m4_2026-01-22_compose_web_db_parity_gates.txt`.
@@ -178,17 +180,24 @@ Key M3 hardening proofs (2026-01-21):
 
 ### Milestone 4 — Deployment baseline (in progress)
 
-* M4.1: Postgres via Docker Compose + Postgres settings module + parity proof captured.
-* Remaining to close M4.1: proof index updates in `docs/CONTRACTS_AND_PROOFS.md` + commit + push with gates green.
+* **M4.1 (complete):** Postgres parity via Docker Compose + `purelaka.settings_postgres` proven with gates.
+  * Proof: `docs/proof/m4_2026-01-21_postgres_parity_gates.txt`
+* **M4.2 (complete):** Dockerfile baseline added; repo gates remain green.
+  * Proof: `docs/proof/m4_2026-01-22_dockerfile_gate.txt`
+* **M4.3 (in progress):** Docker Compose web+db baseline; gates executed inside the app container and confirmed Postgres connectivity (`host=db`, `name=purelaka`).
+  * Proof: `docs/proof/m4_2026-01-22_compose_web_db_parity_gates.txt`
+* Docs/proof indexing verified after updates:
+  * `docs/proof/m4_2026-01-22_docs_index_gates.txt`
+  * `docs/proof/m4_2026-01-22_post_index_full_gates.txt` (authoritative post-index full gates snapshot)
 
 ## Top blockers (max 3)
 
-1. **Postgres parity discipline:** ensure all gates run under `purelaka.settings_postgres` and proof is captured consistently.
-2. **Docker/WSL stability:** keep Docker Desktop + WSL updated to avoid local engine interruptions.
-3. **Proof index + closure:** link M4.1 proof in both index docs and commit/push with gates green.
+1. **Prod-like container runtime:** move from `runserver` to a production WSGI/ASGI server (e.g., Gunicorn/Uvicorn) and capture a deploy-style proof.
+2. **Configuration hardening:** ensure secrets/env vars are cleanly managed for container deploy (no hard-coded passwords; document required env).
+3. **Operational completeness for buyer-ready deployment:** add minimal runbook steps for container start, migrate, superuser creation, and smoke checks.
 
 ## Next 3 actions (strict, step-by-step)
 
-1. Link `docs/proof/m4_2026-01-21_postgres_parity_gates.txt` in `docs/STATUS.md` and `docs/CONTRACTS_AND_PROOFS.md`.
-2. Run consolidated gates once more (Postgres mode) to confirm green after doc edits.
-3. Commit and push the M4.1 baseline changes.
+1. Update `docker-compose.yml` to run a production server (not Django dev server) and add a minimal healthcheck for the web service.
+2. Capture an M4 production-like compose proof (start → migrate → smoke → gates where applicable) and store under `docs/proof/`.
+3. Add a short “Container Deploy Runbook” section (or doc) and link it from `docs/CONTRACTS_AND_PROOFS.md`.

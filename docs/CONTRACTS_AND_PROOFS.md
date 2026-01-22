@@ -35,6 +35,11 @@ KPI contract completeness proof (M3):
 - Prevent negative stock (oversell raises `StockOversellError` and does not mark order paid).
 - Concurrency safety: stock decrement uses row locks (`select_for_update`) to prevent race-condition double-decrement.
 
+### Deployment parity contract (buyer-ready runtime baseline)
+- Postgres parity: app must run, migrate, and pass gates on Postgres, not only SQLite.
+- Containerization baseline: Dockerfile + Docker Compose must build and run with Postgres.
+- Teardown reliability: Postgres test DB teardown must be deterministic (no lingering session failures).
+
 ### Acceptance matrix (product claims → code/tests/proofs)
 - `docs/acceptance_matrix.md`
   - Buyer claim inventory. If it is not here, it is not shipped.
@@ -127,26 +132,29 @@ RBAC surface contract proof:
 ### M4 — deployment baseline proofs (in progress)
 
 Postgres parity + containerization baseline:
-
 - `docs/proof/m4_2026-01-21_postgres_parity_gates.txt` — Postgres parity gates (local Docker Compose + `purelaka.settings_postgres`)
 - `docs/proof/m4_2026-01-22_dockerfile_gate.txt` — Dockerfile baseline (build + gates)
 - `docs/proof/m4_2026-01-22_compose_web_db_parity_gates.txt` — Docker Compose web+db parity gates (gates executed inside the app container; confirms `vendor=postgresql`, `host=db`, `name=purelaka`)
 - `docs/proof/m4_2026-01-22_docs_index_gates.txt` — Docs/index gates proof after updating `docs/STATUS.md` + `docs/CONTRACTS_AND_PROOFS.md`
 - `docs/proof/m4_2026-01-22_post_index_full_gates.txt` — Post-index full gates snapshot (authoritative “after docs updates” confirmation)
 - `docs/proof/m4_2026-01-22_contracts_proofs_update_gates.txt` — Gates snapshot after updating contracts/proofs index (docs-only change verification)
-
+- `docs/proof/m4_2026-01-22_contracts_proofs_indexed_gates.txt` — Gates snapshot after indexing the previous proof into this document (index completeness verification)
 
 ## 4) How to re-verify (buyer due-diligence commands)
 
 Core gates (single consolidated proof):
 - `.\scripts\gates.ps1 -ProofPath "docs/proof/m3_YYYY-MM-DD_full_gates_clean.txt"`
 
-Postgres parity gates (local Docker Compose):
+Postgres parity gates (local, host-run using Postgres settings):
 - `DJANGO_SETTINGS_MODULE=purelaka.settings_postgres .\scripts\gates.ps1 -ProofPath "docs/proof/m4_YYYY-MM-DD_postgres_parity_gates.txt"`
+
+Docker Compose parity gates (web+db; run gates inside the app container):
+- `docker compose up -d --build`
+- `docker exec -i purelaka_web sh -lc "python manage.py check && python manage.py test --noinput && python manage.py run_checks --fail-on-issues && python manage.py makemigrations --check --dry-run && ruff check . && ruff format --check . && pip-audit -r requirements.txt" > docs/proof/m4_YYYY-MM-DD_compose_web_db_parity_gates.txt`
 
 Or run individually:
 - `python manage.py check`
-- `python manage.py test`
+- `python manage.py test --noinput`
 - `python manage.py run_checks --fail-on-issues`
 - `python manage.py makemigrations --check --dry-run`
 - `ruff check .`
