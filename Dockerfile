@@ -17,6 +17,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Install python deps first (better layer caching)
 COPY requirements.txt /app/requirements.txt
 RUN python -m pip install --upgrade pip && pip install -r requirements.txt
+RUN python -m pip install --no-cache-dir ruff pip-audit
 
 # Copy app code
 COPY . /app
