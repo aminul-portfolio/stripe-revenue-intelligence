@@ -159,6 +159,8 @@ Prod-like compose (production-shaped container runtime):
 
 - `docs/proof/m4_2026-01-22_prod_compose_deploy_gate_after_settings_prod_fix.txt` — M4.4 Step 3: deploy gate re-captured after `settings_prod` test-redirect fix (authoritative deploy proof after fix)
 - `docs/proof/m4_2026-01-22_prod_compose_full_gates_after_settings_prod_fix.txt` — M4.4 Step 3: full gates re-captured after `settings_prod` test-redirect fix (authoritative Step 3 PASS proof)
+- `docs/proof/m4_2026-01-22_prod_compose_full_gates_rerun_clean.txt` — M4.4 Step 3: prod compose full gates re-run from clean rebuild (authoritative rerun proof)
+- `docs/proof/m4_2026-01-22_prod_compose_rerun_docs_index_gates.txt` — Docs/index gates after indexing rerun proofs (docs-only change verification)
 - `docs/proof/m4_2026-01-22_after_fix_docs_index_gates.txt` — M4.4 Step 3: docs/index gates after re-indexing the after-fix proofs (index completeness verification)
 - `docs/proof/m4_2026-01-22_prod_compose_deploy_gate.txt` — M4.4 Step 3: prod compose deploy gate (`python manage.py check --deploy`) executed inside container (`DJANGO_SETTINGS_MODULE=purelaka.settings_prod`)
 - `docs/proof/m4_2026-01-22_prod_compose_healthz_ipv4_smoke.txt` — M4.4 Step 3: prod compose host smoke (IPv4; Windows-safe; confirms `Server: gunicorn`)

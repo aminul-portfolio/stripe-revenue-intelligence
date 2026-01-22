@@ -44,6 +44,8 @@ All gates below must remain green locally and in CI.
 
 ## Notes (chronological)
 
+* 2026-01-22: **M4.4 Step 3 rerun docs/index gates captured:** `docs/proof/m4_2026-01-22_prod_compose_rerun_docs_index_gates.txt`.
+* 2026-01-22: **M4.4 Step 3 prod compose full gates re-run from clean rebuild (authoritative rerun):** `docs/proof/m4_2026-01-22_prod_compose_full_gates_rerun_clean.txt`.
 * 2026-01-22: **M4.4 Step 3 after-fix docs/index gates captured (index completeness):** `docs/proof/m4_2026-01-22_after_fix_docs_index_gates.txt`.
 * 2026-01-22: **M4.4 Step 3 prod compose deploy gate re-captured after settings_prod test-redirect fix:** `docs/proof/m4_2026-01-22_prod_compose_deploy_gate_after_settings_prod_fix.txt`.
 * 2026-01-22: **M4.4 Step 3 prod compose full gates re-captured after settings_prod test-redirect fix (authoritative):** `docs/proof/m4_2026-01-22_prod_compose_full_gates_after_settings_prod_fix.txt`.
@@ -158,6 +160,7 @@ Key M3 hardening proofs (2026-01-21):
 
 * `docs/proof/m4_2026-01-22_prod_compose_deploy_gate_after_settings_prod_fix.txt` — M4.4 Step 3: deploy gate re-captured after `settings_prod` test-redirect fix (authoritative deploy proof after fix)
 * `docs/proof/m4_2026-01-22_prod_compose_full_gates_after_settings_prod_fix.txt` — M4.4 Step 3: full gates re-captured after `settings_prod` test-redirect fix (authoritative Step 3 PASS proof)
+* `docs/proof/m4_2026-01-22_prod_compose_full_gates_rerun_clean.txt` — M4.4 Step 3: prod compose full gates re-run from clean rebuild (authoritative rerun proof)
 * `docs/proof/m4_2026-01-22_after_fix_docs_index_gates.txt` — M4.4 Step 3: docs/index gates after re-indexing the after-fix proofs (index completeness verification)
 * `docs/proof/m4_2026-01-21_postgres_parity_gates.txt` — Postgres parity gates (Docker Compose + `purelaka.settings_postgres`)
 * `docs/proof/m4_2026-01-22_dockerfile_gate.txt` — Dockerfile build + gates verification
@@ -178,6 +181,7 @@ Key M3 hardening proofs (2026-01-21):
 * `docs/proof/m4_2026-01-22_prod_compose_healthz_ipv4_smoke.txt` — Prod-like compose host smoke (IPv4; Windows-safe; confirms `Server: gunicorn`)
 * `docs/proof/m4_2026-01-22_gunicorn_server_header_proof.txt` — Gunicorn header proof captured from inside the container (`Server: gunicorn`)
 * `docs/proof/m4_2026-01-22_prod_compose_ipv4_docs_index_gates.txt` — Gates proof after indexing prod-compose IPv4 host smoke into docs (index completeness verification)
+* `docs/proof/m4_2026-01-22_prod_compose_rerun_docs_index_gates.txt` — Docs/index gates after indexing rerun proofs (docs-only change verification)
 * `docs/proof/m4_2026-01-22_prod_compose_full_gates.txt` — M4.4 Step 3 (prod-like compose): full gates run inside container (includes `check --deploy`; PASS confirmed)
 * `docs/proof/m4_2026-01-22_prod_compose_pid1_cmdline.txt` — M4.4 Step 3: PID1 commandline proof (`/proc/1/cmdline` confirms Gunicorn as container process)
 
