@@ -45,6 +45,7 @@ All gates below must remain green locally and in CI.
 ## Notes (chronological)
 
 * 2026-01-22: Docs notes chronology updated; gates captured: `docs/proof/m4_2026-01-22_notes_update_gates.txt`.
+* 2026-01-22: **M4 full gates after docs sync captured:** `docs/proof/m4_2026-01-22_full_gates_after_docs_sync.txt`.
 * 2026-01-22: **M4 post-index full gates snapshot captured:** `docs/proof/m4_2026-01-22_post_index_full_gates.txt`.
 * 2026-01-22: **M4 docs/index gates captured after updating proof pack:** `docs/proof/m4_2026-01-22_docs_index_gates.txt`.
 * 2026-01-22: **M4.3 Docker Compose web+db parity gates captured:** `docs/proof/m4_2026-01-22_compose_web_db_parity_gates.txt`.
@@ -147,6 +148,8 @@ Key M3 hardening proofs (2026-01-21):
 * `docs/proof/m4_2026-01-22_compose_web_db_parity_gates.txt` — Docker Compose web+db parity gates (gates executed inside app container; confirms Postgres `db` host)
 * `docs/proof/m4_2026-01-22_docs_index_gates.txt` — Docs/index gates proof after updating `docs/STATUS.md` + `docs/CONTRACTS_AND_PROOFS.md`
 * `docs/proof/m4_2026-01-22_post_index_full_gates.txt` — Post-index full gates snapshot (authoritative “after docs updates” confirmation)
+* `docs/proof/m4_2026-01-22_full_gates_after_docs_sync.txt` — Full gates snapshot after docs sync (authoritative current baseline)
+
 
 ## Completed
 
