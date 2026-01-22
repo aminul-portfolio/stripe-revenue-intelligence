@@ -154,7 +154,15 @@ Postgres parity + containerization baseline:
 - `docs/proof/m4_2026-01-22_gunicorn_runtime_smoke.txt` — M4.4 Step 2: container serves via Gunicorn (WSGI); `/monitoring/healthz/` returns 200 and shows `Server: gunicorn`
 - `docs/proof/m4_2026-01-22_gunicorn_compose_web_db_parity_gates.txt` — M4.4 Step 2: compose parity gates executed inside container under Gunicorn runtime (includes pip-audit result)
 - `docs/proof/m4_2026-01-22_docs_cleanup_gates.txt` — Docs cleanup gates proof (normalizes docs formatting; verifies gates remain green)
-- `docs/proof/m4_2026-01-22_prod_compose_healthz_ipv4_smoke.txt` — Prod-like host IPv4 healthz smoke (Windows-safe; confirms Server: gunicorn)
+
+Prod-like compose (production-shaped container runtime):
+
+- `docs/proof/m4_2026-01-22_prod_compose_deploy_gate.txt` — M4.4 Step 3: prod compose deploy gate (`python manage.py check --deploy`) executed inside container (`DJANGO_SETTINGS_MODULE=purelaka.settings_prod`)
+- `docs/proof/m4_2026-01-22_prod_compose_healthz_ipv4_smoke.txt` — M4.4 Step 3: prod compose host smoke (IPv4; Windows-safe; confirms `Server: gunicorn`)
+- `docs/proof/m4_2026-01-22_prod_compose_healthz_redirect_headers.txt` — M4.4 Step 3: redirect/header capture for host healthz smoke (debugging provenance; documents 301/host behaviour)
+- `docs/proof/m4_2026-01-22_prod_compose_healthz_smoke.txt` — M4.4 Step 3: initial prod compose host healthz smoke capture (raw output)
+- `docs/proof/m4_2026-01-22_gunicorn_server_header_proof.txt` — M4.4 Step 3: Gunicorn `Server:` header proof (sanity confirmation)
+- `docs/proof/m4_2026-01-22_prod_compose_ipv4_docs_index_gates.txt` — Gates snapshot after indexing prod compose IPv4 smoke proof into docs (index completeness verification)
 
 ## 4) How to re-verify (buyer due-diligence commands)
 

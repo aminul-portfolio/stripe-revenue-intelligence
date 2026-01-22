@@ -162,6 +162,15 @@ Key M3 hardening proofs (2026-01-21):
 * `docs/proof/m4_2026-01-22_healthz_gunicorn_gates.txt` — M4.4 Step 1: health/readiness endpoint (`/monitoring/healthz/`) + gunicorn dependency; gates + manual check captured
 * `docs/proof/m4_2026-01-22_gunicorn_runtime_smoke.txt` — M4.4 Step 2: Gunicorn runtime smoke (healthz shows `Server: gunicorn`)
 * `docs/proof/m4_2026-01-22_gunicorn_compose_web_db_parity_gates.txt` — M4.4 Step 2: compose web+db parity gates under Gunicorn runtime (in-container gates proof)
+* `docs/proof/m4_2026-01-22_docs_cleanup_gates.txt` — Docs cleanup gates proof (normalizes docs formatting; verifies gates remain green)
+* `docs/proof/m4_2026-01-22_prod_compose_deploy_gate.txt` — M4.4 Step 3 (prod-like compose): `python manage.py check --deploy` executed inside container (prod settings)
+* `docs/proof/m4_2026-01-22_prod_compose_healthz_smoke.txt` — Prod-like compose host smoke (initial capture; may include redirect behavior depending on curl flags)
+* `docs/proof/m4_2026-01-22_prod_compose_healthz_redirect_headers.txt` — Prod-like compose host smoke (redirect/header capture for healthz)
+* `docs/proof/m4_2026-01-22_prod_compose_healthz_ipv4_smoke.txt` — Prod-like compose host smoke (IPv4; Windows-safe; confirms `Server: gunicorn`)
+* `docs/proof/m4_2026-01-22_gunicorn_server_header_proof.txt` — Gunicorn header proof captured from inside the container (`Server: gunicorn`)
+* `docs/proof/m4_2026-01-22_prod_compose_ipv4_docs_index_gates.txt` — Gates proof after indexing prod-compose IPv4 host smoke into docs (index completeness verification)
+* `docs/proof/m4_2026-01-22_prod_compose_full_gates.txt` — M4.4 Step 3 (prod-like compose): full gates run inside container (includes `check --deploy`; current file captures failures until Step 3 is made green)
+* `docs/proof/m4_2026-01-22_prod_compose_pid1_cmdline.txt` — M4.4 Step 3: PID1 commandline proof (`/proc/1/cmdline` confirms Gunicorn as container process)
 
 ## Completed
 
