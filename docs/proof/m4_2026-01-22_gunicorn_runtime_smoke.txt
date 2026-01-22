@@ -1,0 +1,20 @@
+M4.4 Step 2 — Gunicorn runtime baseline (container)
+
+Date: 2026-01-22 (Europe/London)
+
+Smoke check:
+curl.exe -i http://127.0.0.1:8000/monitoring/healthz/
+
+Output:
+HTTP/1.1 200 OK
+Server: gunicorn
+Date: Thu, 22 Jan 2026 10:28:10 GMT
+Connection: keep-alive
+Content-Type: application/json
+X-Frame-Options: DENY
+Content-Length: 126
+X-Content-Type-Options: nosniff
+Referrer-Policy: same-origin
+Cross-Origin-Opener-Policy: same-origin
+
+{"service": "stripe-revenue-intelligence", "time": "2026-01-22T10:28:10.597997+00:00", "checks": {"db": true}, "status": "ok"}

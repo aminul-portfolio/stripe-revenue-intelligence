@@ -36,7 +36,7 @@ services:
       PAYMENTS_USE_STRIPE: "0"
     ports:
       - "8000:8000"
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn -c gunicorn.conf.py purelaka.wsgi:application
 
 volumes:
   purelaka_postgres_data:

@@ -3,7 +3,7 @@
 ## Current milestone
 
 * Milestone: **M4 Deployment baseline (in progress)**
-* Current step: **M4.4 Production-shaped container baseline (Step 1: healthz + gunicorn dep) (in progress)**
+* Current step: **M4.4 Production-shaped container baseline (Step 2: Gunicorn runtime baseline) (in progress)**
 * M3 closed: **2026-01-21** (exit proofs complete; gates verified)
 
 ## Runtime baseline
@@ -20,8 +20,8 @@
 All gates below must remain green locally and in CI.
 
 * `python manage.py check`: PASS
-* `python manage.py test`: PASS (**62 tests**, see latest proof)
-* `python manage.py run_checks --fail-on-issues`: PASS (**open=0, resolved=3**)
+* `python manage.py test`: PASS (**63 tests**, see latest proof)
+* `python manage.py run_checks --fail-on-issues`: PASS (**open=0, resolved=0**, see latest proof)
 * `python manage.py makemigrations --check --dry-run`: PASS
 * `ruff check .`: PASS
 * `ruff format --check .`: PASS
@@ -44,6 +44,8 @@ All gates below must remain green locally and in CI.
 
 ## Notes (chronological)
 
+* 2026-01-22: **Docs cleanup gates captured:** `docs/proof/m4_2026-01-22_docs_cleanup_gates.txt`.
+* 2026-01-22: **M4.4 Step 2 Gunicorn container runtime proven:** `docs/proof/m4_2026-01-22_gunicorn_runtime_smoke.txt` + `docs/proof/m4_2026-01-22_gunicorn_compose_web_db_parity_gates.txt`.
 * 2026-01-22: **M4.4 Step 1 healthz + gunicorn dependency proven:** `docs/proof/m4_2026-01-22_healthz_gunicorn_gates.txt`.
 * 2026-01-22: **M4 full gates indexed gates captured:** `docs/proof/m4_2026-01-22_full_gates_indexed_gates.txt`.
 * 2026-01-22: Docs notes chronology updated; gates captured: `docs/proof/m4_2026-01-22_notes_update_gates.txt`.
@@ -155,9 +157,8 @@ Key M3 hardening proofs (2026-01-21):
 * `docs/proof/m4_2026-01-22_full_gates_after_docs_sync.txt` — Full gates snapshot after docs sync on `main` (authoritative current baseline)
 * `docs/proof/m4_2026-01-22_full_gates_indexed_gates.txt` — Gates snapshot after indexing the previous full-gates proof into the docs
 * `docs/proof/m4_2026-01-22_healthz_gunicorn_gates.txt` — M4.4 Step 1: health/readiness endpoint (`/monitoring/healthz/`) + gunicorn dependency; gates + manual check captured
-
-
-
+* `docs/proof/m4_2026-01-22_gunicorn_runtime_smoke.txt` — M4.4 Step 2: Gunicorn runtime smoke (healthz shows `Server: gunicorn`)
+* `docs/proof/m4_2026-01-22_gunicorn_compose_web_db_parity_gates.txt` — M4.4 Step 2: compose web+db parity gates under Gunicorn runtime (in-container gates proof)
 
 ## Completed
 
@@ -195,20 +196,25 @@ Key M3 hardening proofs (2026-01-21):
   * Proof: `docs/proof/m4_2026-01-21_postgres_parity_gates.txt`
 * **M4.2 (complete):** Dockerfile baseline added; repo gates remain green.
   * Proof: `docs/proof/m4_2026-01-22_dockerfile_gate.txt`
-* **M4.3 (in progress):** Docker Compose web+db baseline; gates executed inside the app container and confirmed Postgres connectivity (`host=db`, `name=purelaka`).
+* **M4.3 (complete):** Docker Compose web+db baseline; gates executed inside the app container and confirmed Postgres connectivity (`host=db`, `name=purelaka`).
   * Proof: `docs/proof/m4_2026-01-22_compose_web_db_parity_gates.txt`
+* **M4.4 (in progress):** Production-shaped container runtime.
+  * **Step 1 (complete):** `/monitoring/healthz/` readiness endpoint + gunicorn dependency.
+    * Proof: `docs/proof/m4_2026-01-22_healthz_gunicorn_gates.txt`
+  * **Step 2 (complete):** container serves via Gunicorn; parity gates executed inside container under Gunicorn runtime.
+    * Proofs: `docs/proof/m4_2026-01-22_gunicorn_runtime_smoke.txt`, `docs/proof/m4_2026-01-22_gunicorn_compose_web_db_parity_gates.txt`
 * Docs/proof indexing verified after updates:
   * `docs/proof/m4_2026-01-22_docs_index_gates.txt`
   * `docs/proof/m4_2026-01-22_post_index_full_gates.txt` (authoritative post-index full gates snapshot)
 
 ## Top blockers (max 3)
 
-1. **Prod-like container runtime:** move from `runserver` to a production WSGI/ASGI server (e.g., Gunicorn/Uvicorn) and capture a deploy-style proof.
-2. **Configuration hardening:** ensure secrets/env vars are cleanly managed for container deploy (no hard-coded passwords; document required env).
-3. **Operational completeness for buyer-ready deployment:** add minimal runbook steps for container start, migrate, superuser creation, and smoke checks.
+1. **Prod-like container profile:** add a prod-like compose profile (or `docker-compose.prod.yml`) that runs with `purelaka.settings_prod`, `DEBUG=0`, and Gunicorn.
+2. **Entrypoint operationalization:** add an entrypoint that runs `migrate` (and optionally `collectstatic`) before starting Gunicorn, without breaking determinism.
+3. **Prod-like proof capture:** run deploy-style checks (`check --deploy`) under the prod-like container profile and capture a reproducible proof in `docs/proof/`.
 
 ## Next 3 actions (strict, step-by-step)
 
-1. **M4.4 Production-shaped container baseline:** add a `docker-compose.prod.yml` (or profile) that runs the app with `purelaka.settings_prod` and `DEBUG=0` (no dev server).
-2. **Entrypoint + migrations:** add an `entrypoint.sh` that runs `python manage.py migrate` (and optionally `collectstatic`) before starting the server.
+1. **M4.4 Production-shaped container baseline:** add a prod-like compose profile (or `docker-compose.prod.yml`) that runs with `purelaka.settings_prod` and `DEBUG=0` (Gunicorn, no dev server).
+2. **Entrypoint + migrations:** add an `entrypoint.sh` that runs `python manage.py migrate` (and optionally `collectstatic`) before starting Gunicorn.
 3. **Proof capture:** run prod-like checks (`python manage.py check --deploy`) and capture a new proof under `docs/proof/` confirming prod-like container sanity.

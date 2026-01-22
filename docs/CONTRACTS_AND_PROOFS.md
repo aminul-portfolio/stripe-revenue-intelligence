@@ -150,9 +150,10 @@ Postgres parity + containerization baseline:
 - `docs/proof/m4_2026-01-22_contracts_proofs_indexed_gates.txt` — Gates snapshot after indexing the previous proof into this document (index completeness verification)
 - `docs/proof/m4_2026-01-22_full_gates_after_docs_sync.txt` — Full gates snapshot after docs sync on `main`
 - `docs/proof/m4_2026-01-22_full_gates_indexed_gates.txt` — Gates snapshot after indexing the previous full-gates proof into `docs/STATUS.md` + `docs/CONTRACTS_AND_PROOFS.md`
-- `docs/proof/m4_2026-01-22_healthz_gunicorn_gates.txt` — M4.4 Step 1 health/readiness endpoint + gunicorn dependency; gates + manual readiness response captured
-
-
+- `docs/proof/m4_2026-01-22_healthz_gunicorn_gates.txt` — M4.4 Step 1: health/readiness endpoint + gunicorn dependency; gates + manual readiness response captured
+- `docs/proof/m4_2026-01-22_gunicorn_runtime_smoke.txt` — M4.4 Step 2: container serves via Gunicorn (WSGI); `/monitoring/healthz/` returns 200 and shows `Server: gunicorn`
+- `docs/proof/m4_2026-01-22_gunicorn_compose_web_db_parity_gates.txt` — M4.4 Step 2: compose parity gates executed inside container under Gunicorn runtime (includes pip-audit result)
+- `docs/proof/m4_2026-01-22_docs_cleanup_gates.txt` — Docs cleanup gates proof (normalizes docs formatting; verifies gates remain green)
 
 ## 4) How to re-verify (buyer due-diligence commands)
 
