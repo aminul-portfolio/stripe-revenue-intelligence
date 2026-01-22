@@ -17,5 +17,26 @@ services:
       timeout: 5s
       retries: 20
 
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: purelaka_web
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DJANGO_SETTINGS_MODULE: purelaka.settings_postgres
+      DB_NAME: purelaka
+      DB_USER: purelaka
+      DB_PASSWORD: purelaka_dev_password_change_me
+      DB_HOST: db
+      DB_PORT: "5432"
+      PAYMENTS_USE_STRIPE: "0"
+    ports:
+      - "8000:8000"
+    command: python manage.py runserver 0.0.0.0:8000
+
 volumes:
   purelaka_postgres_data:
