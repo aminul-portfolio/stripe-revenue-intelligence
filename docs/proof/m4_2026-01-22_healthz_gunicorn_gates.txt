@@ -1,0 +1,47 @@
+M4.4 Step 1 — Gunicorn dependency + /healthz readiness endpoint (WSGI baseline)
+
+Repo: aminul-portfolio/stripe-revenue-intelligence
+Branch: main
+Host: Windows + PowerShell
+Runtime: Python 3.12.3, Django 5.2.10
+Date: 2026-01-22 (Europe/London)
+
+Changes included:
+- requirements.txt: add gunicorn==22.0.0
+- monitoring/views.py: add healthz() endpoint with DB readiness check (SELECT 1)
+- monitoring/urls.py: add route /monitoring/healthz/
+- monitoring/tests/test_healthz.py: contract test for /monitoring/healthz/
+
+Gates run (local):
+1) python manage.py check
+System check identified no issues (0 silenced).
+
+
+2) python manage.py test
+Found 63 test(s).
+Creating test database for alias 'default'...
+System check identified no issues (0 silenced).
+...............................................................
+----------------------------------------------------------------------
+Ran 63 tests in 78.978s
+
+OK
+Destroying test database for alias 'default'...
+
+
+Manual readiness check:
+Command:
+curl.exe -i http://127.0.0.1:8000/monitoring/healthz/
+
+Output:
+HTTP/1.1 200 OK
+Date: Thu, 22 Jan 2026 09:59:54 GMT
+Server: WSGIServer/0.2 CPython/3.12.3
+Content-Type: application/json
+X-Frame-Options: DENY
+Content-Length: 126
+X-Content-Type-Options: nosniff
+Referrer-Policy: same-origin
+Cross-Origin-Opener-Policy: same-origin
+
+{"service": "stripe-revenue-intelligence", "time": "2026-01-22T09:59:54.207951+00:00", "checks": {"db": true}, "status": "ok"}

@@ -3,7 +3,7 @@
 ## Current milestone
 
 * Milestone: **M4 Deployment baseline (in progress)**
-* Current step: **M4.3 Compose web+db baseline (in progress)**
+* Current step: **M4.4 Production-shaped container baseline (Step 1: healthz + gunicorn dep) (in progress)**
 * M3 closed: **2026-01-21** (exit proofs complete; gates verified)
 
 ## Runtime baseline
@@ -44,6 +44,7 @@ All gates below must remain green locally and in CI.
 
 ## Notes (chronological)
 
+* 2026-01-22: **M4.4 Step 1 healthz + gunicorn dependency proven:** `docs/proof/m4_2026-01-22_healthz_gunicorn_gates.txt`.
 * 2026-01-22: **M4 full gates indexed gates captured:** `docs/proof/m4_2026-01-22_full_gates_indexed_gates.txt`.
 * 2026-01-22: Docs notes chronology updated; gates captured: `docs/proof/m4_2026-01-22_notes_update_gates.txt`.
 * 2026-01-22: **M4 full gates after docs sync captured:** `docs/proof/m4_2026-01-22_full_gates_after_docs_sync.txt`.
@@ -153,6 +154,8 @@ Key M3 hardening proofs (2026-01-21):
 * `docs/proof/m4_2026-01-22_contracts_proofs_indexed_gates.txt` — Gates snapshot after indexing the previous proof into the index (index completeness verification)
 * `docs/proof/m4_2026-01-22_full_gates_after_docs_sync.txt` — Full gates snapshot after docs sync on `main` (authoritative current baseline)
 * `docs/proof/m4_2026-01-22_full_gates_indexed_gates.txt` — Gates snapshot after indexing the previous full-gates proof into the docs
+* `docs/proof/m4_2026-01-22_healthz_gunicorn_gates.txt` — M4.4 Step 1: health/readiness endpoint (`/monitoring/healthz/`) + gunicorn dependency; gates + manual check captured
+
 
 
 

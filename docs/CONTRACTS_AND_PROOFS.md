@@ -40,6 +40,14 @@ KPI contract completeness proof (M3):
 - Containerization baseline: Dockerfile + Docker Compose must build and run with Postgres.
 - Teardown reliability: Postgres test DB teardown must be deterministic (no lingering session failures).
 
+### Health / readiness contract
+- Endpoint: `GET /monitoring/healthz/`
+- Behavior:
+  - Returns **200** when the service is ready (default DB reachable; `SELECT 1` succeeds)
+  - Returns **503** when the service is not ready (default DB unreachable)
+- Enforced by:
+  - `monitoring/tests/test_healthz.py`
+
 ### Acceptance matrix (product claims → code/tests/proofs)
 - `docs/acceptance_matrix.md`
   - Buyer claim inventory. If it is not here, it is not shipped.
@@ -142,6 +150,8 @@ Postgres parity + containerization baseline:
 - `docs/proof/m4_2026-01-22_contracts_proofs_indexed_gates.txt` — Gates snapshot after indexing the previous proof into this document (index completeness verification)
 - `docs/proof/m4_2026-01-22_full_gates_after_docs_sync.txt` — Full gates snapshot after docs sync on `main`
 - `docs/proof/m4_2026-01-22_full_gates_indexed_gates.txt` — Gates snapshot after indexing the previous full-gates proof into `docs/STATUS.md` + `docs/CONTRACTS_AND_PROOFS.md`
+- `docs/proof/m4_2026-01-22_healthz_gunicorn_gates.txt` — M4.4 Step 1 health/readiness endpoint + gunicorn dependency; gates + manual readiness response captured
+
 
 
 ## 4) How to re-verify (buyer due-diligence commands)
