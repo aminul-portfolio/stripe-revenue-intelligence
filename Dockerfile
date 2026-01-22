@@ -9,7 +9,7 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
-# System deps for common Python wheels and runtime needs
+# System deps
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
   && rm -rf /var/lib/apt/lists/*
@@ -22,9 +22,14 @@ RUN python -m pip install --no-cache-dir ruff pip-audit
 # Copy app code
 COPY . /app
 
-# Default port for local container runs (compose can override)
+# Add entrypoint (ensure executable)
+RUN chmod +x /app/entrypoint.sh
+
+# Create a non-root user and switch (basic container hygiene)
+RUN useradd -m appuser && chown -R appuser:appuser /app
+USER appuser
+
 EXPOSE 8000
 
 # Default command (compose can override)
 CMD ["gunicorn", "-c", "gunicorn.conf.py", "purelaka.wsgi:application"]
-

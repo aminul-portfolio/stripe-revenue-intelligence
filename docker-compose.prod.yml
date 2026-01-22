@@ -1,0 +1,56 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: purelaka_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: purelaka
+      POSTGRES_USER: purelaka
+      POSTGRES_PASSWORD: purelaka_dev_password_change_me
+    ports:
+      - "5432:5432"
+    volumes:
+      - purelaka_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U purelaka -d purelaka"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: purelaka_web
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      # Prod-like settings
+      DJANGO_SETTINGS_MODULE: purelaka.settings_prod
+      # DB config (still dev password here; will be replaced with secrets later)
+      DB_NAME: purelaka
+      DB_USER: purelaka
+      DB_PASSWORD: purelaka_dev_password_change_me
+      DB_HOST: db
+      DB_PORT: "5432"
+
+      # Determinism
+      PAYMENTS_USE_STRIPE: "0"
+
+      # Gunicorn tuning (optional)
+      WEB_CONCURRENCY: "2"
+      GUNICORN_THREADS: "2"
+      GUNICORN_TIMEOUT: "60"
+      GUNICORN_LOGLEVEL: "info"
+
+      # Ops toggles
+      COLLECTSTATIC: "0"
+    ports:
+      - "8000:8000"
+    entrypoint: ["/app/entrypoint.sh"]
+    command: ["gunicorn", "-c", "gunicorn.conf.py", "purelaka.wsgi:application"]
+
+volumes:
+  purelaka_postgres_data:
