@@ -3,7 +3,7 @@
 ## Current milestone
 
 * Milestone: **M4 Deployment baseline (in progress)**
-* Current step: **M4.4 Production-shaped container baseline (Step 2: Gunicorn runtime baseline) (in progress)**
+* Current step: **M4.4 Production-shaped container baseline (Step 3: prod-like compose baseline) (complete)**
 * M3 closed: **2026-01-21** (exit proofs complete; gates verified)
 
 ## Runtime baseline
@@ -13,7 +13,7 @@
 * DB (dev): SQLite
 * Target DB (buyer-ready): Postgres (Milestone 4 via Docker Compose)
 * Postgres parity settings: `DJANGO_SETTINGS_MODULE=purelaka.settings_postgres`
-* Container baseline: Dockerfile + docker-compose (db + web)
+* Container baseline: Dockerfile + Docker Compose (`docker-compose.yml`, `docker-compose.prod.yml`)
 
 ## Release gates (latest verified: 2026-01-22)
 
@@ -21,7 +21,7 @@ All gates below must remain green locally and in CI.
 
 * `python manage.py check`: PASS
 * `python manage.py test`: PASS (**63 tests**, see latest proof)
-* `python manage.py run_checks --fail-on-issues`: PASS (**open=0, resolved=0**, see latest proof)
+* `python manage.py run_checks --fail-on-issues`: PASS (**open=0, resolved=3**, see latest proof)
 * `python manage.py makemigrations --check --dry-run`: PASS
 * `ruff check .`: PASS
 * `ruff format --check .`: PASS
@@ -44,6 +44,11 @@ All gates below must remain green locally and in CI.
 
 ## Notes (chronological)
 
+* 2026-01-22: **M4.4 Step 3 prod compose deploy gate re-captured after settings_prod test-redirect fix:** `docs/proof/m4_2026-01-22_prod_compose_deploy_gate_after_settings_prod_fix.txt`.
+* 2026-01-22: **M4.4 Step 3 prod compose full gates re-captured after settings_prod test-redirect fix (authoritative):** `docs/proof/m4_2026-01-22_prod_compose_full_gates_after_settings_prod_fix.txt`.
+* 2026-01-22: **M4.4 Step 3 prod compose full gates captured (prod-like runtime):** `docs/proof/m4_2026-01-22_prod_compose_full_gates.txt`.
+* 2026-01-22: **M4.4 Step 3 prod compose PID1 cmdline captured (Gunicorn is PID1):** `docs/proof/m4_2026-01-22_prod_compose_pid1_cmdline.txt`.
+* 2026-01-22: **M4.4 Step 3 Gunicorn server header proof captured (in-container):** `docs/proof/m4_2026-01-22_gunicorn_server_header_proof.txt`.
 * 2026-01-22: **M4 prod compose (IPv4) docs/index gates captured:** `docs/proof/m4_2026-01-22_prod_compose_ipv4_docs_index_gates.txt`.
 * 2026-01-22: **M4 prod compose host smoke (IPv4) captured:** `docs/proof/m4_2026-01-22_prod_compose_healthz_ipv4_smoke.txt` (Windows-safe; confirms `Server: gunicorn`).
 * 2026-01-22: **M4 prod compose deploy gate captured:** `docs/proof/m4_2026-01-22_prod_compose_deploy_gate.txt` (`python manage.py check --deploy` executed inside container).
@@ -150,6 +155,8 @@ Key M3 hardening proofs (2026-01-21):
 
 ### M4 proof pack (in progress)
 
+* `docs/proof/m4_2026-01-22_prod_compose_deploy_gate_after_settings_prod_fix.txt` — M4.4 Step 3: deploy gate re-captured after `settings_prod` test-redirect fix (authoritative deploy proof after fix)
+* `docs/proof/m4_2026-01-22_prod_compose_full_gates_after_settings_prod_fix.txt` — M4.4 Step 3: full gates re-captured after `settings_prod` test-redirect fix (authoritative Step 3 PASS proof)
 * `docs/proof/m4_2026-01-21_postgres_parity_gates.txt` — Postgres parity gates (Docker Compose + `purelaka.settings_postgres`)
 * `docs/proof/m4_2026-01-22_dockerfile_gate.txt` — Dockerfile build + gates verification
 * `docs/proof/m4_2026-01-22_compose_web_db_parity_gates.txt` — Docker Compose web+db parity gates (gates executed inside app container; confirms Postgres `db` host)
@@ -169,7 +176,7 @@ Key M3 hardening proofs (2026-01-21):
 * `docs/proof/m4_2026-01-22_prod_compose_healthz_ipv4_smoke.txt` — Prod-like compose host smoke (IPv4; Windows-safe; confirms `Server: gunicorn`)
 * `docs/proof/m4_2026-01-22_gunicorn_server_header_proof.txt` — Gunicorn header proof captured from inside the container (`Server: gunicorn`)
 * `docs/proof/m4_2026-01-22_prod_compose_ipv4_docs_index_gates.txt` — Gates proof after indexing prod-compose IPv4 host smoke into docs (index completeness verification)
-* `docs/proof/m4_2026-01-22_prod_compose_full_gates.txt` — M4.4 Step 3 (prod-like compose): full gates run inside container (includes `check --deploy`; current file captures failures until Step 3 is made green)
+* `docs/proof/m4_2026-01-22_prod_compose_full_gates.txt` — M4.4 Step 3 (prod-like compose): full gates run inside container (includes `check --deploy`; PASS confirmed)
 * `docs/proof/m4_2026-01-22_prod_compose_pid1_cmdline.txt` — M4.4 Step 3: PID1 commandline proof (`/proc/1/cmdline` confirms Gunicorn as container process)
 
 ## Completed
@@ -215,18 +222,29 @@ Key M3 hardening proofs (2026-01-21):
     * Proof: `docs/proof/m4_2026-01-22_healthz_gunicorn_gates.txt`
   * **Step 2 (complete):** container serves via Gunicorn; parity gates executed inside container under Gunicorn runtime.
     * Proofs: `docs/proof/m4_2026-01-22_gunicorn_runtime_smoke.txt`, `docs/proof/m4_2026-01-22_gunicorn_compose_web_db_parity_gates.txt`
+  * **Step 3 (complete):** prod-like compose baseline (host smoke + deploy gate + PID1 + full gates).
+    * Proofs:
+      * `docs/proof/m4_2026-01-22_prod_compose_deploy_gate.txt`
+      * `docs/proof/m4_2026-01-22_prod_compose_healthz_ipv4_smoke.txt`
+      * `docs/proof/m4_2026-01-22_prod_compose_healthz_redirect_headers.txt`
+      * `docs/proof/m4_2026-01-22_prod_compose_healthz_smoke.txt`
+      * `docs/proof/m4_2026-01-22_gunicorn_server_header_proof.txt`
+      * `docs/proof/m4_2026-01-22_prod_compose_pid1_cmdline.txt`
+      * `docs/proof/m4_2026-01-22_prod_compose_full_gates.txt`
+      * `docs/proof/m4_2026-01-22_prod_compose_ipv4_docs_index_gates.txt`
+
 * Docs/proof indexing verified after updates:
   * `docs/proof/m4_2026-01-22_docs_index_gates.txt`
   * `docs/proof/m4_2026-01-22_post_index_full_gates.txt` (authoritative post-index full gates snapshot)
 
 ## Top blockers (max 3)
 
-1. **Prod-like container profile:** add a prod-like compose profile (or `docker-compose.prod.yml`) that runs with `purelaka.settings_prod`, `DEBUG=0`, and Gunicorn.
-2. **Entrypoint operationalization:** add an entrypoint that runs `migrate` (and optionally `collectstatic`) before starting Gunicorn, without breaking determinism.
-3. **Prod-like proof capture:** run deploy-style checks (`check --deploy`) under the prod-like container profile and capture a reproducible proof in `docs/proof/`.
+1. **Finish M4.4 Step 3 as “closed”:** ensure the latest Step 3 proof pack is complete and consistently indexed (STATUS + CONTRACTS_AND_PROOFS).
+2. **Prod-like operational clarity:** document exactly how to run prod-compose locally (commands + expected outputs) in the runbook to reduce buyer friction.
+3. **Hardening follow-through:** confirm no environment drift between dev/parity/prod-like modes (explicitly documented rules for `DJANGO_SETTINGS_MODULE` usage).
 
 ## Next 3 actions (strict, step-by-step)
 
-1. **M4.4 Production-shaped container baseline:** add a prod-like compose profile (or `docker-compose.prod.yml`) that runs with `purelaka.settings_prod` and `DEBUG=0` (Gunicorn, no dev server).
-2. **Entrypoint + migrations:** add an `entrypoint.sh` that runs `python manage.py migrate` (and optionally `collectstatic`) before starting Gunicorn.
-3. **Proof capture:** run prod-like checks (`python manage.py check --deploy`) and capture a new proof under `docs/proof/` confirming prod-like container sanity.
+1. **Index completeness check:** confirm every Step 3 proof file listed above is present in both `docs/STATUS.md` and `docs/CONTRACTS_AND_PROOFS.md`.
+2. **Repeatable Step 3 re-run (optional but strong):** re-run the prod-compose “full gates” once from a clean rebuild and confirm PASS is captured in `docs/proof/m4_2026-01-22_prod_compose_full_gates.txt` (or a new timestamped proof if you prefer).
+3. **Mark Step 3 complete when consistent:** once indexing is complete and proof is PASS, flip “Current step” to the next planned item (or explicitly mark M4.4 Step 3 complete and define the next milestone step).
