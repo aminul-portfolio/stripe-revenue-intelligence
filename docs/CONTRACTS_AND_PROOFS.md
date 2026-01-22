@@ -154,6 +154,7 @@ Postgres parity + containerization baseline:
 - `docs/proof/m4_2026-01-22_gunicorn_runtime_smoke.txt` — M4.4 Step 2: container serves via Gunicorn (WSGI); `/monitoring/healthz/` returns 200 and shows `Server: gunicorn`
 - `docs/proof/m4_2026-01-22_gunicorn_compose_web_db_parity_gates.txt` — M4.4 Step 2: compose parity gates executed inside container under Gunicorn runtime (includes pip-audit result)
 - `docs/proof/m4_2026-01-22_docs_cleanup_gates.txt` — Docs cleanup gates proof (normalizes docs formatting; verifies gates remain green)
+- `docs/proof/m4_2026-01-22_prod_compose_healthz_ipv4_smoke.txt` — Prod-like host IPv4 healthz smoke (Windows-safe; confirms Server: gunicorn)
 
 ## 4) How to re-verify (buyer due-diligence commands)
 

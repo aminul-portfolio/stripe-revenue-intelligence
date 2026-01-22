@@ -44,6 +44,8 @@ All gates below must remain green locally and in CI.
 
 ## Notes (chronological)
 
+* 2026-01-22: **M4 prod compose (IPv4) docs/index gates captured:** `docs/proof/m4_2026-01-22_prod_compose_ipv4_docs_index_gates.txt`.
+* 2026-01-22: **Prod compose host smoke (IPv4) captured:** `docs/proof/m4_2026-01-22_prod_compose_healthz_ipv4_smoke.txt` (Windows-safe; confirms `Server: gunicorn`).
 * 2026-01-22: **Docs cleanup gates captured:** `docs/proof/m4_2026-01-22_docs_cleanup_gates.txt`.
 * 2026-01-22: **M4.4 Step 2 Gunicorn container runtime proven:** `docs/proof/m4_2026-01-22_gunicorn_runtime_smoke.txt` + `docs/proof/m4_2026-01-22_gunicorn_compose_web_db_parity_gates.txt`.
 * 2026-01-22: **M4.4 Step 1 healthz + gunicorn dependency proven:** `docs/proof/m4_2026-01-22_healthz_gunicorn_gates.txt`.
