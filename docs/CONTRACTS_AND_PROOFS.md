@@ -137,7 +137,7 @@ Acceptance matrix snapshot:
 RBAC surface contract proof:
 - `docs/proof/m3_rbac_surface_contract_2026-01-20.txt`
 
-### M4 — deployment baseline proofs (in progress)
+### M4 — deployment baseline proofs (complete through M4.4 Step 3)
 
 Postgres parity + containerization baseline:
 
@@ -159,9 +159,11 @@ Prod-like compose (production-shaped container runtime):
 
 - `docs/proof/m4_2026-01-22_prod_compose_deploy_gate.txt` — M4.4 Step 3: prod compose deploy gate (`python manage.py check --deploy`) executed inside container (`DJANGO_SETTINGS_MODULE=purelaka.settings_prod`)
 - `docs/proof/m4_2026-01-22_prod_compose_healthz_ipv4_smoke.txt` — M4.4 Step 3: prod compose host smoke (IPv4; Windows-safe; confirms `Server: gunicorn`)
-- `docs/proof/m4_2026-01-22_prod_compose_healthz_redirect_headers.txt` — M4.4 Step 3: redirect/header capture for host healthz smoke (debugging provenance; documents 301/host behaviour)
+- `docs/proof/m4_2026-01-22_prod_compose_healthz_redirect_headers.txt` — M4.4 Step 3: redirect/header capture for host healthz smoke (documents 301/host behaviour under prod flags)
 - `docs/proof/m4_2026-01-22_prod_compose_healthz_smoke.txt` — M4.4 Step 3: initial prod compose host healthz smoke capture (raw output)
 - `docs/proof/m4_2026-01-22_gunicorn_server_header_proof.txt` — M4.4 Step 3: Gunicorn `Server:` header proof (sanity confirmation)
+- `docs/proof/m4_2026-01-22_prod_compose_pid1_cmdline.txt` — M4.4 Step 3: PID1 cmdline proof (`/proc/1/cmdline` confirms Gunicorn is PID1)
+- `docs/proof/m4_2026-01-22_prod_compose_full_gates.txt` — M4.4 Step 3: prod compose full gates executed inside container (includes `check --deploy`; confirms tests + run_checks + ruff + pip-audit under prod-like runtime)
 - `docs/proof/m4_2026-01-22_prod_compose_ipv4_docs_index_gates.txt` — Gates snapshot after indexing prod compose IPv4 smoke proof into docs (index completeness verification)
 
 ## 4) How to re-verify (buyer due-diligence commands)
