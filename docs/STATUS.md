@@ -44,7 +44,6 @@ All gates below must remain green locally and in CI.
 
 ## Notes (chronological)
 
-* 2026-01-22: **M4 full gates after docs sync captured:** `docs/proof/m4_2026-01-22_full_gates_after_docs_sync.txt`.
 * 2026-01-22: **M4 full gates indexed gates captured:** `docs/proof/m4_2026-01-22_full_gates_indexed_gates.txt`.
 * 2026-01-22: Docs notes chronology updated; gates captured: `docs/proof/m4_2026-01-22_notes_update_gates.txt`.
 * 2026-01-22: **M4 full gates after docs sync captured:** `docs/proof/m4_2026-01-22_full_gates_after_docs_sync.txt`.
@@ -150,8 +149,9 @@ Key M3 hardening proofs (2026-01-21):
 * `docs/proof/m4_2026-01-22_compose_web_db_parity_gates.txt` — Docker Compose web+db parity gates (gates executed inside app container; confirms Postgres `db` host)
 * `docs/proof/m4_2026-01-22_docs_index_gates.txt` — Docs/index gates proof after updating `docs/STATUS.md` + `docs/CONTRACTS_AND_PROOFS.md`
 * `docs/proof/m4_2026-01-22_post_index_full_gates.txt` — Post-index full gates snapshot (authoritative “after docs updates” confirmation)
-* `docs/proof/m4_2026-01-22_full_gates_after_docs_sync.txt` — Full gates snapshot after docs sync (authoritative current baseline)
-* `docs/proof/m4_2026-01-22_full_gates_after_docs_sync.txt` — Full gates snapshot after docs sync on `main`
+* `docs/proof/m4_2026-01-22_contracts_proofs_update_gates.txt` — Gates snapshot after updating contracts/proofs index (docs-only change verification)
+* `docs/proof/m4_2026-01-22_contracts_proofs_indexed_gates.txt` — Gates snapshot after indexing the previous proof into the index (index completeness verification)
+* `docs/proof/m4_2026-01-22_full_gates_after_docs_sync.txt` — Full gates snapshot after docs sync on `main` (authoritative current baseline)
 * `docs/proof/m4_2026-01-22_full_gates_indexed_gates.txt` — Gates snapshot after indexing the previous full-gates proof into the docs
 
 
@@ -206,6 +206,6 @@ Key M3 hardening proofs (2026-01-21):
 
 ## Next 3 actions (strict, step-by-step)
 
-1. Update `docker-compose.yml` to run a production server (not Django dev server) and add a minimal healthcheck for the web service.
-2. Capture an M4 production-like compose proof (start → migrate → smoke → gates where applicable) and store under `docs/proof/`.
-3. Add a short “Container Deploy Runbook” section (or doc) and link it from `docs/CONTRACTS_AND_PROOFS.md`.
+1. **M4.4 Production-shaped container baseline:** add a `docker-compose.prod.yml` (or profile) that runs the app with `purelaka.settings_prod` and `DEBUG=0` (no dev server).
+2. **Entrypoint + migrations:** add an `entrypoint.sh` that runs `python manage.py migrate` (and optionally `collectstatic`) before starting the server.
+3. **Proof capture:** run prod-like checks (`python manage.py check --deploy`) and capture a new proof under `docs/proof/` confirming prod-like container sanity.
