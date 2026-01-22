@@ -69,7 +69,7 @@ Proof-WriteLine ""
 Write-Host "== PureLaka Gates =="
 
 Invoke-Gate "Django check" "python manage.py check"
-Invoke-Gate "Tests" "python manage.py test"
+Invoke-Gate "Tests" "python manage.py test --noinput"
 Invoke-Gate "Monitoring checks" "python manage.py run_checks --fail-on-issues"
 Invoke-Gate "Migrations check" "python manage.py makemigrations --check --dry-run"
 Invoke-Gate "Ruff lint" "ruff check ."
