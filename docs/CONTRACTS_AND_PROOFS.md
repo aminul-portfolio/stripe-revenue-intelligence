@@ -175,7 +175,7 @@ Prod-like compose (production-shaped container runtime):
 - `docs/proof/m4_2026-01-22_m45_prod_compose_full_gates.txt` — M4.5: prod compose full gates run (in-container; verifies deploy + tests + run_checks + ruff + pip-audit under prod compose)
 - `docs/proof/m4_2026-01-22_m45_full_gates_after_updates.txt` — M4.5: full gates snapshot after M4.5 updates (authoritative “after updates” baseline)
 - `docs/proof/m4_2026-01-22_m45_docs_index_gates_after_updates.txt` — Docs/index gates after indexing M4.5 full-gates proofs (docs-only change verification)
-
+- `docs/proof/m4_2026-01-22_m45_complete_status_docs_index_gates.txt` — Docs/index gates after marking M4.5 complete and adding the next-step line (docs-only change verification)
 
 ## 4) How to re-verify (buyer due-diligence commands)
 

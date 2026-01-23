@@ -3,8 +3,8 @@
 ## Current milestone
 
 * Milestone: **M4 Deployment baseline (in progress)**
-* Current step: **M4.4 Production-shaped container baseline (prod-like compose baseline) (complete)**
-* Next step: **M4.5 Production runbook + reproducible prod-compose commands (in progress)**
+* Current step: **M4.5 Production runbook + reproducible prod-compose commands (complete)**
+* Next step: **M4.6 Buyer handoff pack (how-to-run + due diligence script list) (in progress)**
 * M3 closed: **2026-01-21** (exit proofs complete; gates verified)
 
 ## Runtime baseline
@@ -45,6 +45,7 @@ All gates below must remain green locally and in CI.
 
 ## Notes (chronological)
 
+* 2026-01-22: **M4.5 marked complete + next-step line added; docs/index gates captured (docs-only verification):** `docs/proof/m4_2026-01-22_m45_complete_status_docs_index_gates.txt`.
 * 2026-01-22: **M4.5 docs/index gates after indexing full-gates proofs captured:** `docs/proof/m4_2026-01-22_m45_docs_index_gates_after_updates.txt`.
 * 2026-01-22: **M4.5 prod compose full gates captured (in-container):** `docs/proof/m4_2026-01-22_m45_prod_compose_full_gates.txt`.
 * 2026-01-22: **M4.5 full gates after updates captured (authoritative baseline):** `docs/proof/m4_2026-01-22_m45_full_gates_after_updates.txt`.
@@ -195,6 +196,7 @@ Key M3 hardening proofs (2026-01-21):
 * `docs/proof/m4_2026-01-22_m45_prod_compose_full_gates.txt` — M4.5: prod compose full gates run (in-container; verifies deploy + tests + run_checks + ruff + pip-audit under prod compose)
 * `docs/proof/m4_2026-01-22_m45_full_gates_after_updates.txt` — M4.5: full gates snapshot after M4.5 updates (authoritative “after updates” baseline)
 * `docs/proof/m4_2026-01-22_m45_docs_index_gates_after_updates.txt` — Docs/index gates after indexing M4.5 full-gates proofs (docs-only change verification)
+* `docs/proof/m4_2026-01-22_m45_complete_status_docs_index_gates.txt` — Docs/index gates after marking M4.5 complete and adding the next-step line (docs-only change verification)
 
 
 
