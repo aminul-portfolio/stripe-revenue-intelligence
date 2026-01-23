@@ -26,6 +26,9 @@ To verify the buyer-ready deployment baseline (Milestone 4 closure), review thes
 4) **Post-close confirmation (final “after everything” verification):**
    - `docs/proof/m4_2026-01-23_m46_post_close_docs_index_gates.txt`
 
+5) **Post-push full gates (final, authoritative):**
+   - `docs/proof/m4_2026-01-23_m46_post_push_full_gates.txt`
+
 The milestone closure date and current status are recorded in `docs/STATUS.md`.
 
 ## 1) Contracts (what we promise)

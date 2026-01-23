@@ -35,6 +35,10 @@ All gates below must remain green locally and in CI.
 Latest host proof (default settings, full release gates):
 * `docs/proof/m4_2026-01-23_m46_host_full_gates_default.txt`
 
+Final post-push full gates proof (authoritative):
+* `docs/proof/m4_2026-01-23_m46_post_push_full_gates.txt`
+
+
 ### Important settings note (prevents false test failures)
 
 * `purelaka.settings_prod` enables deployment protections such as `SECURE_SSL_REDIRECT=True`.
