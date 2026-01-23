@@ -55,6 +55,7 @@ Final post-push full gates proof (authoritative):
 ## Notes (chronological)
 
 * 2026-01-23: **M4.6 final post-push full gates captured (ultimate closure proof):** `docs/proof/m4_2026-01-23_m46_final_post_push_full_gates.txt`.
+* 2026-01-23: **Docs index gates re-verified after indexing the ultimate closure proof:** `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_final_post_push_full_gates.txt`.
 * 2026-01-23: **M4 closed:** final baseline proof + index verification committed (`008d95b`) and stray M3 proof removed (`e3d45cb`).
 * 2026-01-23: **M4.6 final baseline full gates captured (authoritative closure proof):** `docs/proof/m4_2026-01-23_m46_final_baseline_full_gates.txt`.
 * 2026-01-23: **M4.6 host full release gates captured (default settings):** `docs/proof/m4_2026-01-23_m46_host_full_gates_default.txt`.
