@@ -37,6 +37,9 @@ To verify the buyer-ready deployment baseline (Milestone 4 closure), review thes
 
 8) **Final docs-index verification (confirms all proof references resolve after the final “final-final” proofs):**
    - `docs/proof/m4_2026-01-23_m46_final_docs_index_gates_after_final_final.txt`
+   
+9) **Final post-push full gates (ultimate closure proof):**
+   - `docs/proof/m4_2026-01-23_m46_final_post_push_full_gates.txt`
 
 Supporting docs-index gate proof (earlier checkpoint, retained for completeness):
 - `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_host_gates.txt`
@@ -223,6 +226,7 @@ M4.6 closure proofs:
 - `docs/proof/m4_2026-01-23_m46_post_push_full_gates.txt` — Post-push full gates snapshot (authoritative “after merge” verification)
 - `docs/proof/m4_2026-01-23_m46_post_push_docs_index_gates.txt` — Docs index gates after post-push indexing (index integrity verification)
 - `docs/proof/m4_2026-01-23_m46_final_after_index_full_gates.txt` — Final after-index full gates (“final-final” authoritative proof)
+- `docs/proof/m4_2026-01-23_m46_final_post_push_full_gates.txt` — M4.6 final post-push full gates (ultimate closure proof)
 
 ## 4) How to re-verify (buyer due-diligence commands)
 
