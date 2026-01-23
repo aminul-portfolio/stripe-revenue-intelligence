@@ -20,6 +20,11 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
 
+# Health/readiness must remain probe-friendly under prod-like runs.
+# We keep HTTPS redirect enabled, but exempt healthz so it can return 200 on HTTP.
+SECURE_REDIRECT_EXEMPT = [r"^monitoring/healthz/$"]  # noqa: F405
+
+
 # HTTPS redirect policy:
 # - Keep enabled for real prod-like runs
 # - Disable automatically for test runs (Django test client uses http://testserver)

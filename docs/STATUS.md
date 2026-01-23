@@ -45,7 +45,11 @@ All gates below must remain green locally and in CI.
 
 ## Notes (chronological)
 
+* 2026-01-22: **M4.5 docs/index gates after indexing full-gates proofs captured:** `docs/proof/m4_2026-01-22_m45_docs_index_gates_after_updates.txt`.
+* 2026-01-22: **M4.5 prod compose full gates captured (in-container):** `docs/proof/m4_2026-01-22_m45_prod_compose_full_gates.txt`.
+* 2026-01-22: **M4.5 full gates after updates captured (authoritative baseline):** `docs/proof/m4_2026-01-22_m45_full_gates_after_updates.txt`.
 * 2026-01-22: **M4.5 STATUS next-step line added; docs/index gates captured (docs-only verification):** `docs/proof/m4_2026-01-22_m45_status_next_step_docs_index_gates.txt`.
+* 2026-01-22: **M4.5 prod compose host healthz (200) captured:** `docs/proof/m4_2026-01-22_m45_prod_compose_host_healthz_headers_200.txt`.
 * 2026-01-22: **M4.4 Step 3 rerun docs/index gates captured:** `docs/proof/m4_2026-01-22_prod_compose_rerun_docs_index_gates.txt`.
 * 2026-01-22: **M4.4 Step 3 prod compose full gates re-run from clean rebuild (authoritative rerun):** `docs/proof/m4_2026-01-22_prod_compose_full_gates_rerun_clean.txt`.
 * 2026-01-22: **M4.4 Step 3 after-fix docs/index gates captured (index completeness):** `docs/proof/m4_2026-01-22_after_fix_docs_index_gates.txt`.
@@ -187,6 +191,11 @@ Key M3 hardening proofs (2026-01-21):
 * `docs/proof/m4_2026-01-22_prod_compose_full_gates.txt` — M4.4 Step 3 (prod-like compose): full gates run inside container (includes `check --deploy`; PASS confirmed)
 * `docs/proof/m4_2026-01-22_prod_compose_pid1_cmdline.txt` — M4.4 Step 3: PID1 commandline proof (`/proc/1/cmdline` confirms Gunicorn as container process)
 * `docs/proof/m4_2026-01-22_m45_status_next_step_docs_index_gates.txt` — Docs/index gates after adding M4.5 next step line in STATUS (docs-only change verification)
+* `docs/proof/m4_2026-01-22_m45_prod_compose_host_healthz_headers_200.txt` — M4.5: prod compose host healthz headers (200 OK; confirms `Server: gunicorn` + security headers)
+* `docs/proof/m4_2026-01-22_m45_prod_compose_full_gates.txt` — M4.5: prod compose full gates run (in-container; verifies deploy + tests + run_checks + ruff + pip-audit under prod compose)
+* `docs/proof/m4_2026-01-22_m45_full_gates_after_updates.txt` — M4.5: full gates snapshot after M4.5 updates (authoritative “after updates” baseline)
+* `docs/proof/m4_2026-01-22_m45_docs_index_gates_after_updates.txt` — Docs/index gates after indexing M4.5 full-gates proofs (docs-only change verification)
+
 
 
 ## Completed

@@ -171,6 +171,11 @@ Prod-like compose (production-shaped container runtime):
 - `docs/proof/m4_2026-01-22_prod_compose_rerun_docs_index_gates.txt` — Docs/index gates after indexing rerun proofs (docs-only change verification)
 - `docs/proof/m4_2026-01-22_prod_compose_ipv4_docs_index_gates.txt` — Gates snapshot after indexing prod compose IPv4 smoke proof into docs (index completeness verification)
 - `docs/proof/m4_2026-01-22_m45_status_next_step_docs_index_gates.txt` — Docs/index gates after adding M4.5 next step line in STATUS (docs-only change verification)
+- `docs/proof/m4_2026-01-22_m45_prod_compose_host_healthz_headers_200.txt` — M4.5: prod compose host healthz headers (200 OK; confirms `Server: gunicorn` + security headers)
+- `docs/proof/m4_2026-01-22_m45_prod_compose_full_gates.txt` — M4.5: prod compose full gates run (in-container; verifies deploy + tests + run_checks + ruff + pip-audit under prod compose)
+- `docs/proof/m4_2026-01-22_m45_full_gates_after_updates.txt` — M4.5: full gates snapshot after M4.5 updates (authoritative “after updates” baseline)
+- `docs/proof/m4_2026-01-22_m45_docs_index_gates_after_updates.txt` — Docs/index gates after indexing M4.5 full-gates proofs (docs-only change verification)
+
 
 ## 4) How to re-verify (buyer due-diligence commands)
 
