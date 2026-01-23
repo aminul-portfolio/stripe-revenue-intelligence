@@ -10,6 +10,22 @@ Policy:
 - Any change to a contract requires: update contract doc/JSON + update/add a test + update `docs/STATUS.md`.
 - Proof files must be reproducible from scripts/commands below and stored under `docs/proof/`.
 
+## Buyer entry point (start here)
+
+To verify the buyer-ready deployment baseline (Milestone 4 closure), review these proof artifacts in order:
+
+1) **M4.6 final baseline gates (authoritative):**
+   - `docs/proof/m4_2026-01-23_m46_final_baseline_full_gates.txt`
+
+2) **Index update verification (confirms indexes updated correctly):**
+   - `docs/proof/m4_2026-01-23_m46_index_update_docs_gates.txt`
+
+3) **Post-close confirmation (final “after everything” verification):**
+   - `docs/proof/m4_2026-01-23_m46_post_close_docs_index_gates.txt`
+
+The milestone closure date and current status are recorded in `docs/STATUS.md`.
+
+
 ## 1) Contracts (what we promise)
 
 ### KPI meaning contract
@@ -178,6 +194,8 @@ Prod-like compose (production-shaped container runtime):
 - `docs/proof/m4_2026-01-22_m45_complete_status_docs_index_gates.txt` — Docs/index gates after marking M4.5 complete and adding the next-step line (docs-only change verification)
 - `docs/proof/m4_2026-01-22_m46_status_next_step_docs_index_gates.txt` — Docs/index gates after setting M4.6 as current step in STATUS (docs-only change verification)
 - `docs/proof/m4_2026-01-23_m46_final_baseline_full_gates.txt` — M4.6 final baseline full gates (authoritative closure proof)
+- `docs/proof/m4_2026-01-23_m46_index_update_docs_gates.txt` — M4.6 index update gates (proof indexing verification)
+- `docs/proof/m4_2026-01-23_m46_post_close_docs_index_gates.txt` — M4 post-close docs/index gates (final confirmation)
 
 ## 4) How to re-verify (buyer due-diligence commands)
 
