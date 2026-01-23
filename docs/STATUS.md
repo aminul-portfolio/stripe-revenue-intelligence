@@ -2,8 +2,9 @@
 
 ## Current milestone
 
-* Milestone: **M4 Deployment baseline (in progress)**
-* Current step: **M4.6 Buyer-ready release pack (runbook completeness + final verification pass) (in progress)**
+* Milestone: **M4 Deployment baseline (complete)**
+* Current step: **M4 closed (buyer-ready deployment baseline proven)**
+* M4 closed: **2026-01-23** (final baseline proof + index verification complete)
 * M4.4 closed: **2026-01-22** (prod-like compose baseline proven; rerun proofs + indexing complete)
 * M4.5 closed: **2026-01-22** (runbook + reproducible prod-compose commands proven; gates captured and indexed)
 * M3 closed: **2026-01-21** (exit proofs complete; gates verified)
@@ -47,6 +48,7 @@ All gates below must remain green locally and in CI.
 
 ## Notes (chronological)
 
+* 2026-01-23: **M4 closed:** final baseline proof + index verification committed (`008d95b`) and stray M3 proof removed (`e3d45cb`).
 * 2026-01-23: **M4.6 final baseline full gates captured (authoritative closure proof):** `docs/proof/m4_2026-01-23_m46_final_baseline_full_gates.txt`.
 * 2026-01-22: **M4.6 STATUS step set; docs/index gates captured (docs-only verification):**`docs/proof/m4_2026-01-22_m46_status_next_step_docs_index_gates.txt`.
 * 2026-01-22: **M4.5 marked complete + next-step line added; docs/index gates captured (docs-only verification):** `docs/proof/m4_2026-01-22_m45_complete_status_docs_index_gates.txt`.
