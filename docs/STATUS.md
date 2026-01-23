@@ -57,6 +57,12 @@ Final post-push full gates proof (authoritative):
 * 2026-01-23: **M4 closed:** final baseline proof + index verification committed (`008d95b`) and stray M3 proof removed (`e3d45cb`).
 * 2026-01-23: **M4.6 final baseline full gates captured (authoritative closure proof):** `docs/proof/m4_2026-01-23_m46_final_baseline_full_gates.txt`.
 * 2026-01-23: **M4.6 host full release gates captured (default settings):** `docs/proof/m4_2026-01-23_m46_host_full_gates_default.txt`.
+* 2026-01-23: **Docs index gates after host gates (index integrity verification):** `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_host_gates.txt`.
+* 2026-01-23: **Post-push full gates captured (authoritative “after merge” verification):** `docs/proof/m4_2026-01-23_m46_post_push_full_gates.txt`.
+* 2026-01-23: **Docs index gates after post-push indexing (index integrity verification):** `docs/proof/m4_2026-01-23_m46_post_push_docs_index_gates.txt`.
+* 2026-01-23: **Final after-index full gates captured (“final-final” authoritative proof):** `docs/proof/m4_2026-01-23_m46_final_after_index_full_gates.txt`.
+* 2026-01-23: **M4.4 Step 3 prod compose PID1 cmdline captured (Gunicorn is PID1):** `docs/proof/m4_2026-01-22_prod_compose_pid1_cmdline.txt`.
+* 2026-01-23: **M4.6 final docs index gates captured (post “final-final” proof pack verification):** `docs/proof/m4_2026-01-23_m46_final_docs_index_gates_after_final_final.txt`.
 * 2026-01-22: **M4.6 STATUS step set; docs/index gates captured (docs-only verification):** `docs/proof/m4_2026-01-22_m46_status_next_step_docs_index_gates.txt`.
 * 2026-01-22: **M4.5 marked complete + next-step line added; docs/index gates captured (docs-only verification):** `docs/proof/m4_2026-01-22_m45_complete_status_docs_index_gates.txt`.
 * 2026-01-22: **M4.5 docs/index gates after indexing full-gates proofs captured:** `docs/proof/m4_2026-01-22_m45_docs_index_gates_after_updates.txt`.
@@ -70,6 +76,7 @@ Final post-push full gates proof (authoritative):
 * 2026-01-22: **M4.4 Step 3 prod compose deploy gate re-captured after settings_prod test-redirect fix:** `docs/proof/m4_2026-01-22_prod_compose_deploy_gate_after_settings_prod_fix.txt`.
 * 2026-01-22: **M4.4 Step 3 prod compose full gates re-captured after settings_prod test-redirect fix (authoritative):** `docs/proof/m4_2026-01-22_prod_compose_full_gates_after_settings_prod_fix.txt`.
 * 2026-01-22: **M4.4 Step 3 prod compose full gates captured (prod-like runtime):** `docs/proof/m4_2026-01-22_prod_compose_full_gates.txt`.
+* 2026-01-22: **M4.4 Step 3 prod compose PID1 cmdline captured (Gunicorn is PID1):** `docs/proof/m4_2026-01-22_prod_compose_pid1_cmdline.txt`.
 * 2026-01-22: **M4.4 Step 3 Gunicorn server header proof captured (in-container):** `docs/proof/m4_2026-01-22_gunicorn_server_header_proof.txt`.
 * 2026-01-22: **M4 prod compose (IPv4) docs/index gates captured:** `docs/proof/m4_2026-01-22_prod_compose_ipv4_docs_index_gates.txt`.
 * 2026-01-22: **M4 prod compose host smoke (IPv4) captured:** `docs/proof/m4_2026-01-22_prod_compose_healthz_ipv4_smoke.txt` (Windows-safe; confirms `Server: gunicorn`).
@@ -133,6 +140,7 @@ Final post-push full gates proof (authoritative):
 * 2026-01-20: RBAC surface contract test added and stabilized using namespaced URL reversing for monitoring (`reverse("monitoring:monitoring-issues")`) + proof captured.
 * 2026-01-20: Contracts & Proof Index added as the buyer due-diligence entry point (`docs/CONTRACTS_AND_PROOFS.md`).
 * 2026-01-20: KPI definitions updated (time window boundaries clarified; export contract references reinforced) (`docs/kpi_definitions.md`).
+
 
 ## Evidence (proof artifacts)
 
