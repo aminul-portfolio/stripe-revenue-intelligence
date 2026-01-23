@@ -9,7 +9,6 @@
 * M4.5 closed: **2026-01-22** (runbook + reproducible prod-compose commands proven; gates captured and indexed)
 * M3 closed: **2026-01-21** (exit proofs complete; gates verified)
 
-
 ## Runtime baseline
 
 * Python: 3.12.3
@@ -19,7 +18,7 @@
 * Postgres parity settings: `DJANGO_SETTINGS_MODULE=purelaka.settings_postgres`
 * Container baseline: Dockerfile + Docker Compose (`docker-compose.yml`, `docker-compose.prod.yml`)
 
-## Release gates (latest verified: 2026-01-22)
+## Release gates (latest verified: 2026-01-23)
 
 All gates below must remain green locally and in CI.
 
@@ -32,6 +31,9 @@ All gates below must remain green locally and in CI.
 * `pip-audit -r requirements.txt`: PASS (no known vulnerabilities)
 * Deploy gate (prod-like settings): `python manage.py check --deploy`: PASS
   * Run with: `DJANGO_SETTINGS_MODULE=purelaka.settings_prod`
+
+Latest host proof (default settings, full release gates):
+* `docs/proof/m4_2026-01-23_m46_host_full_gates_default.txt`
 
 ### Important settings note (prevents false test failures)
 
@@ -50,7 +52,8 @@ All gates below must remain green locally and in CI.
 
 * 2026-01-23: **M4 closed:** final baseline proof + index verification committed (`008d95b`) and stray M3 proof removed (`e3d45cb`).
 * 2026-01-23: **M4.6 final baseline full gates captured (authoritative closure proof):** `docs/proof/m4_2026-01-23_m46_final_baseline_full_gates.txt`.
-* 2026-01-22: **M4.6 STATUS step set; docs/index gates captured (docs-only verification):**`docs/proof/m4_2026-01-22_m46_status_next_step_docs_index_gates.txt`.
+* 2026-01-23: **M4.6 host full release gates captured (default settings):** `docs/proof/m4_2026-01-23_m46_host_full_gates_default.txt`.
+* 2026-01-22: **M4.6 STATUS step set; docs/index gates captured (docs-only verification):** `docs/proof/m4_2026-01-22_m46_status_next_step_docs_index_gates.txt`.
 * 2026-01-22: **M4.5 marked complete + next-step line added; docs/index gates captured (docs-only verification):** `docs/proof/m4_2026-01-22_m45_complete_status_docs_index_gates.txt`.
 * 2026-01-22: **M4.5 docs/index gates after indexing full-gates proofs captured:** `docs/proof/m4_2026-01-22_m45_docs_index_gates_after_updates.txt`.
 * 2026-01-22: **M4.5 prod compose full gates captured (in-container):** `docs/proof/m4_2026-01-22_m45_prod_compose_full_gates.txt`.
@@ -63,7 +66,6 @@ All gates below must remain green locally and in CI.
 * 2026-01-22: **M4.4 Step 3 prod compose deploy gate re-captured after settings_prod test-redirect fix:** `docs/proof/m4_2026-01-22_prod_compose_deploy_gate_after_settings_prod_fix.txt`.
 * 2026-01-22: **M4.4 Step 3 prod compose full gates re-captured after settings_prod test-redirect fix (authoritative):** `docs/proof/m4_2026-01-22_prod_compose_full_gates_after_settings_prod_fix.txt`.
 * 2026-01-22: **M4.4 Step 3 prod compose full gates captured (prod-like runtime):** `docs/proof/m4_2026-01-22_prod_compose_full_gates.txt`.
-* 2026-01-22: **M4.4 Step 3 prod compose PID1 cmdline captured (Gunicorn is PID1):** `docs/proof/m4_2026-01-22_prod_compose_pid1_cmdline.txt`.
 * 2026-01-22: **M4.4 Step 3 Gunicorn server header proof captured (in-container):** `docs/proof/m4_2026-01-22_gunicorn_server_header_proof.txt`.
 * 2026-01-22: **M4 prod compose (IPv4) docs/index gates captured:** `docs/proof/m4_2026-01-22_prod_compose_ipv4_docs_index_gates.txt`.
 * 2026-01-22: **M4 prod compose host smoke (IPv4) captured:** `docs/proof/m4_2026-01-22_prod_compose_healthz_ipv4_smoke.txt` (Windows-safe; confirms `Server: gunicorn`).
@@ -169,109 +171,11 @@ Key M3 hardening proofs (2026-01-21):
 * `docs/proof/m3_kpi_parity_inventory_2026-01-21.txt`
 * `docs/proof/m3_kpi_contract_completeness_2026-01-21.txt`
 
-### M4 proof pack (in progress)
+### M4 proof pack (closed)
 
-* `docs/proof/m4_2026-01-22_prod_compose_deploy_gate_after_settings_prod_fix.txt` — M4.4 Step 3: deploy gate re-captured after `settings_prod` test-redirect fix (authoritative deploy proof after fix)
-* `docs/proof/m4_2026-01-22_prod_compose_full_gates_after_settings_prod_fix.txt` — M4.4 Step 3: full gates re-captured after `settings_prod` test-redirect fix (authoritative Step 3 PASS proof)
-* `docs/proof/m4_2026-01-22_prod_compose_full_gates_rerun_clean.txt` — M4.4 Step 3: prod compose full gates re-run from clean rebuild (authoritative rerun proof)
-* `docs/proof/m4_2026-01-22_after_fix_docs_index_gates.txt` — M4.4 Step 3: docs/index gates after re-indexing the after-fix proofs (index completeness verification)
-* `docs/proof/m4_2026-01-21_postgres_parity_gates.txt` — Postgres parity gates (Docker Compose + `purelaka.settings_postgres`)
-* `docs/proof/m4_2026-01-22_dockerfile_gate.txt` — Dockerfile build + gates verification
-* `docs/proof/m4_2026-01-22_compose_web_db_parity_gates.txt` — Docker Compose web+db parity gates (gates executed inside app container; confirms Postgres `db` host)
-* `docs/proof/m4_2026-01-22_docs_index_gates.txt` — Docs/index gates proof after updating `docs/STATUS.md` + `docs/CONTRACTS_AND_PROOFS.md`
-* `docs/proof/m4_2026-01-22_post_index_full_gates.txt` — Post-index full gates snapshot (authoritative “after docs updates” confirmation)
-* `docs/proof/m4_2026-01-22_contracts_proofs_update_gates.txt` — Gates snapshot after updating contracts/proofs index (docs-only change verification)
-* `docs/proof/m4_2026-01-22_contracts_proofs_indexed_gates.txt` — Gates snapshot after indexing the previous proof into the index (index completeness verification)
-* `docs/proof/m4_2026-01-22_full_gates_after_docs_sync.txt` — Full gates snapshot after docs sync on `main` (authoritative current baseline)
-* `docs/proof/m4_2026-01-22_full_gates_indexed_gates.txt` — Gates snapshot after indexing the previous full-gates proof into the docs
-* `docs/proof/m4_2026-01-22_healthz_gunicorn_gates.txt` — M4.4 Step 1: health/readiness endpoint (`/monitoring/healthz/`) + gunicorn dependency; gates + manual check captured
-* `docs/proof/m4_2026-01-22_gunicorn_runtime_smoke.txt` — M4.4 Step 2: Gunicorn runtime smoke (healthz shows `Server: gunicorn`)
-* `docs/proof/m4_2026-01-22_gunicorn_compose_web_db_parity_gates.txt` — M4.4 Step 2: compose web+db parity gates under Gunicorn runtime (in-container gates proof)
-* `docs/proof/m4_2026-01-22_docs_cleanup_gates.txt` — Docs cleanup gates proof (normalizes docs formatting; verifies gates remain green)
-* `docs/proof/m4_2026-01-22_prod_compose_deploy_gate.txt` — M4.4 Step 3 (prod-like compose): `python manage.py check --deploy` executed inside container (prod settings)
-* `docs/proof/m4_2026-01-22_prod_compose_healthz_smoke.txt` — Prod-like compose host smoke (initial capture; may include redirect behavior depending on curl flags)
-* `docs/proof/m4_2026-01-22_prod_compose_healthz_redirect_headers.txt` — Prod-like compose host smoke (redirect/header capture for healthz)
-* `docs/proof/m4_2026-01-22_prod_compose_healthz_ipv4_smoke.txt` — Prod-like compose host smoke (IPv4; Windows-safe; confirms `Server: gunicorn`)
-* `docs/proof/m4_2026-01-22_gunicorn_server_header_proof.txt` — Gunicorn header proof captured from inside the container (`Server: gunicorn`)
-* `docs/proof/m4_2026-01-22_prod_compose_ipv4_docs_index_gates.txt` — Gates proof after indexing prod-compose IPv4 host smoke into docs (index completeness verification)
-* `docs/proof/m4_2026-01-22_prod_compose_rerun_docs_index_gates.txt` — Docs/index gates after indexing rerun proofs (docs-only change verification)
-* `docs/proof/m4_2026-01-22_prod_compose_full_gates.txt` — M4.4 Step 3 (prod-like compose): full gates run inside container (includes `check --deploy`; PASS confirmed)
-* `docs/proof/m4_2026-01-22_prod_compose_pid1_cmdline.txt` — M4.4 Step 3: PID1 commandline proof (`/proc/1/cmdline` confirms Gunicorn as container process)
-* `docs/proof/m4_2026-01-22_m45_status_next_step_docs_index_gates.txt` — Docs/index gates after adding M4.5 next step line in STATUS (docs-only change verification)
-* `docs/proof/m4_2026-01-22_m45_prod_compose_host_healthz_headers_200.txt` — M4.5: prod compose host healthz headers (200 OK; confirms `Server: gunicorn` + security headers)
-* `docs/proof/m4_2026-01-22_m45_prod_compose_full_gates.txt` — M4.5: prod compose full gates run (in-container; verifies deploy + tests + run_checks + ruff + pip-audit under prod compose)
-* `docs/proof/m4_2026-01-22_m45_full_gates_after_updates.txt` — M4.5: full gates snapshot after M4.5 updates (authoritative “after updates” baseline)
-* `docs/proof/m4_2026-01-22_m45_docs_index_gates_after_updates.txt` — Docs/index gates after indexing M4.5 full-gates proofs (docs-only change verification)
-* `docs/proof/m4_2026-01-22_m45_complete_status_docs_index_gates.txt` — Docs/index gates after marking M4.5 complete and adding the next-step line (docs-only change verification)
-* `docs/proof/m4_2026-01-22_m46_status_next_step_docs_index_gates.txt` — Docs/index gates after setting M4.6 as current step in STATUS (docs-only change verification)
+M4.6 closure proofs:
 
-
-## Completed
-
-### Milestone 1 — Audit-clean & runnable (complete)
-
-* Wishlist included and wired (routes/templates/tests).
-* Monitoring checks stable; negative-case proven (open → resolved workflow).
-* Deterministic tests: pass with `PAYMENTS_USE_STRIPE=0`.
-* Repo hygiene: `.env`, db, venv excluded; proofs stored under `docs/proof/`.
-* CI established and green on `main` (quality + security gates).
-* Deploy gate reproducible via `purelaka.settings_prod` and `check --deploy`.
-* Full gate proof captured in `docs/proof/m1_2026-01-19_full_gates.txt`.
-
-### Milestone 2 — Operations Control hardened (complete)
-
-* Order lifecycle rules enforced and tested (cancel/fulfill paths; access boundaries).
-* Refund mapping updates order refund fields; reconciliation checks stable.
-* Stock decrement/oversell prevention present; idempotent on webhook replay (proven).
-* RBAC boundaries enforced across analytics/exports/monitoring/orders/payments.
-* Audit logging present for operational actions; analytics exports audited (proven).
-
-### Milestone 3 — Hardening (complete)
-
-* Buyer due-diligence entry point centralized: `docs/CONTRACTS_AND_PROOFS.md`.
-* KPI meaning contract aligned and enforced via tests and proof artifacts.
-* Export schema contract is machine-checkable and test-enforced.
-* Concurrency and oversell prevention proofs captured (see M3 proof pack).
-* Consolidated M3 gates proof captured: `docs/proof/m3_2026-01-21_full_gates_clean.txt`.
-
-## In progress
-
-### Milestone 4 — Deployment baseline (in progress)
-
-* **M4.1 (complete):** Postgres parity via Docker Compose + `purelaka.settings_postgres` proven with gates.
-  * Proof: `docs/proof/m4_2026-01-21_postgres_parity_gates.txt`
-* **M4.2 (complete):** Dockerfile baseline added; repo gates remain green.
-  * Proof: `docs/proof/m4_2026-01-22_dockerfile_gate.txt`
-* **M4.3 (complete):** Docker Compose web+db baseline; gates executed inside the app container and confirmed Postgres connectivity (`host=db`, `name=purelaka`).
-  * Proof: `docs/proof/m4_2026-01-22_compose_web_db_parity_gates.txt`
-* **M4.4 (in progress):** Production-shaped container runtime.
-  * **Step 1 (complete):** `/monitoring/healthz/` readiness endpoint + gunicorn dependency.
-    * Proof: `docs/proof/m4_2026-01-22_healthz_gunicorn_gates.txt`
-  * **Step 2 (complete):** container serves via Gunicorn; parity gates executed inside container under Gunicorn runtime.
-    * Proofs: `docs/proof/m4_2026-01-22_gunicorn_runtime_smoke.txt`, `docs/proof/m4_2026-01-22_gunicorn_compose_web_db_parity_gates.txt`
-  * **Step 3 (complete):** prod-like compose baseline (host smoke + deploy gate + PID1 + full gates).
-    * Proofs:
-      * `docs/proof/m4_2026-01-22_prod_compose_deploy_gate.txt`
-      * `docs/proof/m4_2026-01-22_prod_compose_healthz_ipv4_smoke.txt`
-      * `docs/proof/m4_2026-01-22_prod_compose_healthz_redirect_headers.txt`
-      * `docs/proof/m4_2026-01-22_prod_compose_healthz_smoke.txt`
-      * `docs/proof/m4_2026-01-22_gunicorn_server_header_proof.txt`
-      * `docs/proof/m4_2026-01-22_prod_compose_pid1_cmdline.txt`
-      * `docs/proof/m4_2026-01-22_prod_compose_full_gates.txt`
-      * `docs/proof/m4_2026-01-22_prod_compose_ipv4_docs_index_gates.txt`
-
-* Docs/proof indexing verified after updates:
-  * `docs/proof/m4_2026-01-22_docs_index_gates.txt`
-  * `docs/proof/m4_2026-01-22_post_index_full_gates.txt` (authoritative post-index full gates snapshot)
-
-## Top blockers (max 3)
-
-1. **Finish M4.4 Step 3 as “closed”:** ensure the latest Step 3 proof pack is complete and consistently indexed (STATUS + CONTRACTS_AND_PROOFS).
-2. **Prod-like operational clarity:** document exactly how to run prod-compose locally (commands + expected outputs) in the runbook to reduce buyer friction.
-3. **Hardening follow-through:** confirm no environment drift between dev/parity/prod-like modes (explicitly documented rules for `DJANGO_SETTINGS_MODULE` usage).
-
-## Next 3 actions (strict, step-by-step)
-
-1. **Index completeness check:** confirm every Step 3 proof file listed above is present in both `docs/STATUS.md` and `docs/CONTRACTS_AND_PROOFS.md`.
-2. **Repeatable Step 3 re-run (optional but strong):** re-run the prod-compose “full gates” once from a clean rebuild and confirm PASS is captured in `docs/proof/m4_2026-01-22_prod_compose_full_gates.txt` (or a new timestamped proof if you prefer).
-3. **Mark Step 3 complete when consistent:** once indexing is complete and proof is PASS, flip “Current step” to the next planned item (or explicitly mark M4.4 Step 3 complete and define the next milestone step).
+* `docs/proof/m4_2026-01-23_m46_final_baseline_full_gates.txt` — M4.6 final baseline full gates (authoritative closure proof)
+* `docs/proof/m4_2026-01-23_m46_host_full_gates_default.txt` — M4.6 host full release gates (default settings; fresh capture on 2026-01-23)
+* `docs/proof/m4_2026-01-23_m46_index_update_docs_gates.txt` — M4.6 index update gates (proof indexing verification)
+* `docs/proof/m4_2026-01-23_m46_post_close_docs_index_gates.txt` — M4 post-close docs/index gates (final confirmation)

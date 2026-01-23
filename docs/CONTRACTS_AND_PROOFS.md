@@ -17,14 +17,16 @@ To verify the buyer-ready deployment baseline (Milestone 4 closure), review thes
 1) **M4.6 final baseline gates (authoritative):**
    - `docs/proof/m4_2026-01-23_m46_final_baseline_full_gates.txt`
 
-2) **Index update verification (confirms indexes updated correctly):**
+2) **M4.6 host full release gates (default settings; fresh capture on 2026-01-23):**
+   - `docs/proof/m4_2026-01-23_m46_host_full_gates_default.txt`
+
+3) **Index update verification (confirms indexes updated correctly):**
    - `docs/proof/m4_2026-01-23_m46_index_update_docs_gates.txt`
 
-3) **Post-close confirmation (final “after everything” verification):**
+4) **Post-close confirmation (final “after everything” verification):**
    - `docs/proof/m4_2026-01-23_m46_post_close_docs_index_gates.txt`
 
 The milestone closure date and current status are recorded in `docs/STATUS.md`.
-
 
 ## 1) Contracts (what we promise)
 
@@ -178,7 +180,6 @@ Prod-like compose (production-shaped container runtime):
 - `docs/proof/m4_2026-01-22_prod_compose_healthz_redirect_headers.txt` — M4.4 Step 3: redirect/header capture for host healthz smoke (documents 301/host behaviour under prod flags)
 - `docs/proof/m4_2026-01-22_prod_compose_healthz_smoke.txt` — M4.4 Step 3: initial prod compose host healthz smoke capture (raw output)
 - `docs/proof/m4_2026-01-22_gunicorn_server_header_proof.txt` — M4.4 Step 3: Gunicorn `Server:` header proof (sanity confirmation)
-- `docs/proof/m4_2026-01-22_prod_compose_pid1_cmdline.txt` — M4.4 Step 3: PID1 cmdline proof (`/proc/1/cmdline` confirms Gunicorn is PID1)
 - `docs/proof/m4_2026-01-22_prod_compose_full_gates.txt` — M4.4 Step 3: prod compose full gates executed inside container (initial capture; may contain failures prior to `settings_prod` redirect fix)
 - `docs/proof/m4_2026-01-22_prod_compose_deploy_gate_after_settings_prod_fix.txt` — M4.4 Step 3: deploy gate re-captured after `settings_prod` test-redirect fix (authoritative deploy proof after fix)
 - `docs/proof/m4_2026-01-22_prod_compose_full_gates_after_settings_prod_fix.txt` — M4.4 Step 3: full gates re-captured after `settings_prod` test-redirect fix (authoritative Step 3 PASS proof)
@@ -193,21 +194,25 @@ Prod-like compose (production-shaped container runtime):
 - `docs/proof/m4_2026-01-22_m45_docs_index_gates_after_updates.txt` — Docs/index gates after indexing M4.5 full-gates proofs (docs-only change verification)
 - `docs/proof/m4_2026-01-22_m45_complete_status_docs_index_gates.txt` — Docs/index gates after marking M4.5 complete and adding the next-step line (docs-only change verification)
 - `docs/proof/m4_2026-01-22_m46_status_next_step_docs_index_gates.txt` — Docs/index gates after setting M4.6 as current step in STATUS (docs-only change verification)
+
+M4.6 closure proofs:
+
 - `docs/proof/m4_2026-01-23_m46_final_baseline_full_gates.txt` — M4.6 final baseline full gates (authoritative closure proof)
+- `docs/proof/m4_2026-01-23_m46_host_full_gates_default.txt` — M4.6 host full release gates (default settings; fresh capture on 2026-01-23)
 - `docs/proof/m4_2026-01-23_m46_index_update_docs_gates.txt` — M4.6 index update gates (proof indexing verification)
 - `docs/proof/m4_2026-01-23_m46_post_close_docs_index_gates.txt` — M4 post-close docs/index gates (final confirmation)
 
 ## 4) How to re-verify (buyer due-diligence commands)
 
 Core gates (single consolidated proof):
-- `.\scripts\gates.ps1 -ProofPath "docs/proof/m3_YYYY-MM-DD_full_gates_clean.txt"`
+- `.\scripts\gates.ps1 -ProofPath "docs/proof/m3_2026-01-21_full_gates_clean.txt"`
 
 Postgres parity gates (local, host-run using Postgres settings):
-- `DJANGO_SETTINGS_MODULE=purelaka.settings_postgres .\scripts\gates.ps1 -ProofPath "docs/proof/m4_YYYY-MM-DD_postgres_parity_gates.txt"`
+- `DJANGO_SETTINGS_MODULE=purelaka.settings_postgres .\scripts\gates.ps1 -ProofPath "docs/proof/m4_2026-01-21_postgres_parity_gates.txt"`
 
 Docker Compose parity gates (web+db; run gates inside the app container):
 - `docker compose up -d --build`
-- `docker exec -i purelaka_web sh -lc "python manage.py check && python manage.py test --noinput && python manage.py run_checks --fail-on-issues && python manage.py makemigrations --check --dry-run && ruff check . && ruff format --check . && pip-audit -r requirements.txt" > docs/proof/m4_YYYY-MM-DD_compose_web_db_parity_gates.txt`
+- `docker exec -i purelaka_web sh -lc "python manage.py check && python manage.py test --noinput && python manage.py run_checks --fail-on-issues && python manage.py makemigrations --check --dry-run && ruff check . && ruff format --check . && pip-audit -r requirements.txt" > docs/proof/m4_2026-01-22_compose_web_db_parity_gates.txt`
 
 Or run individually:
 - `python manage.py check`
