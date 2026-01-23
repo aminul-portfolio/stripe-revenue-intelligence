@@ -3,9 +3,11 @@
 ## Current milestone
 
 * Milestone: **M4 Deployment baseline (in progress)**
-* Current step: **M4.5 Production runbook + reproducible prod-compose commands (complete)**
-* Next step: **M4.6 Buyer handoff pack (how-to-run + due diligence script list) (in progress)**
+* Current step: **M4.6 Buyer-ready release pack (runbook completeness + final verification pass) (in progress)**
+* M4.4 closed: **2026-01-22** (prod-like compose baseline proven; rerun proofs + indexing complete)
+* M4.5 closed: **2026-01-22** (runbook + reproducible prod-compose commands proven; gates captured and indexed)
 * M3 closed: **2026-01-21** (exit proofs complete; gates verified)
+
 
 ## Runtime baseline
 
@@ -45,6 +47,7 @@ All gates below must remain green locally and in CI.
 
 ## Notes (chronological)
 
+* 2026-01-22: **M4.6 STATUS step set; docs/index gates captured (docs-only verification):**`docs/proof/m4_2026-01-22_m46_status_next_step_docs_index_gates.txt`.
 * 2026-01-22: **M4.5 marked complete + next-step line added; docs/index gates captured (docs-only verification):** `docs/proof/m4_2026-01-22_m45_complete_status_docs_index_gates.txt`.
 * 2026-01-22: **M4.5 docs/index gates after indexing full-gates proofs captured:** `docs/proof/m4_2026-01-22_m45_docs_index_gates_after_updates.txt`.
 * 2026-01-22: **M4.5 prod compose full gates captured (in-container):** `docs/proof/m4_2026-01-22_m45_prod_compose_full_gates.txt`.
@@ -197,7 +200,7 @@ Key M3 hardening proofs (2026-01-21):
 * `docs/proof/m4_2026-01-22_m45_full_gates_after_updates.txt` — M4.5: full gates snapshot after M4.5 updates (authoritative “after updates” baseline)
 * `docs/proof/m4_2026-01-22_m45_docs_index_gates_after_updates.txt` — Docs/index gates after indexing M4.5 full-gates proofs (docs-only change verification)
 * `docs/proof/m4_2026-01-22_m45_complete_status_docs_index_gates.txt` — Docs/index gates after marking M4.5 complete and adding the next-step line (docs-only change verification)
-
+* `docs/proof/m4_2026-01-22_m46_status_next_step_docs_index_gates.txt` — Docs/index gates after setting M4.6 as current step in STATUS (docs-only change verification)
 
 
 ## Completed
