@@ -55,6 +55,7 @@ Final post-push full gates proof (authoritative):
 
 ## Notes (chronological)
 
+* 2026-01-23: **Docs index gates re-verified after indexing the ultimate host verification:** `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_final_host_after_all_docs.txt`.
 * 2026-01-23: **Final host full gates re-run after all docs/indexing (ultimate host verification):** `docs/proof/m4_2026-01-23_m46_final_host_full_gates_after_all_docs.txt`.
 * 2026-01-23: **Docs index gates captured after indexing the ultimate closure proof:** `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_indexing_ultimate_proof.txt`.
 * 2026-01-23: **M4.6 final post-push full gates captured (ultimate closure proof):** `docs/proof/m4_2026-01-23_m46_final_post_push_full_gates.txt`.

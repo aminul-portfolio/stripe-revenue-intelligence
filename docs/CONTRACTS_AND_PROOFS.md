@@ -50,6 +50,9 @@ To verify the buyer-ready deployment baseline (Milestone 4 closure), review thes
 12) **Final host full gates after all docs/indexing (ultimate host verification):**
    - `docs/proof/m4_2026-01-23_m46_final_host_full_gates_after_all_docs.txt`
 
+13) **Docs index gates (final integrity verification after indexing the ultimate host verification):**
+   - `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_final_host_after_all_docs.txt`
+
 
 Supporting docs-index gate proof (earlier checkpoint, retained for completeness):
 - `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_host_gates.txt`
@@ -240,6 +243,7 @@ M4.6 closure proofs:
 - `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_final_post_push_full_gates.txt` — Docs index gates after indexing the ultimate closure proof
 - `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_indexing_ultimate_proof.txt` — Docs index gates after indexing the ultimate closure proof (final integrity verification)
 - `docs/proof/m4_2026-01-23_m46_final_host_full_gates_after_all_docs.txt` — Final host full gates after all docs/indexing (ultimate host verification)
+- `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_final_host_after_all_docs.txt` — Docs index gates after indexing the ultimate host verification (final integrity proof)
 
 ## 4) How to re-verify (buyer due-diligence commands)
 
