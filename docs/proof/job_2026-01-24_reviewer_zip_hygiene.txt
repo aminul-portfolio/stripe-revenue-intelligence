@@ -1,0 +1,10 @@
+﻿=== Reviewer ZIP hygiene (git archive) — 2026-01-24 ===
+
+ZIP: purelaka_clean_share.zip
+Size (bytes): 306473
+
+Allowed exception:
+- .env.example (template; not a secret)
+
+Forbidden-content scan (excluding .env.example):
+
