@@ -1,7 +1,6 @@
-﻿=== Contracts & Proofs Integrity Scan — 2026-01-24 (PROVEN) ===
+﻿=== Contracts & Proofs Integrity Scan — 2026-01-24 (HEAD refresh) ===
 PWD=C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY
-PROVEN_COMMIT=42ff8ce3caee3f300360ea88f7ce71d84830c440
+HEAD_COMMIT=a9d419fb17505ff7a6119e2ff943c1ede486d276
 REFERENCED_PROOF_COUNT=81
 MISSING_COUNT=0
-
 OK: All referenced proof files exist.
