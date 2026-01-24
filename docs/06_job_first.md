@@ -73,7 +73,8 @@ Where something is partially present or contradicted, it remains **Not Done**.
 
 - [x] KPI definitions exist (`docs/kpi_definitions.md`) (**Done**)
 - [x] Snapshot builder exists (`analyticsapp/management/commands/build_analytics_snapshots.py`) (**Done**)
-- [ ] Dashboard subscription KPI naming matches canonical keys (`canceled`, not `cancelled`) (**Not Done** — `templates/analytics/dashboard.html` references `subs.cancelled`)
+- [x] Dashboard subscription KPI naming matches canonical keys (`canceled`, not `cancelled`) (**Done** — `templates/analytics/dashboard.html` uses `subs.canceled`; verified by `python manage.py test analyticsapp -v 2`)
+
 
 ---
 
