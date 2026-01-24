@@ -74,7 +74,7 @@ This section captures the job-first closure evidence: clean deliverable hygiene,
 - `docs/proof/job_2026-01-24_job_first_closure_gates_v3.txt`
 
 ### Deploy gate (prod-like settings)
-- `docs/proof/job_2026-01-24_job_first_closure_gates_deploy_fix_v5.txt`
+- `docs/proof/job_2026-01-24_job_first_deploy_gate_HEAD.txt`
 
 ### Reviewer deliverable hygiene (share ZIP)
 - `docs/proof/job_2026-01-24_reviewer_zip_hygiene.txt`
