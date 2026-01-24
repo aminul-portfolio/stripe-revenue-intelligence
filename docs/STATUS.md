@@ -12,6 +12,7 @@
   - Closure gates: `docs/proof/job_2026-01-24_job_first_closure_gates_HEAD.txt`
   - Deploy gate (prod-like / settings_prod): `docs/proof/job_2026-01-24_job_first_deploy_gate_HEAD.txt`
   - Proof index integrity scan: `docs/proof/job_2026-01-24_contracts_and_proofs_integrity_scan.txt`
+- **Note:** “*_HEAD.txt” filenames are legacy naming; these artifacts are PROVEN anchored via `PROVEN_COMMIT` above.
 
 > Note on Milestone 4: Docker Compose / buyer-ready deployment work exists as historical work-in-repo, but it is **not claimed as shipped** in the Acceptance Matrix “Out of scope” section until it is re-validated and the Job-First checklist is fully green.
 
@@ -24,7 +25,7 @@
 * Postgres parity settings: `DJANGO_SETTINGS_MODULE=purelaka.settings_postgres`
 * Container baseline: Dockerfile + Docker Compose (`docker-compose.yml`, `docker-compose.prod.yml`)
 
-## Release gates (latest verified: 2026-01-23)
+## Release gates (latest verified: 2026-01-24)
 
 All gates below must remain green locally and in CI.
 
@@ -34,8 +35,8 @@ All gates below must remain green locally and in CI.
 * `python manage.py makemigrations --check --dry-run`: PASS
 * `ruff check .`: PASS
 * `ruff format --check .`: PASS
-* `pip-audit -r requirements.txt`: PASS (no known vulnerabilities)
-* Deploy gate (prod-like settings): `python manage.py check --deploy`: historically proven (see proof pack)
+* `pip-audit -r requirements.txt`: PASS (see latest proof output)
+* Deploy gate (prod-like settings): `python manage.py check --deploy`: PASS (see Job-First deploy proof)
   * Run with: `DJANGO_SETTINGS_MODULE=purelaka.settings_prod`
 
 Latest host proof (default settings, full release gates):
@@ -45,7 +46,6 @@ Latest host proof (default settings, full release gates):
 
 Final post-push full gates proof (authoritative):
 * `docs/proof/m4_2026-01-23_m46_post_push_full_gates.txt`
-
 
 ### Important settings note (prevents false test failures)
 
@@ -59,6 +59,7 @@ Final post-push full gates proof (authoritative):
     * `Remove-Item Env:DJANGO_SETTINGS_MODULE -ErrorAction SilentlyContinue`
 
 > Note: PowerShell may show a `NativeCommandError` banner when piping/redirection is used (e.g., `Tee-Object`) even if the command succeeds. Treat `$LASTEXITCODE=0` as the authoritative success signal and keep outputs as proof.
+
 
 ## Notes (chronological)
 
