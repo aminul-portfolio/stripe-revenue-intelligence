@@ -11,3 +11,33 @@ System check identified no issues (0 silenced).
 No changes detected
 
 ## python manage.py test
+python : Creating test database for alias 'default'...
+At line:1 char:1
++ python manage.py test 2>&1 | Out-File -Encoding utf8 -Append $proof
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Creating test d...as 'default'...:String) 
+    [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+
+.................................................................
+----------------------------------------------------------------------
+Ran 65 tests in 63.767s
+
+OK
+Destroying test database for alias 'default'...
+
+Found 65 test(s).
+System check identified no issues (0 silenced).
+
+## python manage.py run_checks --fail-on-issues
+Snapshots built for 90 day(s). created=0, updated=90, product_rows_upserted=16
+Issues: 0 (open=0, resolved=3)
+
+Breakdown:
+ - analytics_snapshot_reconciliation / resolved: 1
+ - invalid_order_state / resolved: 1
+ - payment_mismatch / resolved: 1
+
+Latest 10 open issues:
+ - (none open)
