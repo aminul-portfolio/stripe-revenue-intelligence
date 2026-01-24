@@ -1,0 +1,7 @@
+﻿=== CI upgrade: add check --deploy step — 2026-01-24 ===
+
+## Workflow diff
+diff --git a/.github/workflows/ci.yml b/.github/workflows/ci.yml index b6d93e9..5307fde 100644 --- a/.github/workflows/ci.yml +++ b/.github/workflows/ci.yml @@ -43,6 +43,11 @@ jobs:        - name: Django system check          run: python manage.py check   +      - name: Django deploy check (prod-like) +        env: +          DJANGO_SETTINGS_MODULE: "purelaka.settings_prod" +        run: python manage.py check --deploy +        - name: Migrations check (no missing migrations)          run: python manage.py makemigrations --check --dry-run  
+
+## Local deploy check
+DJANGO_SETTINGS_MODULE=purelaka.settings_prod python manage.py check --deploy
