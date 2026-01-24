@@ -8,19 +8,19 @@ Where something is partially present or contradicted, it remains **Not Done**.
 ## J0) “Do not embarrass the reviewer” blockers (highest priority)
 
 ### J0.1 Deliverable hygiene + clean reviewer bundle
-- [ ] Deliverable hygiene (ZIP-safe): remove from any shared ZIP/package: `.env`, `db.sqlite3`, `.venv/venv`, `.idea/`, `.ruff_cache/`, `__pycache__/`, `*.pyc`, `.pytest_cache/` (**Not Done** — present in uploaded ZIP)
+- [ ] Deliverable hygiene (ZIP-safe): remove from any shared ZIP/package: `.env`, `db.sqlite3`, `.venv/venv`, `.idea/`, `.ruff_cache/`, `__pycache__/`, `*.pyc`, `.pytest_cache/` (**Not Done** — present in uploaded ZIP, including `.env`, `db.sqlite3`, `.venv/`, `.idea/`, `.ruff_cache/`, `__pycache__/`, and `.git/`)
 - [ ] Generate the reviewer ZIP from git only (recommended standard): `git archive -o purelaka_clean_share.zip HEAD` (**Not Done** — cannot be proven from ZIP)
 
 ### J0.2 Correctness landmines (must eliminate)
-- [ ] Fix StripeEvent correctness (no properties referencing missing fields) (**Not Done** — `payments/models.py` references missing `mrr_pennies`)
-- [ ] Add regression test preventing missing-field properties from returning (StripeEvent “missing field” foot-gun cannot reappear) (**Not Done** — no dedicated regression guard evidenced)
+- [x] Fix StripeEvent correctness (no properties referencing missing fields) (**Done** — `payments/models.py` contains no reference to `mrr_pennies`)
+- [x] Add regression test preventing missing-field properties from returning (StripeEvent “missing field” foot-gun cannot reappear) (**Done** — `payments/tests/test_stripeevent_regression.py` asserts StripeEvent does not expose `mrr_gbp` and explicitly guards against `mrr_pennies`-style regressions)
 
 ### J0.3 Canonical status spelling (data integrity)
-- [ ] Normalize status spelling to canonical `canceled` everywhere (services/tests/templates/docs) (**Not Done** — mismatches; dashboard expects `subs.cancelled`)
-- [ ] Add a guard/test preventing invalid status strings from being stored (so `cancelled` cannot silently persist) (**Not Done** — not evidenced)
+- [ ] Normalize status spelling to canonical `canceled` everywhere (services/tests/templates/docs) (**Not Done** — dashboard template uses `subs.cancelled` and label “Subs (Cancelled)” in `templates/analytics/dashboard.html`)
+- [x] Add a guard/test preventing invalid status strings from being stored (so `cancelled` cannot silently persist) (**Done** — DB-level constraint `subscription_status_valid` in `subscriptions/models.py` plus regression test `subscriptions/tests/test_subscription_status_guard.py` rejecting `status="cancelled"`)
 
 ### J0.4 Claims consistency (proof must match claims)
-- [ ] Claims consistency: `docs/STATUS.md` must not contradict `docs/acceptance_matrix.md` (**Not Done** — contradiction present)
+- [x] Claims consistency: `docs/STATUS.md` must not contradict `docs/acceptance_matrix.md` (**Done** — `docs/STATUS.md` aligns with `docs/acceptance_matrix.md` “Out of scope” section; proof artifact present: `docs/proof/job_2026-01-24_claims_alignment_status_vs_acceptance.txt`)
 - [x] Acceptance matrix exists (`docs/acceptance_matrix.md`) (**Done**)
 
 ---
@@ -31,12 +31,21 @@ Where something is partially present or contradicted, it remains **Not Done**.
 - [x] CI runs `python manage.py test` (**Done** — `.github/workflows/ci.yml`)
 - [x] CI runs `python manage.py run_checks --fail-on-issues` (**Done** — `.github/workflows/ci.yml`)
 - [x] CI runs `python manage.py makemigrations --check --dry-run` (**Done** — `.github/workflows/ci.yml`)
-- [ ] CI runs `python manage.py check --deploy` (**Not Done** — not in CI)
-- [ ] CI runs `python manage.py test analyticsapp -v 2` (recommended because analytics is core) (**Not Done** — not in CI)
+- [x] CI runs `python manage.py check --deploy` (**Done** — `.github/workflows/ci.yml` includes deploy check with `DJANGO_SETTINGS_MODULE: purelaka.settings_prod`)
+- [x] CI runs `python manage.py test analyticsapp -v 2` (recommended because analytics is core) (**Done** — `.github/workflows/ci.yml`)
 - [x] CI runs `ruff check .` (**Done**)
 - [x] CI runs `ruff format --check .` (**Done**)
 - [x] CI runs `pip-audit` (**Done**)
-- [ ] Proof artifacts are consistently readable + non-empty (no empty files / bad encoding) (**Not Done** — empty and UTF-16-like proofs exist)
+- [ ] Proof artifacts are consistently readable + non-empty (no empty files / bad encoding) (**Not Done** — multiple proof files contain NUL bytes / encoding issues, e.g.:
+  - `docs/proof/job_2026-01-24_job_first_closure_gates_deploy_fix_v5.txt`
+  - `docs/proof/job_2026-01-24_job_first_closure_gates_HEAD.txt`
+  - `docs/proof/job_2026-01-24_job_first_closure_gates_v5.txt`
+  - `docs/proof/job_2026-01-24_job_first_deploy_gate_HEAD.txt`
+  - `docs/proof/m1_2026-01-17_audit.txt`
+  - `docs/proof/m1_2026-01-17_checks.txt`
+  - `docs/proof/m1_2026-01-17_gates.txt`
+  - `docs/proof/m3_deploy_gate_2026-01-21.txt`
+)
 
 ---
 
@@ -44,9 +53,9 @@ Where something is partially present or contradicted, it remains **Not Done**.
 
 - [x] `README.md` exists (setup context present) (**Done**)
 - [x] `.env.example` exists (**Done**)
-- [ ] README links the acceptance matrix (`docs/acceptance_matrix.md`) so reviewers can verify claims quickly (**Not Done** — link not present)
-- [ ] `docs/runbook.md` complete and runnable (webhooks, ops, triage, troubleshooting) (**Not Done** — incomplete)
-- [ ] `docs/deployment.md` complete and runnable (prod-like settings, env vars, CSRF/hosts) (**Not Done** — incomplete)
+- [x] README links the acceptance matrix (`docs/acceptance_matrix.md`) so reviewers can verify claims quickly (**Done** — link present in `README.md`)
+- [ ] `docs/runbook.md` complete and runnable (webhooks, ops, triage, troubleshooting) (**Not Done** — file exists but is not yet end-to-end complete/runnable as an ops runbook)
+- [ ] `docs/deployment.md` complete and runnable (prod-like settings, env vars, CSRF/hosts) (**Not Done** — file exists and covers many areas, but completeness/runnability is not fully evidenced; static files/release checklist details are not covered)
 
 ---
 
@@ -64,7 +73,7 @@ Where something is partially present or contradicted, it remains **Not Done**.
 
 - [x] KPI definitions exist (`docs/kpi_definitions.md`) (**Done**)
 - [x] Snapshot builder exists (`analyticsapp/management/commands/build_analytics_snapshots.py`) (**Done**)
-- [ ] Dashboard subscription KPI naming matches canonical keys (`canceled`, not `cancelled`) (**Not Done** — template mismatch)
+- [ ] Dashboard subscription KPI naming matches canonical keys (`canceled`, not `cancelled`) (**Not Done** — `templates/analytics/dashboard.html` references `subs.cancelled`)
 
 ---
 
