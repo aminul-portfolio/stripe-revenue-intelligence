@@ -87,6 +87,7 @@ This section captures the job-first closure evidence: clean deliverable hygiene,
 ### CI gates updates
 - `docs/proof/job_2026-01-24_ci_add_deploy_check.txt`
 - `docs/proof/job_2026-01-24_ci_add_analytics_tests.txt`
+- `docs/proof/job_2026-01-24_ci_parity_main.txt`
 
 ## 1) Contracts (what we promise)
 

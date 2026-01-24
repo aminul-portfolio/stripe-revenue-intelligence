@@ -1,0 +1,14 @@
+﻿=== CI Parity Proof (main) (PROVEN) - 2026-01-24 ===
+REPO=aminul-portfolio/stripe-revenue-intelligence
+BRANCH=main
+HEAD_ONELINE=56a99da Docs: fix STATUS proof index line (ASCII) (2026-01-24)
+HEAD_COMMIT=56a99daae072d041771c045f955961ec78abf005
+PROVEN_COMMIT=42ff8ce3caee3f300360ea88f7ce71d84830c440
+
+CI_RUN_URL=PASTE_URL_HERE
+CI_CONCLUSION=PASS
+WORKFLOW=CI
+
+Notes:
+- This proves CI gate parity with local gates at the Job-First baseline.
+
