@@ -71,7 +71,7 @@ This section captures the job-first closure evidence: clean deliverable hygiene,
 - `docs/proof/job_2026-01-24_claims_alignment_status_vs_acceptance.txt`
 
 ### Closure gates (default settings)
-- `docs/proof/job_2026-01-24_job_first_closure_gates_v3.txt`
+- `docs/proof/job_2026-01-24_job_first_closure_gates_v4.txt`
 
 ### Deploy gate (prod-like settings)
 - `docs/proof/job_2026-01-24_job_first_deploy_gate_HEAD.txt`
@@ -302,4 +302,5 @@ Or run individually:
 Deploy gate (prod-like, self-auditing proof):
 - `powershell -ExecutionPolicy Bypass -File scripts/deploy_gate.ps1`
 - `Remove-Item Env:DJANGO_SETTINGS_MODULE -ErrorAction SilentlyContinue`
+
 
