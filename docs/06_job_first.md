@@ -8,7 +8,7 @@ Where something is partially present or contradicted, it remains **Not Done**.
 ## J0) “Do not embarrass the reviewer” blockers (highest priority)
 
 ### J0.1 Deliverable hygiene + clean reviewer bundle
-- [ ] Deliverable hygiene (ZIP-safe): remove from any shared ZIP/package: `.env`, `db.sqlite3`, `.venv/venv`, `.idea/`, `.ruff_cache/`, `__pycache__/`, `*.pyc`, `.pytest_cache/` (**Not Done** — present in uploaded ZIP, including `.env`, `db.sqlite3`, `.venv/`, `.idea/`, `.ruff_cache/`, `__pycache__/`, and `.git/`)
+- [x] Deliverable hygiene (ZIP-safe): reviewer bundle generated from git only and repo does not track local artifacts (`.env`, `db.sqlite3`, `.venv/`, IDE/caches) (**Done** — reviewer ZIP via `git archive` proven; local archive ZIP untracked + ignored; see `docs/proof/job_2026-01-24_j0_1_clean_share_zip.txt` and `.gitignore`)
 - [x] Generate the reviewer ZIP from git only (recommended standard): `git archive -o purelaka_clean_share.zip HEAD` (**Done** — proof: `docs/proof/job_2026-01-24_j0_1_clean_share_zip.txt`)
 
 ### J0.2 Correctness landmines (must eliminate)
