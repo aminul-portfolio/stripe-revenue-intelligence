@@ -1,0 +1,9 @@
+﻿=== Job-First update: J0.1 deliverable hygiene — 2026-01-24 ===
+
+> C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\06_job_first.md:10:### J0.1 Deliverable hygiene + clean reviewer bundle > C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\06_job_first.md:11:- [ ] Deliverable hygiene (ZIP-safe): remove from any shared ZIP/package: `.env`, `db.sqlite3`, `.venv/venv`, `.idea/`, `.ruff_cache/`, `__pycache__/`, `*.pyc`, `.pytest_cache/` (**Not Done** — present in uploaded ZIP) > C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\06_job_first.md:12:- [ ] Generate the reviewer ZIP from git only (recommended standard): `git archive -o purelaka_clean_share.zip HEAD` (**Not Done** — cannot be proven from ZIP)
+  C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\06_job_first.md:13:
+  C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\06_job_first.md:14:### J0.2 Correctness landmines (must eliminate)
+  C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\06_job_first.md:15:- [ ] Fix StripeEvent correctness (no properties referencing missing fields) (**Not Done** — `payments/models.py` references missing `mrr_pennies`)
+
+Evidence:
+- docs/proof/job_2026-01-24_reviewer_zip_hygiene.txt
