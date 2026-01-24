@@ -1,6 +1,6 @@
-﻿=== Contracts & Proofs Integrity Scan — 2026-01-24 (refresh) ===
+﻿=== Contracts & Proofs Integrity Scan — 2026-01-24 (HEAD refresh) ===
 PWD=C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY
-COMMIT=e30f3584d5a72df5b57bf1bbffc86094feaffffc
+COMMIT=5e12e51d9569a4a245e3c086f53e0a92799ec67b
 
 REFERENCED_PROOF_COUNT=81
 MISSING_COUNT=0
