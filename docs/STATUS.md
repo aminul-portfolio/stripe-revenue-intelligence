@@ -1,13 +1,13 @@
 # STATUS — Revenue Intelligence for Stripe Commerce
 
-## Current milestone
+## Current milestone (job-first)
 
-* Milestone: **M4 Deployment baseline (complete)**
-* Current step: **M4 closed (buyer-ready deployment baseline proven)**
-* M4 closed: **2026-01-23** (final baseline proof + index verification complete)
-* M4.4 closed: **2026-01-22** (prod-like compose baseline proven; rerun proofs + indexing complete)
-* M4.5 closed: **2026-01-22** (runbook + reproducible prod-compose commands proven; gates captured and indexed)
-* M3 closed: **2026-01-21** (exit proofs complete; gates verified)
+* Milestone: **Job-First hardening (J0 blockers)**
+* Current step: **Close J0 blockers with proof artifacts (hygiene → correctness → status normalization → claims alignment)**
+* As-of: **2026-01-24** (Job-First baseline gates + correctness hardening proofs captured)
+
+> Note on Milestone 4: Docker Compose / buyer-ready deployment work exists as historical work-in-repo, but it is **not claimed as shipped** in the Acceptance Matrix “Out of scope” section until it is re-validated and the Job-First checklist is fully green.
+
 
 ## Runtime baseline
 
@@ -23,13 +23,13 @@
 All gates below must remain green locally and in CI.
 
 * `python manage.py check`: PASS
-* `python manage.py test`: PASS (**63 tests**, see latest proof)
+* `python manage.py test`: PASS (**65 tests**, see latest Job-First proofs)
 * `python manage.py run_checks --fail-on-issues`: PASS (**open=0, resolved=3**, see latest proof)
 * `python manage.py makemigrations --check --dry-run`: PASS
 * `ruff check .`: PASS
 * `ruff format --check .`: PASS
 * `pip-audit -r requirements.txt`: PASS (no known vulnerabilities)
-* Deploy gate (prod-like settings): `python manage.py check --deploy`: PASS
+* Deploy gate (prod-like settings): `python manage.py check --deploy`: historically proven (see proof pack)
   * Run with: `DJANGO_SETTINGS_MODULE=purelaka.settings_prod`
 
 Latest host proof (default settings, full release gates):
@@ -63,7 +63,7 @@ Final post-push full gates proof (authoritative):
 * 2026-01-23: **Docs index gates captured after indexing the ultimate closure proof:** `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_indexing_ultimate_proof.txt`.
 * 2026-01-23: **M4.6 final post-push full gates captured (ultimate closure proof):** `docs/proof/m4_2026-01-23_m46_final_post_push_full_gates.txt`.
 * 2026-01-23: **Docs index gates re-verified after indexing the ultimate closure proof:** `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_final_post_push_full_gates.txt`.
-* 2026-01-23: **M4 closed:** final baseline proof + index verification committed (`008d95b`) and stray M3 proof removed (`e3d45cb`).
+* 2026-01-23: **M4 work captured (historical):** final baseline proof + index verification committed (`008d95b`) and stray M3 proof removed (`e3d45cb`). (Not claimed as shipped; see Acceptance Matrix “Out of scope”.)
 * 2026-01-23: **M4.6 final baseline full gates captured (authoritative closure proof):** `docs/proof/m4_2026-01-23_m46_final_baseline_full_gates.txt`.
 * 2026-01-23: **M4.6 host full release gates captured (default settings):** `docs/proof/m4_2026-01-23_m46_host_full_gates_default.txt`.
 * 2026-01-23: **Docs index gates after host gates (index integrity verification):** `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_host_gates.txt`.
