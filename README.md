@@ -4,6 +4,12 @@
 
 Enterprise-grade Django e-commerce + analytics platform (portfolio flagship).
 
+## Fast verification (reviewers)
+
+- Acceptance Matrix (claims → code/tests/manual checks): [`docs/acceptance_matrix.md`](docs/acceptance_matrix.md)
+- Status / milestone tracking: `docs/STATUS.md`
+- Proof index: `docs/CONTRACTS_AND_PROOFS.md`
+
 ## Feature Set (implemented)
 
 - Products & variants, categories, images
