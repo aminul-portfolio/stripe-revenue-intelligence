@@ -68,7 +68,7 @@ Where something is partially present or contradicted, it remains **Not Done**.
 - [x] Audit trail app exists with admin (`audit/models.py`, `audit/admin.py`) (**Done**)
 - [ ] Order lifecycle diagram doc exists (`docs/order_state_machine.md`) (**Not Done** — missing)
 - [ ] Refund policy doc exists (`docs/refund_policy.md`) (**Not Done** — missing)
-- [ ] Monitoring “fail then pass” workflow proof captured (create anomaly → issue → resolve) (**Not Done** — not proven end-to-end in proofs)
+- [x] Monitoring “fail then pass” workflow proof captured (create anomaly → issue → resolve) (**Done** — proof: `docs/proof/job_2026-01-24_monitoring_fail_then_pass.txt`)
 
 ---
 
