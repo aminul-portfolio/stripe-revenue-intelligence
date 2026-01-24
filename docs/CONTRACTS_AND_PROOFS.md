@@ -71,7 +71,7 @@ This section captures the job-first closure evidence: clean deliverable hygiene,
 - `docs/proof/job_2026-01-24_claims_alignment_status_vs_acceptance.txt`
 
 ### Closure gates (default settings)
-- `docs/proof/job_2026-01-24_job_first_closure_gates_v4.txt`
+- `docs/proof/job_2026-01-24_job_first_closure_gates_HEAD.txt`
 
 ### Deploy gate (prod-like settings)
 - `docs/proof/job_2026-01-24_job_first_deploy_gate_HEAD.txt`
