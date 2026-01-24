@@ -28,9 +28,3 @@ class StripeEvent(models.Model):
     def __str__(self) -> str:
         return f"{self.event_type} ({self.event_id})"
 
-    @property
-    def mrr_gbp(self) -> Decimal:
-        # pennies -> pounds
-        return (Decimal(self.mrr_pennies or 0) / Decimal("100")).quantize(
-            Decimal("0.01")
-        )
