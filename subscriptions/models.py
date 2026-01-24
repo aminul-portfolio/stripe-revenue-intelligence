@@ -1,9 +1,23 @@
 from __future__ import annotations
 
 from decimal import Decimal
+
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
+
+# Canonical subscription status values (American spelling: "canceled")
+# Keeping this explicit ensures the DB-level constraint is stable and predictable.
+SUBSCRIPTION_STATUS_VALUES = (
+    "incomplete",
+    "incomplete_expired",
+    "trialing",
+    "active",
+    "past_due",
+    "canceled",
+    "unpaid",
+    "paused",
+)
 
 
 class Subscription(models.Model):
@@ -25,7 +39,10 @@ class Subscription(models.Model):
     stripe_price_id = models.CharField(max_length=255, blank=True, db_index=True)
 
     status = models.CharField(
-        max_length=30, choices=Status.choices, default=Status.INCOMPLETE
+        max_length=30,
+        choices=Status.choices,
+        default=Status.INCOMPLETE,
+        db_index=True,
     )
 
     current_period_start = models.DateTimeField(null=True, blank=True)
@@ -35,6 +52,7 @@ class Subscription(models.Model):
     canceled_at = models.DateTimeField(null=True, blank=True)
     ended_at = models.DateTimeField(null=True, blank=True)
 
+    # Stored as integer pennies (GBP)
     mrr_pennies = models.IntegerField(default=0)
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -46,12 +64,17 @@ class Subscription(models.Model):
             models.Index(fields=["stripe_subscription_id"]),
             models.Index(fields=["stripe_customer_id"]),
         ]
+        constraints = [
+            # DB-level guard: prevents invalid status strings (e.g., "cancelled") from persisting.
+            models.CheckConstraint(
+                name="subscription_status_valid",
+                check=models.Q(status__in=SUBSCRIPTION_STATUS_VALUES),
+            ),
+        ]
 
     @property
     def mrr_gbp(self) -> Decimal:
-        return (Decimal(self.mrr_pennies or 0) / Decimal("100")).quantize(
-            Decimal("0.01")
-        )
+        return (Decimal(self.mrr_pennies or 0) / Decimal("100")).quantize(Decimal("0.01"))
 
     def mark_canceled_local(self) -> None:
         if not self.canceled_at:
