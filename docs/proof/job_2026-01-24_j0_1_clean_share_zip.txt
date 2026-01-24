@@ -1,0 +1,11 @@
+== JOB-FIRST PROOF: J0.1 clean reviewer ZIP via git archive ==
+Timestamp (local): 2026-01-24 19:12:11
+pwd: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY
+branch: main
+
+--- COMMAND: git archive -o purelaka_clean_share.zip HEAD ---
+OK (command executed)
+
+--- COMMAND: dir purelaka_clean_share.zip ---
+C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\purelaka_clean_share.zip
+
