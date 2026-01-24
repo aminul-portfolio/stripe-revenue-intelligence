@@ -7,6 +7,7 @@
 ### Job-First Closure - 2026-01-24 (PROVEN anchored)
 
 - **PROVEN_COMMIT:** `1490dd72c905b304e3dcbb0f5798e18d888b5540`
+- **LATEST_HEAD (docs/index refresh):** `9633959c0efba778b8eef401dcaabd1ec977ff38`
 - **Proof index:** `docs/CONTRACTS_AND_PROOFS.md` -> section **"Job-First Closure (2026-01-24)"**
 - **Authoritative Job-First proofs (PROVEN anchored):**
   - Closure gates: `docs/proof/job_2026-01-24_job_first_closure_gates_HEAD.txt`
