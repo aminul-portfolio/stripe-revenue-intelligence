@@ -26,9 +26,9 @@ class OrderLifecycleServiceTests(TestCase):
         updated = cancel_order(order=order, actor=self.ops, reason="customer request")
         updated.refresh_from_db()
 
-        self.assertEqual(updated.status, "cancelled")
+        self.assertEqual(updated.status, "canceled")
         mock_log.assert_called()
-        self.assertEqual(mock_log.call_args.kwargs["event_type"], "order_cancelled")
+        self.assertEqual(mock_log.call_args.kwargs["event_type"], "order_canceled")
 
     @patch("orders.services.lifecycle.log_event")
     def test_cancel_non_pending_raises(self, mock_log):

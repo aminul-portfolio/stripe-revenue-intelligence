@@ -10,10 +10,10 @@ from orders.models import Order
 def cancel_order(*, order: Order, actor, reason: str = "") -> Order:
     """
     Allowed transition:
-      pending -> cancelled
+      pending -> canceled
 
     Not allowed:
-      paid/fulfilled/cancelled -> cancelled
+      paid/fulfilled/canceled -> canceled
 
     Notes:
     - We do NOT restock here because stock decrement happens on payment success.
@@ -23,19 +23,19 @@ def cancel_order(*, order: Order, actor, reason: str = "") -> Order:
         locked = Order.objects.select_for_update().get(pk=order.pk)
 
         # Idempotency: cancel is safe to retry
-        if locked.status == "cancelled":
+        if locked.status == "canceled":
             return locked
 
         if locked.status != "pending":
             raise ValidationError(
-                f"Only pending orders can be cancelled (current: {locked.status})."
+                f"Only pending orders can be canceled (current: {locked.status})."
             )
 
-        locked.status = "cancelled"
+        locked.status = "canceled"
         locked.save(update_fields=["status"])
 
     log_event(
-        event_type="order_cancelled",
+        event_type="order_canceled",
         entity_type="order",
         entity_id=locked.id,
         user=actor if getattr(actor, "is_authenticated", False) else None,
@@ -50,7 +50,7 @@ def fulfill_order(*, order: Order, actor, note: str = "") -> Order:
       paid -> fulfilled
 
     Not allowed:
-      pending/cancelled/fulfilled -> fulfilled
+      pending/canceled/fulfilled -> fulfilled
     """
     with transaction.atomic():
         locked = Order.objects.select_for_update().get(pk=order.pk)

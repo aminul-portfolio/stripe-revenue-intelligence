@@ -33,7 +33,7 @@ class Migration(migrations.Migration):
                             ("pending", "Pending"),
                             ("paid", "Paid"),
                             ("fulfilled", "Fulfilled"),
-                            ("cancelled", "Cancelled"),
+                            ("canceled", "Canceled"),
                         ],
                         default="pending",
                         max_length=20,

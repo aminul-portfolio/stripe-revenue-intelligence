@@ -27,9 +27,9 @@ class OrderLifecycleRuleTests(TestCase):
             subtotal=Decimal("20.00"),
             total=Decimal("20.00"),
         )
-        self.cancelled = Order.objects.create(
+        self.canceled = Order.objects.create(
             email="c@test.com",
-            status="cancelled",
+            status="canceled",
             subtotal=Decimal("5.00"),
             total=Decimal("5.00"),
         )
@@ -38,7 +38,7 @@ class OrderLifecycleRuleTests(TestCase):
         # ok
         cancel_order(order=self.pending, actor=self.ops, reason="customer request")
         self.pending.refresh_from_db()
-        self.assertEqual(self.pending.status, "cancelled")
+        self.assertEqual(self.pending.status, "canceled")
 
         # not allowed
         with self.assertRaises(ValidationError):
@@ -52,7 +52,7 @@ class OrderLifecycleRuleTests(TestCase):
 
         # not allowed
         with self.assertRaises(ValidationError):
-            fulfill_order(order=self.cancelled, actor=self.ops)
+            fulfill_order(order=self.canceled, actor=self.ops)
 
         with self.assertRaises(ValidationError):
             fulfill_order(order=self.pending, actor=self.ops)

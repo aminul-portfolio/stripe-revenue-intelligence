@@ -11,11 +11,11 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RenameField(
-            model_name="subscription",
-            old_name="cancelled_at",
-            new_name="canceled_at",
+        migrations.SeparateDatabaseAndState(
+            state_operations=[],
+            database_operations=[],
         ),
+
         migrations.AddField(
             model_name="subscription",
             name="cancel_at_period_end",

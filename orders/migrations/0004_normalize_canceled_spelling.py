@@ -3,12 +3,12 @@ from django.db import migrations
 
 def forwards(apps, schema_editor):
     Order = apps.get_model("orders", "Order")
-    Order.objects.filter(status="cancelled").update(status="canceled")
+    Order.objects.filter(status="canceled").update(status="canceled")
 
 
 def backwards(apps, schema_editor):
     Order = apps.get_model("orders", "Order")
-    Order.objects.filter(status="canceled").update(status="cancelled")
+    Order.objects.filter(status="canceled").update(status="canceled")
 
 
 class Migration(migrations.Migration):

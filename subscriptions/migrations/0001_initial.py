@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
                         choices=[
                             ("active", "Active"),
                             ("paused", "Paused"),
-                            ("cancelled", "Cancelled"),
+                            ("canceled", "Cancelled"),
                         ],
                         default="active",
                         max_length=20,

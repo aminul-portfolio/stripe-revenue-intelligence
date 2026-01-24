@@ -15,6 +15,10 @@ class SubscriptionStatusGuardTests(TestCase):
         )
 
     def test_rejects_invalid_status_string_cancelled(self) -> None:
+        """
+        DB-level guard: reject British spelling "cancelled".
+        Canonical is American spelling: "canceled".
+        """
         with self.assertRaises(IntegrityError):
             Subscription.objects.create(
                 user=self.user,

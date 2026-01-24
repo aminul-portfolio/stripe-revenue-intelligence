@@ -124,7 +124,7 @@ def handle_payment_intent_succeeded(*, intent: dict) -> None:
             return
 
         # Block invalid transitions
-        if order.status in ("cancelled", "fulfilled"):
+        if order.status in ("canceled", "fulfilled"):
             log_event(
                 event_type="stripe_payment_for_invalid_order_state",
                 entity_type="order",

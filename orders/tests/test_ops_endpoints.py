@@ -60,7 +60,7 @@ class OpsOrderEndpointsTests(TestCase):
 
         self.assertEqual(r.status_code, 302)
         self.pending.refresh_from_db()
-        self.assertEqual(self.pending.status, "cancelled")
+        self.assertEqual(self.pending.status, "canceled")
 
     def test_ops_can_fulfill_paid(self):
         self.client.login(username="ops_staff", password="pass12345")

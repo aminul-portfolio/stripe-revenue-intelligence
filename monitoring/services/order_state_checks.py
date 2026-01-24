@@ -13,7 +13,7 @@ def check_invalid_order_states() -> None:
 
     2) Fulfilled order must be paid (and must have payment proof).
 
-    3) Cancelled order should not be fulfilled; optional checks can be added later.
+    3) Canceled order should not be fulfilled; optional checks can be added later.
     """
 
     qs = Order.objects.all().only(
@@ -67,4 +67,4 @@ def check_invalid_order_states() -> None:
                     },
                 )
 
-        # You can add more rules later (cancelled with charge, etc.)
+        # You can add more rules later (canceled with charge, etc.)

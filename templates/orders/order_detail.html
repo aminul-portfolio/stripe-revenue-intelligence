@@ -44,8 +44,8 @@
         <a class="btn primary" href="{% url 'start-payment' order.id %}">Pay now</a>
       {% elif order.status == "paid" %}
         <span class="msg success" style="margin:0;">Payment received.</span>
-      {% elif order.status == "cancelled" %}
-        <span class="msg warning" style="margin:0;">This order is cancelled.</span>
+      {% elif order.status == "canceled" %}
+        <span class="msg warning" style="margin:0;">This order is canceled.</span>
       {% elif order.status == "fulfilled" %}
         <span class="msg info" style="margin:0;">This order is fulfilled.</span>
       {% endif %}

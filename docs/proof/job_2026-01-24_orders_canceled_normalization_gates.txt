@@ -1,0 +1,49 @@
+=== Orders canceled normalization + full gates — 2026-01-24 ===
+
+Scope:
+- Normalize order status spelling to canonical "canceled" (American spelling) in runtime code paths.
+- Ensure tests and templates align with canonical values.
+- Verify no runtime usage of British "cancelled" remains in target paths.
+- Prove full gate suite is green.
+
+1) System check
+$ python manage.py check
+System check identified no issues (0 silenced).
+
+
+2) Orders tests
+$ python manage.py test orders -v 2
+Found 18 test(s).
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Ran 18 tests in 16.983s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+
+
+3) Payments tests
+$ python manage.py test payments -v 2
+Found 10 test(s).
+Creating test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+Ran 10 tests in 4.413s
+
+OK
+Destroying test database for alias 'default' ('file:memorydb_default?mode=memory&cache=shared')...
+
+
+4) Full suite
+$ python manage.py test
+Found 65 test(s).
+System check identified no issues (0 silenced).
+Ran 65 tests in 71.085s
+
+OK
+
+
+5) Code scan (runtime paths): ensure British spelling is eliminated
+$ git grep -n "cancelled" orders templates/orders payments/services monitoring/services ; echo "== done =="
+== done ==
+
+
+=== RESULT ===
+All gates green. Canonical status spelling is "canceled". No remaining "cancelled" references in runtime target paths.
