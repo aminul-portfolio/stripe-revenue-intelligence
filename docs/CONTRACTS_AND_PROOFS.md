@@ -81,7 +81,7 @@ This section captures the job-first closure evidence: clean deliverable hygiene,
 ### Proof pack readability audit (encoding + empty proof cleanup)
 - `docs/proof/job_2026-01-24_proof_pack_readability_audit.txt`
 
-### Subscription status guard (canonical ?canceled?)
+### Subscription status guard (canonical "canceled")
 - `docs/proof/job_2026-01-24_subscription_status_guard_test.txt`
 
 ### CI gates updates

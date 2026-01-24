@@ -1,10 +1,10 @@
 ## Current milestone (job-first)
 
 * Milestone: **Job-First hardening (J0 blockers)**
-* Current step: **Close J0 blockers with proof artifacts (hygiene ? correctness ? status normalization ? claims alignment)**
-* As-of: **2026-01-24** ? **Job-First baseline gates are PASS and PROVEN anchored** (closure gates + deploy gate + proof index integrity scan)
+* Current step: **Close J0 blockers with proof artifacts (hygiene -> correctness -> status normalization -> claims alignment)**
+* As-of: **2026-01-24** - **Job-First baseline gates are PASS and PROVEN anchored** (closure gates + deploy gate + proof index integrity scan)
 
-### Job-First Closure ? 2026-01-24 (PROVEN anchored)
+### Job-First Closure - 2026-01-24 (PROVEN anchored)
 
 - **PROVEN_COMMIT:** `42ff8ce3caee3f300360ea88f7ce71d84830c440`
 - **Proof index:** `docs/CONTRACTS_AND_PROOFS.md` ? section **?Job-First Closure (2026-01-24)?**
@@ -12,9 +12,9 @@
   - Closure gates: `docs/proof/job_2026-01-24_job_first_closure_gates_HEAD.txt`
   - Deploy gate (prod-like / settings_prod): `docs/proof/job_2026-01-24_job_first_deploy_gate_HEAD.txt`
   - Proof index integrity scan: `docs/proof/job_2026-01-24_contracts_and_proofs_integrity_scan.txt`
-- **Note:** ?*_HEAD.txt? filenames are legacy naming; these artifacts are PROVEN anchored via `PROVEN_COMMIT` above.
+- **Note:** "*_HEAD.txt" filenames are legacy naming; these artifacts are PROVEN anchored via `PROVEN_COMMIT` above.
 
-> Note on Milestone 4: Docker Compose / buyer-ready deployment work exists as historical work-in-repo, but it is **not claimed as shipped** in the Acceptance Matrix ?Out of scope? section until it is re-validated and the Job-First checklist is fully green.
+> Note on Milestone 4: Docker Compose / buyer-ready deployment work exists as historical work-in-repo, but it is **not claimed as shipped** in the Acceptance Matrix "Out of scope" section until it is re-validated and the Job-First checklist is fully green.
 
 ## Runtime baseline
 
