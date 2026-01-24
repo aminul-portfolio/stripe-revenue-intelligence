@@ -16,7 +16,10 @@ Where something is partially present or contradicted, it remains **Not Done**.
 - [x] Add regression test preventing missing-field properties from returning (StripeEvent “missing field” foot-gun cannot reappear) (**Done** — `payments/tests/test_stripeevent_regression.py` asserts StripeEvent does not expose `mrr_gbp` and explicitly guards against `mrr_pennies`-style regressions)
 
 ### J0.3 Canonical status spelling (data integrity)
-- [ ] Normalize status spelling to canonical `canceled` everywhere (services/tests/templates/docs) (**Not Done** — dashboard template uses `subs.cancelled` and label “Subs (Cancelled)” in `templates/analytics/dashboard.html`)
+- [x] Normalize status spelling to canonical `canceled` everywhere (services/tests/templates/docs)  
+  Proof: `docs/proof/job_2026-01-24_orders_canceled_normalization_gates.txt`  
+  Commit: `1490dd72c905b304e3dcbb0f5798e18d888b5540`
+
 - [x] Add a guard/test preventing invalid status strings from being stored (so `cancelled` cannot silently persist) (**Done** — DB-level constraint `subscription_status_valid` in `subscriptions/models.py` plus regression test `subscriptions/tests/test_subscription_status_guard.py` rejecting `status="cancelled"`)
 
 ### J0.4 Claims consistency (proof must match claims)

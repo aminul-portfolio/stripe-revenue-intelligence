@@ -46,16 +46,32 @@ $ git grep -n "cancelled" orders templates/orders payments/services monitoring/s
 
 Repo state:
 $ git rev-parse HEAD
-5d528c5b99d2175733d3d96b250d29707b65906b
+1490dd72c905b304e3dcbb0f5798e18d888b5540
 
 Working tree:
-$ git status --porcelain
-<empty>
+$ git status
+On branch main
+Your branch is up-to-date with 'origin/main'.
 
-Remote:
-$ git push
-Everything up-to-date
+nothing to commit, working tree clean
 
+
+## Post-docs-index re-verify (docs-only commit)
+
+System check
+$ python manage.py check
+System check identified no issues (0 silenced).
+
+Full suite
+$ python manage.py test
+Found 65 test(s).
+System check identified no issues (0 silenced).
+Ran 65 tests in 72.910s
+OK
+
+Repo state
+$ git rev-parse HEAD
+7d3c69f99899b6a1b2f1382a965782b487625279
 
 
 
