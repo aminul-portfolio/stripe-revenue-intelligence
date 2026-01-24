@@ -1,8 +1,8 @@
-﻿=== Job-First Closure Gates (HEAD) — 2026-01-24 ===
+﻿=== Job-First Closure Gates (PROVEN) — 2026-01-24 ===
 PWD=C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY
 PY=Python 3.12.3
 DJANGO_SETTINGS_MODULE=
-COMMIT=dc2df40b36655ae3929e5e4b94876cfae08143a0
+PROVEN_COMMIT=42ff8ce3caee3f300360ea88f7ce71d84830c440
 
 ## python manage.py check
 System check identified no issues (0 silenced).
@@ -11,17 +11,25 @@ System check identified no issues (0 silenced).
 No changes detected
 
 ## python manage.py test
-Creating test database for alias 'default'...
+python : Creating test database for alias 'default'...
+At line:1 char:1
++ python manage.py test 2>&1 | Out-File -Encoding utf8 -Append $gates
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Creating test d...as 'default'...:String) 
+    [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
 
 .................................................................
 ----------------------------------------------------------------------
-Ran 65 tests in 63.246s
+Ran 65 tests in 55.455s
 
 OK
 Destroying test database for alias 'default'...
 
 Found 65 test(s).
 System check identified no issues (0 silenced).
+TEST_EXITCODE=0
 
 ## python manage.py run_checks --fail-on-issues
 Snapshots built for 90 day(s). created=0, updated=90, product_rows_upserted=16
@@ -34,4 +42,4 @@ Breakdown:
 
 Latest 10 open issues:
  - (none open)
-
+RUN_CHECKS_EXITCODE=0
