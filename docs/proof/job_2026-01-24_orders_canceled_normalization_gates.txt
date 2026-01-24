@@ -44,6 +44,20 @@ OK
 $ git grep -n "cancelled" orders templates/orders payments/services monitoring/services ; echo "== done =="
 == done ==
 
+Repo state:
+$ git rev-parse HEAD
+5d528c5b99d2175733d3d96b250d29707b65906b
+
+Working tree:
+$ git status --porcelain
+<empty>
+
+Remote:
+$ git push
+Everything up-to-date
+
+
+
 
 === RESULT ===
 All gates green. Canonical status spelling is "canceled". No remaining "cancelled" references in runtime target paths.
