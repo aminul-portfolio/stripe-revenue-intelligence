@@ -1,4 +1,4 @@
-﻿CI green proof - 2026-01-19
+CI green proof - 2026-01-19
 
 Repo: aminul-portfolio/stripe-revenue-intelligence
 Workflow: CI (.github/workflows/ci.yml)

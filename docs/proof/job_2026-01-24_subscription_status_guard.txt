@@ -1,4 +1,4 @@
-﻿=== Subscription status guard (reject 'cancelled') — 2026-01-24 ===
+=== Subscription status guard (reject 'cancelled') — 2026-01-24 ===
 
 ## Migration created
 0004_alter_subscription_status_and_more.py

@@ -1,4 +1,4 @@
-﻿=== Proof pack readability fix (UTF-16 -> UTF-8, remove empty proofs) — 2026-01-24 ===
+=== Proof pack readability fix (UTF-16 -> UTF-8, remove empty proofs) — 2026-01-24 ===
 
 ## Delete empty proof files (0 bytes)
 ## Convert UTF-16 BOM proofs to UTF-8 (no BOM)

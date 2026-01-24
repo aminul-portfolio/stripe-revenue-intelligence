@@ -1,4 +1,4 @@
-﻿=== CI upgrade: add analyticsapp tests step — 2026-01-24 ===
+=== CI upgrade: add analyticsapp tests step — 2026-01-24 ===
 
 ## Workflow diff
 

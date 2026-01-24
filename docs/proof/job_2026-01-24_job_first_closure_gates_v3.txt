@@ -1,4 +1,4 @@
-﻿=== Job-First Closure Gates (v3) — 2026-01-24 ===
+=== Job-First Closure Gates (v3) — 2026-01-24 ===
 PWD=C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY
 PY=Python 3.12.3
 DJANGO_SETTINGS_MODULE=

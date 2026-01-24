@@ -1,4 +1,4 @@
-﻿=== Reviewer ZIP hygiene (git archive) — 2026-01-24 ===
+=== Reviewer ZIP hygiene (git archive) — 2026-01-24 ===
 
 ZIP: purelaka_clean_share.zip
 Size (bytes): 306473

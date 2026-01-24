@@ -1,4 +1,4 @@
-﻿# Gates run (2026-01-18)
+# Gates run (2026-01-18)
 System check identified no issues (0 silenced).
 Found 37 test(s).
 System check identified no issues (0 silenced).

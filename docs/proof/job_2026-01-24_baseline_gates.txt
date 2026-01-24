@@ -1,4 +1,4 @@
-﻿=== BASELINE (JOB-FIRST) — 2026-01-24 ===
+=== BASELINE (JOB-FIRST) — 2026-01-24 ===
 
 ## Repo identity
 REMOTE:

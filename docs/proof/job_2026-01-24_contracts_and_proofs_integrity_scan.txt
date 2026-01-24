@@ -1,4 +1,4 @@
-﻿=== Contracts & Proofs Integrity Scan — 2026-01-24 (PROVEN) ===
+=== Contracts & Proofs Integrity Scan — 2026-01-24 (PROVEN) ===
 PWD=C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY
 PROVEN_COMMIT=42ff8ce3caee3f300360ea88f7ce71d84830c440
 REFERENCED_PROOF_COUNT=81

@@ -1,4 +1,4 @@
-﻿=== CI Parity Proof (main) (PROVEN) - 2026-01-24 ===
+=== CI Parity Proof (main) (PROVEN) - 2026-01-24 ===
 REPO=aminul-portfolio/stripe-revenue-intelligence
 BRANCH=main
 HEAD_ONELINE=56a99da Docs: fix STATUS proof index line (ASCII) (2026-01-24)
