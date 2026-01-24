@@ -36,7 +36,7 @@ Where something is partially present or contradicted, it remains **Not Done**.
 - [x] CI runs `ruff check .` (**Done**)
 - [x] CI runs `ruff format --check .` (**Done**)
 - [x] CI runs `pip-audit` (**Done**)
-- [ ] Proof artifacts are consistently readable + non-empty (no empty files / bad encoding) (**Not Done** — multiple proof files contain NUL bytes / encoding issues, e.g.:
+- [x] Proof artifacts are consistently readable + non-empty (no empty files / bad encoding) (**Done** — proof files normalized to UTF-8 and NUL-byte scan is clean; normalization committed in `105a4d3` for:
   - `docs/proof/job_2026-01-24_job_first_closure_gates_deploy_fix_v5.txt`
   - `docs/proof/job_2026-01-24_job_first_closure_gates_HEAD.txt`
   - `docs/proof/job_2026-01-24_job_first_closure_gates_v5.txt`
