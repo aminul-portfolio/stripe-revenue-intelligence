@@ -1,20 +1,20 @@
-﻿## Current milestone (job-first)
+## Current milestone (job-first)
 
 * Milestone: **Job-First hardening (J0 blockers)**
-* Current step: **Close J0 blockers with proof artifacts (hygiene â†’ correctness â†’ status normalization â†’ claims alignment)**
-* As-of: **2026-01-24** â€” **Job-First baseline gates are PASS and PROVEN anchored** (closure gates + deploy gate + proof index integrity scan)
+* Current step: **Close J0 blockers with proof artifacts (hygiene ? correctness ? status normalization ? claims alignment)**
+* As-of: **2026-01-24** ? **Job-First baseline gates are PASS and PROVEN anchored** (closure gates + deploy gate + proof index integrity scan)
 
-### Job-First Closure â€” 2026-01-24 (PROVEN anchored)
+### Job-First Closure ? 2026-01-24 (PROVEN anchored)
 
 - **PROVEN_COMMIT:** `42ff8ce3caee3f300360ea88f7ce71d84830c440`
-- **Proof index:** `docs/CONTRACTS_AND_PROOFS.md` â†’ section **â€œJob-First Closure (2026-01-24)â€**
+- **Proof index:** `docs/CONTRACTS_AND_PROOFS.md` ? section **?Job-First Closure (2026-01-24)?**
 - **Authoritative Job-First proofs (PROVEN anchored):**
   - Closure gates: `docs/proof/job_2026-01-24_job_first_closure_gates_HEAD.txt`
   - Deploy gate (prod-like / settings_prod): `docs/proof/job_2026-01-24_job_first_deploy_gate_HEAD.txt`
   - Proof index integrity scan: `docs/proof/job_2026-01-24_contracts_and_proofs_integrity_scan.txt`
-- **Note:** â€œ*_HEAD.txtâ€ filenames are legacy naming; these artifacts are PROVEN anchored via `PROVEN_COMMIT` above.
+- **Note:** ?*_HEAD.txt? filenames are legacy naming; these artifacts are PROVEN anchored via `PROVEN_COMMIT` above.
 
-> Note on Milestone 4: Docker Compose / buyer-ready deployment work exists as historical work-in-repo, but it is **not claimed as shipped** in the Acceptance Matrix â€œOut of scopeâ€ section until it is re-validated and the Job-First checklist is fully green.
+> Note on Milestone 4: Docker Compose / buyer-ready deployment work exists as historical work-in-repo, but it is **not claimed as shipped** in the Acceptance Matrix ?Out of scope? section until it is re-validated and the Job-First checklist is fully green.
 
 ## Runtime baseline
 
@@ -50,7 +50,7 @@ Final post-push full gates proof (authoritative):
 ### Important settings note (prevents false test failures)
 
 * `purelaka.settings_prod` enables deployment protections such as `SECURE_SSL_REDIRECT=True`.
-* If you run the test suite with `DJANGO_SETTINGS_MODULE=purelaka.settings_prod`, Djangoâ€™s test client can receive **301 redirects to `https://testserver/`** for many endpoints.
+* If you run the test suite with `DJANGO_SETTINGS_MODULE=purelaka.settings_prod`, Django?s test client can receive **301 redirects to `https://testserver/`** for many endpoints.
 * Therefore:
   * Run **tests and normal gates** with default settings (`purelaka.settings`), or Postgres parity settings (`purelaka.settings_postgres`).
   * Run **deploy gate only** with prod settings:
@@ -70,15 +70,15 @@ Final post-push full gates proof (authoritative):
 * 2026-01-23: **Docs index gates captured after indexing the ultimate closure proof:** `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_indexing_ultimate_proof.txt`.
 * 2026-01-23: **M4.6 final post-push full gates captured (ultimate closure proof):** `docs/proof/m4_2026-01-23_m46_final_post_push_full_gates.txt`.
 * 2026-01-23: **Docs index gates re-verified after indexing the ultimate closure proof:** `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_final_post_push_full_gates.txt`.
-* 2026-01-23: **M4 work captured (historical):** final baseline proof + index verification committed (`008d95b`) and stray M3 proof removed (`e3d45cb`). (Not claimed as shipped; see Acceptance Matrix â€œOut of scopeâ€.)
+* 2026-01-23: **M4 work captured (historical):** final baseline proof + index verification committed (`008d95b`) and stray M3 proof removed (`e3d45cb`). (Not claimed as shipped; see Acceptance Matrix ?Out of scope?.)
 * 2026-01-23: **M4.6 final baseline full gates captured (authoritative closure proof):** `docs/proof/m4_2026-01-23_m46_final_baseline_full_gates.txt`.
 * 2026-01-23: **M4.6 host full release gates captured (default settings):** `docs/proof/m4_2026-01-23_m46_host_full_gates_default.txt`.
 * 2026-01-23: **Docs index gates after host gates (index integrity verification):** `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_host_gates.txt`.
-* 2026-01-23: **Post-push full gates captured (authoritative â€œafter mergeâ€ verification):** `docs/proof/m4_2026-01-23_m46_post_push_full_gates.txt`.
+* 2026-01-23: **Post-push full gates captured (authoritative ?after merge? verification):** `docs/proof/m4_2026-01-23_m46_post_push_full_gates.txt`.
 * 2026-01-23: **Docs index gates after post-push indexing (index integrity verification):** `docs/proof/m4_2026-01-23_m46_post_push_docs_index_gates.txt`.
-* 2026-01-23: **Final after-index full gates captured (â€œfinal-finalâ€ authoritative proof):** `docs/proof/m4_2026-01-23_m46_final_after_index_full_gates.txt`.
+* 2026-01-23: **Final after-index full gates captured (?final-final? authoritative proof):** `docs/proof/m4_2026-01-23_m46_final_after_index_full_gates.txt`.
 * 2026-01-23: **M4.4 Step 3 prod compose PID1 cmdline captured (Gunicorn is PID1):** `docs/proof/m4_2026-01-22_prod_compose_pid1_cmdline.txt`.
-* 2026-01-23: **M4.6 final docs index gates captured (post â€œfinal-finalâ€ proof pack verification):** `docs/proof/m4_2026-01-23_m46_final_docs_index_gates_after_final_final.txt`.
+* 2026-01-23: **M4.6 final docs index gates captured (post ?final-final? proof pack verification):** `docs/proof/m4_2026-01-23_m46_final_docs_index_gates_after_final_final.txt`.
 * 2026-01-22: **M4.6 STATUS step set; docs/index gates captured (docs-only verification):** `docs/proof/m4_2026-01-22_m46_status_next_step_docs_index_gates.txt`.
 * 2026-01-22: **M4.5 marked complete + next-step line added; docs/index gates captured (docs-only verification):** `docs/proof/m4_2026-01-22_m45_complete_status_docs_index_gates.txt`.
 * 2026-01-22: **M4.5 docs/index gates after indexing full-gates proofs captured:** `docs/proof/m4_2026-01-22_m45_docs_index_gates_after_updates.txt`.
@@ -135,7 +135,7 @@ Final post-push full gates proof (authoritative):
 * 2026-01-19: Environment discipline reinforced:
   * `.env` is local-only and must never be committed.
   * Local Stripe replay artifacts (`tmp_*.json`) are ignored via `.gitignore`.
-* 2026-01-19: Stripe live smoke validated locally (Stripe CLI â†’ `/payments/webhook/`) with HTTP 200 processing.
+* 2026-01-19: Stripe live smoke validated locally (Stripe CLI ? `/payments/webhook/`) with HTTP 200 processing.
 * 2026-01-19: Stripe webhook replay proven idempotent:
   * Same Stripe event replay returns HTTP 200.
   * No duplicate `StripeEvent` rows created for the same `event_id`.
@@ -152,7 +152,7 @@ Final post-push full gates proof (authoritative):
   * Products CSV export returns attachment and writes `AuditLog(event_type=analytics_export)`.
 * 2026-01-20: KPI export schema contract baselined as machine-checkable JSON (`docs/contracts/kpi_contract.json`) to prevent header drift.
 * 2026-01-20: Export schema contract tests added; CSV headers enforced against `docs/contracts/kpi_contract.json`.
-* 2026-01-20: Acceptance matrix expanded to trace buyer-facing claims â†’ code â†’ tests â†’ proofs (`docs/acceptance_matrix.md` + proof snapshot).
+* 2026-01-20: Acceptance matrix expanded to trace buyer-facing claims ? code ? tests ? proofs (`docs/acceptance_matrix.md` + proof snapshot).
 * 2026-01-20: RBAC surface contract test added and stabilized using namespaced URL reversing for monitoring (`reverse("monitoring:monitoring-issues")`) + proof captured.
 * 2026-01-20: Contracts & Proof Index added as the buyer due-diligence entry point (`docs/CONTRACTS_AND_PROOFS.md`).
 * 2026-01-20: KPI definitions updated (time window boundaries clarified; export contract references reinforced) (`docs/kpi_definitions.md`).
@@ -203,8 +203,8 @@ Key M3 hardening proofs (2026-01-21):
 
 M4.6 closure proofs:
 
-* `docs/proof/m4_2026-01-23_m46_final_baseline_full_gates.txt` â€” M4.6 final baseline full gates (authoritative closure proof)
-* `docs/proof/m4_2026-01-23_m46_host_full_gates_default.txt` â€” M4.6 host full release gates (default settings; fresh capture on 2026-01-23)
-* `docs/proof/m4_2026-01-23_m46_index_update_docs_gates.txt` â€” M4.6 index update gates (proof indexing verification)
-* `docs/proof/m4_2026-01-23_m46_post_close_docs_index_gates.txt` â€” M4 post-close docs/index gates (final confirmation)
+* `docs/proof/m4_2026-01-23_m46_final_baseline_full_gates.txt` ? M4.6 final baseline full gates (authoritative closure proof)
+* `docs/proof/m4_2026-01-23_m46_host_full_gates_default.txt` ? M4.6 host full release gates (default settings; fresh capture on 2026-01-23)
+* `docs/proof/m4_2026-01-23_m46_index_update_docs_gates.txt` ? M4.6 index update gates (proof indexing verification)
+* `docs/proof/m4_2026-01-23_m46_post_close_docs_index_gates.txt` ? M4 post-close docs/index gates (final confirmation)
 

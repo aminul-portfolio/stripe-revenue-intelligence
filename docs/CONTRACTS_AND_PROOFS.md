@@ -1,4 +1,4 @@
-﻿# Contracts & Proof Index — Revenue Intelligence for Stripe Commerce
+# Contracts & Proof Index ? Revenue Intelligence for Stripe Commerce
 
 This document is the buyer-facing index that maps:
 - contracts (what we promise)
@@ -23,7 +23,7 @@ To verify the buyer-ready deployment baseline (Milestone 4 closure), review thes
 3) **Index update verification (confirms indexes updated correctly):**
    - `docs/proof/m4_2026-01-23_m46_index_update_docs_gates.txt`
 
-4) **Post-close confirmation (final “after everything” docs/index verification at close time):**
+4) **Post-close confirmation (final ?after everything? docs/index verification at close time):**
    - `docs/proof/m4_2026-01-23_m46_post_close_docs_index_gates.txt`
 
 5) **Post-push full gates (confirms repo is green after pushing closeout changes):**
@@ -32,10 +32,10 @@ To verify the buyer-ready deployment baseline (Milestone 4 closure), review thes
 6) **Post-push docs index gates (confirms all proof references resolve after post-push indexing):**
    - `docs/proof/m4_2026-01-23_m46_post_push_docs_index_gates.txt`
 
-7) **Final after-index full gates (“final-final” runtime baseline):**
+7) **Final after-index full gates (?final-final? runtime baseline):**
    - `docs/proof/m4_2026-01-23_m46_final_after_index_full_gates.txt`
 
-8) **Final docs-index verification (confirms all proof references resolve after the final “final-final” proofs):**
+8) **Final docs-index verification (confirms all proof references resolve after the final ?final-final? proofs):**
    - `docs/proof/m4_2026-01-23_m46_final_docs_index_gates_after_final_final.txt`
 
 9) **Final post-push full gates (ultimate closure proof):**
@@ -81,7 +81,7 @@ This section captures the job-first closure evidence: clean deliverable hygiene,
 ### Proof pack readability audit (encoding + empty proof cleanup)
 - `docs/proof/job_2026-01-24_proof_pack_readability_audit.txt`
 
-### Subscription status guard (canonical “canceled”)
+### Subscription status guard (canonical ?canceled?)
 - `docs/proof/job_2026-01-24_subscription_status_guard_test.txt`
 
 ### CI gates updates
@@ -126,7 +126,7 @@ KPI contract completeness proof (M3):
 - Enforced by:
   - `monitoring/tests/test_healthz.py`
 
-### Acceptance matrix (product claims → code/tests/proofs)
+### Acceptance matrix (product claims ? code/tests/proofs)
 - `docs/acceptance_matrix.md`
   - Buyer claim inventory. If it is not here, it is not shipped.
 
@@ -168,10 +168,10 @@ KPI contract completeness proof (M3):
 
 ## 3) Proof artifacts (what was captured)
 
-### M1 — consolidated gates proof (authoritative)
+### M1 ? consolidated gates proof (authoritative)
 - `docs/proof/m1_2026-01-19_full_gates.txt`
 
-### M2 — exit proofs (authoritative set)
+### M2 ? exit proofs (authoritative set)
 
 Stripe safety + refunds:
 - `docs/proof/stripe_idempotency_2026-01-19.txt`
@@ -185,7 +185,7 @@ Exports audited (attachments + audit events):
 - `docs/proof/analytics_export_customers_audit_2026-01-19.txt`
 - `docs/proof/analytics_export_products_audit_2026-01-20.txt`
 
-### M3 — contracts + hardening proofs
+### M3 ? contracts + hardening proofs
 
 Export contract enforcement:
 - `docs/proof/m3_export_contract_tests_2026-01-20.txt`
@@ -215,65 +215,65 @@ Acceptance matrix snapshot:
 RBAC surface contract proof:
 - `docs/proof/m3_rbac_surface_contract_2026-01-20.txt`
 
-### M4 — deployment baseline proofs (complete through M4.6 closure)
+### M4 ? deployment baseline proofs (complete through M4.6 closure)
 
 Postgres parity + containerization baseline:
 
-- `docs/proof/m4_2026-01-21_postgres_parity_gates.txt` — Postgres parity gates (local Docker Compose + `purelaka.settings_postgres`)
-- `docs/proof/m4_2026-01-22_dockerfile_gate.txt` — Dockerfile baseline (build + gates)
-- `docs/proof/m4_2026-01-22_compose_web_db_parity_gates.txt` — Docker Compose web+db parity gates (gates executed inside the app container; confirms `vendor=postgresql`, `host=db`, `name=purelaka`)
-- `docs/proof/m4_2026-01-22_docs_index_gates.txt` — Docs/index gates proof after updating `docs/STATUS.md` + `docs/CONTRACTS_AND_PROOFS.md`
-- `docs/proof/m4_2026-01-22_post_index_full_gates.txt` — Post-index full gates snapshot (authoritative “after docs updates” confirmation)
-- `docs/proof/m4_2026-01-22_contracts_proofs_update_gates.txt` — Gates snapshot after updating contracts/proofs index (docs-only change verification)
-- `docs/proof/m4_2026-01-22_contracts_proofs_indexed_gates.txt` — Gates snapshot after indexing the previous proof into this document (index completeness verification)
-- `docs/proof/m4_2026-01-22_full_gates_after_docs_sync.txt` — Full gates snapshot after docs sync on `main`
-- `docs/proof/m4_2026-01-22_full_gates_indexed_gates.txt` — Gates snapshot after indexing the previous full-gates proof into `docs/STATUS.md` + `docs/CONTRACTS_AND_PROOFS.md`
-- `docs/proof/m4_2026-01-22_healthz_gunicorn_gates.txt` — M4.4 Step 1: health/readiness endpoint + gunicorn dependency; gates + manual readiness response captured
-- `docs/proof/m4_2026-01-22_gunicorn_runtime_smoke.txt` — M4.4 Step 2: container serves via Gunicorn (WSGI); `/monitoring/healthz/` returns 200 and shows `Server: gunicorn`
-- `docs/proof/m4_2026-01-22_gunicorn_compose_web_db_parity_gates.txt` — M4.4 Step 2: compose parity gates executed inside container under Gunicorn runtime (includes pip-audit result)
-- `docs/proof/m4_2026-01-22_docs_cleanup_gates.txt` — Docs cleanup gates proof (normalizes docs formatting; verifies gates remain green)
+- `docs/proof/m4_2026-01-21_postgres_parity_gates.txt` ? Postgres parity gates (local Docker Compose + `purelaka.settings_postgres`)
+- `docs/proof/m4_2026-01-22_dockerfile_gate.txt` ? Dockerfile baseline (build + gates)
+- `docs/proof/m4_2026-01-22_compose_web_db_parity_gates.txt` ? Docker Compose web+db parity gates (gates executed inside the app container; confirms `vendor=postgresql`, `host=db`, `name=purelaka`)
+- `docs/proof/m4_2026-01-22_docs_index_gates.txt` ? Docs/index gates proof after updating `docs/STATUS.md` + `docs/CONTRACTS_AND_PROOFS.md`
+- `docs/proof/m4_2026-01-22_post_index_full_gates.txt` ? Post-index full gates snapshot (authoritative ?after docs updates? confirmation)
+- `docs/proof/m4_2026-01-22_contracts_proofs_update_gates.txt` ? Gates snapshot after updating contracts/proofs index (docs-only change verification)
+- `docs/proof/m4_2026-01-22_contracts_proofs_indexed_gates.txt` ? Gates snapshot after indexing the previous proof into this document (index completeness verification)
+- `docs/proof/m4_2026-01-22_full_gates_after_docs_sync.txt` ? Full gates snapshot after docs sync on `main`
+- `docs/proof/m4_2026-01-22_full_gates_indexed_gates.txt` ? Gates snapshot after indexing the previous full-gates proof into `docs/STATUS.md` + `docs/CONTRACTS_AND_PROOFS.md`
+- `docs/proof/m4_2026-01-22_healthz_gunicorn_gates.txt` ? M4.4 Step 1: health/readiness endpoint + gunicorn dependency; gates + manual readiness response captured
+- `docs/proof/m4_2026-01-22_gunicorn_runtime_smoke.txt` ? M4.4 Step 2: container serves via Gunicorn (WSGI); `/monitoring/healthz/` returns 200 and shows `Server: gunicorn`
+- `docs/proof/m4_2026-01-22_gunicorn_compose_web_db_parity_gates.txt` ? M4.4 Step 2: compose parity gates executed inside container under Gunicorn runtime (includes pip-audit result)
+- `docs/proof/m4_2026-01-22_docs_cleanup_gates.txt` ? Docs cleanup gates proof (normalizes docs formatting; verifies gates remain green)
 
 Prod-like compose (production-shaped container runtime):
 
-- `docs/proof/m4_2026-01-22_prod_compose_deploy_gate.txt` — M4.4 Step 3: prod compose deploy gate (`python manage.py check --deploy`) executed inside container (`DJANGO_SETTINGS_MODULE=purelaka.settings_prod`)
-- `docs/proof/m4_2026-01-22_prod_compose_healthz_ipv4_smoke.txt` — M4.4 Step 3: prod compose host smoke (IPv4; Windows-safe; confirms `Server: gunicorn`)
-- `docs/proof/m4_2026-01-22_prod_compose_healthz_redirect_headers.txt` — M4.4 Step 3: redirect/header capture for host healthz smoke (documents 301/host behaviour under prod flags)
-- `docs/proof/m4_2026-01-22_prod_compose_healthz_smoke.txt` — M4.4 Step 3: initial prod compose host healthz smoke capture (raw output)
-- `docs/proof/m4_2026-01-22_gunicorn_server_header_proof.txt` — M4.4 Step 3: Gunicorn `Server:` header proof (sanity confirmation)
-- `docs/proof/m4_2026-01-22_prod_compose_pid1_cmdline.txt` — M4.4 Step 3: PID1 cmdline proof (`/proc/1/cmdline` confirms Gunicorn is PID1)
-- `docs/proof/m4_2026-01-22_prod_compose_full_gates.txt` — M4.4 Step 3: prod compose full gates executed inside container (initial capture; may contain failures prior to `settings_prod` redirect fix)
-- `docs/proof/m4_2026-01-22_prod_compose_deploy_gate_after_settings_prod_fix.txt` — M4.4 Step 3: deploy gate re-captured after `settings_prod` test-redirect fix (authoritative deploy proof after fix)
-- `docs/proof/m4_2026-01-22_prod_compose_full_gates_after_settings_prod_fix.txt` — M4.4 Step 3: full gates re-captured after `settings_prod` test-redirect fix (authoritative Step 3 PASS proof)
-- `docs/proof/m4_2026-01-22_after_fix_docs_index_gates.txt` — M4.4 Step 3: docs/index gates after re-indexing the after-fix proofs (index completeness verification)
-- `docs/proof/m4_2026-01-22_prod_compose_full_gates_rerun_clean.txt` — M4.4 Step 3: prod compose full gates re-run from clean rebuild (authoritative rerun proof)
-- `docs/proof/m4_2026-01-22_prod_compose_rerun_docs_index_gates.txt` — Docs/index gates after indexing rerun proofs (docs-only change verification)
-- `docs/proof/m4_2026-01-22_prod_compose_ipv4_docs_index_gates.txt` — Gates snapshot after indexing prod compose IPv4 smoke proof into docs (index completeness verification)
-- `docs/proof/m4_2026-01-22_m45_status_next_step_docs_index_gates.txt` — Docs/index gates after adding M4.5 next step line in STATUS (docs-only change verification)
-- `docs/proof/m4_2026-01-22_m45_prod_compose_host_healthz_headers_200.txt` — M4.5: prod compose host healthz headers (200 OK; confirms `Server: gunicorn` + security headers)
-- `docs/proof/m4_2026-01-22_m45_prod_compose_full_gates.txt` — M4.5: prod compose full gates run (in-container; verifies deploy + tests + run_checks + ruff + pip-audit under prod compose)
-- `docs/proof/m4_2026-01-22_m45_full_gates_after_updates.txt` — M4.5: full gates snapshot after M4.5 updates (authoritative “after updates” baseline)
-- `docs/proof/m4_2026-01-22_m45_docs_index_gates_after_updates.txt` — Docs/index gates after indexing M4.5 full-gates proofs (docs-only change verification)
-- `docs/proof/m4_2026-01-22_m45_complete_status_docs_index_gates.txt` — Docs/index gates after marking M4.5 complete and adding the next-step line (docs-only change verification)
-- `docs/proof/m4_2026-01-22_m46_status_next_step_docs_index_gates.txt` — Docs/index gates after setting M4.6 as current step in STATUS (docs-only change verification)
+- `docs/proof/m4_2026-01-22_prod_compose_deploy_gate.txt` ? M4.4 Step 3: prod compose deploy gate (`python manage.py check --deploy`) executed inside container (`DJANGO_SETTINGS_MODULE=purelaka.settings_prod`)
+- `docs/proof/m4_2026-01-22_prod_compose_healthz_ipv4_smoke.txt` ? M4.4 Step 3: prod compose host smoke (IPv4; Windows-safe; confirms `Server: gunicorn`)
+- `docs/proof/m4_2026-01-22_prod_compose_healthz_redirect_headers.txt` ? M4.4 Step 3: redirect/header capture for host healthz smoke (documents 301/host behaviour under prod flags)
+- `docs/proof/m4_2026-01-22_prod_compose_healthz_smoke.txt` ? M4.4 Step 3: initial prod compose host healthz smoke capture (raw output)
+- `docs/proof/m4_2026-01-22_gunicorn_server_header_proof.txt` ? M4.4 Step 3: Gunicorn `Server:` header proof (sanity confirmation)
+- `docs/proof/m4_2026-01-22_prod_compose_pid1_cmdline.txt` ? M4.4 Step 3: PID1 cmdline proof (`/proc/1/cmdline` confirms Gunicorn is PID1)
+- `docs/proof/m4_2026-01-22_prod_compose_full_gates.txt` ? M4.4 Step 3: prod compose full gates executed inside container (initial capture; may contain failures prior to `settings_prod` redirect fix)
+- `docs/proof/m4_2026-01-22_prod_compose_deploy_gate_after_settings_prod_fix.txt` ? M4.4 Step 3: deploy gate re-captured after `settings_prod` test-redirect fix (authoritative deploy proof after fix)
+- `docs/proof/m4_2026-01-22_prod_compose_full_gates_after_settings_prod_fix.txt` ? M4.4 Step 3: full gates re-captured after `settings_prod` test-redirect fix (authoritative Step 3 PASS proof)
+- `docs/proof/m4_2026-01-22_after_fix_docs_index_gates.txt` ? M4.4 Step 3: docs/index gates after re-indexing the after-fix proofs (index completeness verification)
+- `docs/proof/m4_2026-01-22_prod_compose_full_gates_rerun_clean.txt` ? M4.4 Step 3: prod compose full gates re-run from clean rebuild (authoritative rerun proof)
+- `docs/proof/m4_2026-01-22_prod_compose_rerun_docs_index_gates.txt` ? Docs/index gates after indexing rerun proofs (docs-only change verification)
+- `docs/proof/m4_2026-01-22_prod_compose_ipv4_docs_index_gates.txt` ? Gates snapshot after indexing prod compose IPv4 smoke proof into docs (index completeness verification)
+- `docs/proof/m4_2026-01-22_m45_status_next_step_docs_index_gates.txt` ? Docs/index gates after adding M4.5 next step line in STATUS (docs-only change verification)
+- `docs/proof/m4_2026-01-22_m45_prod_compose_host_healthz_headers_200.txt` ? M4.5: prod compose host healthz headers (200 OK; confirms `Server: gunicorn` + security headers)
+- `docs/proof/m4_2026-01-22_m45_prod_compose_full_gates.txt` ? M4.5: prod compose full gates run (in-container; verifies deploy + tests + run_checks + ruff + pip-audit under prod compose)
+- `docs/proof/m4_2026-01-22_m45_full_gates_after_updates.txt` ? M4.5: full gates snapshot after M4.5 updates (authoritative ?after updates? baseline)
+- `docs/proof/m4_2026-01-22_m45_docs_index_gates_after_updates.txt` ? Docs/index gates after indexing M4.5 full-gates proofs (docs-only change verification)
+- `docs/proof/m4_2026-01-22_m45_complete_status_docs_index_gates.txt` ? Docs/index gates after marking M4.5 complete and adding the next-step line (docs-only change verification)
+- `docs/proof/m4_2026-01-22_m46_status_next_step_docs_index_gates.txt` ? Docs/index gates after setting M4.6 as current step in STATUS (docs-only change verification)
 
 M4.6 closure proofs:
 
-- `docs/proof/m4_2026-01-23_m46_final_baseline_full_gates.txt` — M4.6 final baseline full gates (authoritative closure proof)
-- `docs/proof/m4_2026-01-23_m46_host_full_gates_default.txt` — M4.6 host full release gates (default settings; fresh capture on 2026-01-23)
-- `docs/proof/m4_2026-01-23_m46_index_update_docs_gates.txt` — M4.6 index update gates (proof indexing verification)
-- `docs/proof/m4_2026-01-23_m46_post_close_docs_index_gates.txt` — M4 post-close docs/index gates (final confirmation)
+- `docs/proof/m4_2026-01-23_m46_final_baseline_full_gates.txt` ? M4.6 final baseline full gates (authoritative closure proof)
+- `docs/proof/m4_2026-01-23_m46_host_full_gates_default.txt` ? M4.6 host full release gates (default settings; fresh capture on 2026-01-23)
+- `docs/proof/m4_2026-01-23_m46_index_update_docs_gates.txt` ? M4.6 index update gates (proof indexing verification)
+- `docs/proof/m4_2026-01-23_m46_post_close_docs_index_gates.txt` ? M4 post-close docs/index gates (final confirmation)
 
-- `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_host_gates.txt` — Docs index gates after host gates (index integrity verification)
-- `docs/proof/m4_2026-01-23_m46_post_push_full_gates.txt` — Post-push full gates snapshot (authoritative “after merge” verification)
-- `docs/proof/m4_2026-01-23_m46_post_push_docs_index_gates.txt` — Docs index gates after post-push indexing (index integrity verification)
-- `docs/proof/m4_2026-01-23_m46_final_after_index_full_gates.txt` — Final after-index full gates (“final-final” authoritative proof)
-- `docs/proof/m4_2026-01-23_m46_final_post_push_full_gates.txt` — M4.6 final post-push full gates (ultimate closure proof)
-- `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_final_post_push_full_gates.txt` — Docs index gates after indexing the ultimate closure proof
-- `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_indexing_ultimate_proof.txt` — Docs index gates after indexing the ultimate closure proof (final integrity verification)
-- `docs/proof/m4_2026-01-23_m46_final_host_full_gates_after_all_docs.txt` — Final host full gates after all docs/indexing (ultimate host verification)
-- `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_final_host_after_all_docs.txt` — Docs index gates after indexing the ultimate host verification (final integrity proof)
-- `docs/proof/m4_2026-01-23_m46_ultimate_host_full_gates.txt` — Ultimate host full gates (final host verification)
-- `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_ultimate_host_full_gates.txt` — Docs index gates after indexing ultimate host proof
+- `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_host_gates.txt` ? Docs index gates after host gates (index integrity verification)
+- `docs/proof/m4_2026-01-23_m46_post_push_full_gates.txt` ? Post-push full gates snapshot (authoritative ?after merge? verification)
+- `docs/proof/m4_2026-01-23_m46_post_push_docs_index_gates.txt` ? Docs index gates after post-push indexing (index integrity verification)
+- `docs/proof/m4_2026-01-23_m46_final_after_index_full_gates.txt` ? Final after-index full gates (?final-final? authoritative proof)
+- `docs/proof/m4_2026-01-23_m46_final_post_push_full_gates.txt` ? M4.6 final post-push full gates (ultimate closure proof)
+- `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_final_post_push_full_gates.txt` ? Docs index gates after indexing the ultimate closure proof
+- `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_indexing_ultimate_proof.txt` ? Docs index gates after indexing the ultimate closure proof (final integrity verification)
+- `docs/proof/m4_2026-01-23_m46_final_host_full_gates_after_all_docs.txt` ? Final host full gates after all docs/indexing (ultimate host verification)
+- `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_final_host_after_all_docs.txt` ? Docs index gates after indexing the ultimate host verification (final integrity proof)
+- `docs/proof/m4_2026-01-23_m46_ultimate_host_full_gates.txt` ? Ultimate host full gates (final host verification)
+- `docs/proof/m4_2026-01-23_m46_docs_index_gates_after_ultimate_host_full_gates.txt` ? Docs index gates after indexing ultimate host proof
 
 ## 4) How to re-verify (buyer due-diligence commands)
 
