@@ -65,6 +65,19 @@ The milestone closure date and current status are recorded in `docs/STATUS.md`.
 
 This section captures the job-first closure evidence: clean deliverable hygiene, claims alignment, reproducible gates, deploy readiness, and CI parity.
 
+### Orders status normalization (canonical "canceled") + full gates (PROVEN anchored)
+
+- **PROVEN_COMMIT:** `1490dd72c905b304e3dcbb0f5798e18d888b5540`
+- `docs/proof/job_2026-01-24_orders_canceled_normalization_gates.txt`
+  - Confirms gates are green:
+    - `python manage.py check`
+    - `python manage.py test orders -v 2`
+    - `python manage.py test payments -v 2`
+    - `python manage.py test`
+  - Confirms hygiene:
+    - `git grep -n "cancelled" orders templates/orders payments/services monitoring/services` returns **no matches** in runtime target paths.
+
+
 ### Claims alignment (STATUS vs Acceptance Matrix)
 - `docs/proof/job_2026-01-24_claims_alignment_status_vs_acceptance.txt`
 

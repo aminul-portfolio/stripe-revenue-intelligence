@@ -6,12 +6,13 @@
 
 ### Job-First Closure - 2026-01-24 (PROVEN anchored)
 
-- **PROVEN_COMMIT:** `42ff8ce3caee3f300360ea88f7ce71d84830c440`
+- **PROVEN_COMMIT:** `1490dd72c905b304e3dcbb0f5798e18d888b5540`
 - **Proof index:** `docs/CONTRACTS_AND_PROOFS.md` -> section **"Job-First Closure (2026-01-24)"**
 - **Authoritative Job-First proofs (PROVEN anchored):**
   - Closure gates: `docs/proof/job_2026-01-24_job_first_closure_gates_HEAD.txt`
   - Deploy gate (prod-like / settings_prod): `docs/proof/job_2026-01-24_job_first_deploy_gate_HEAD.txt`
   - Proof index integrity scan: `docs/proof/job_2026-01-24_contracts_and_proofs_integrity_scan.txt`
+  - Orders status normalization proof (canonical "canceled"): `docs/proof/job_2026-01-24_orders_canceled_normalization_gates.txt` (PROVEN anchored)
 - **Note:** "*_HEAD.txt" filenames are legacy naming; these artifacts are PROVEN anchored via `PROVEN_COMMIT` above.
 
 > Note on Milestone 4: Docker Compose / buyer-ready deployment work exists as historical work-in-repo, but it is **not claimed as shipped** in the Acceptance Matrix "Out of scope" section until it is re-validated and the Job-First checklist is fully green.
@@ -30,7 +31,7 @@
 All gates below must remain green locally and in CI.
 
 * `python manage.py check`: PASS
-* `python manage.py test`: PASS (**65 tests**, see latest Job-First proofs)
+* `python manage.py test`: PASS (**65 tests**, see `docs/proof/job_2026-01-24_orders_canceled_normalization_gates.txt`)
 * `python manage.py run_checks --fail-on-issues`: PASS (**open=0, resolved=3**, see latest proof)
 * `python manage.py makemigrations --check --dry-run`: PASS
 * `ruff check .`: PASS
@@ -159,6 +160,11 @@ Final post-push full gates proof (authoritative):
 
 
 ## Evidence (proof artifacts)
+- **Authoritative Job-First proofs (PROVEN anchored):**
+  - Closure gates: `docs/proof/job_2026-01-24_job_first_closure_gates_HEAD.txt`
+  - Deploy gate (prod-like / settings_prod): `docs/proof/job_2026-01-24_job_first_deploy_gate_HEAD.txt`
+  - Proof index integrity scan: `docs/proof/job_2026-01-24_contracts_and_proofs_integrity_scan.txt`
+
 
 ### M1 consolidated proof (authoritative)
 
