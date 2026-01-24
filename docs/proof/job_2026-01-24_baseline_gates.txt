@@ -1,0 +1,91 @@
+﻿=== BASELINE (JOB-FIRST) — 2026-01-24 ===
+
+## Repo identity
+REMOTE:
+origin	https://github.com/aminul-portfolio/stripe-revenue-intelligence.git (fetch) origin	https://github.com/aminul-portfolio/stripe-revenue-intelligence.git (push)
+
+BRANCH:
+main
+
+## Git state
+GIT STATUS:
+On branch main Your branch is up to date with 'origin/main'.  Changes to be committed:   (use "git restore --staged <file>..." to unstage) 	new file:   docs/02_30k_master_checklist.md 	new file:   docs/06_job_first.md 	new file:   docs/07_sales_ready.md 	new file:   "docs/Upgrade1 _\302\24330k_Master_Checklist v1.1.md" 	new file:   docs/outstanding_work_job_first.md 	new file:   docs/proof/job_2026-01-24_baseline_gates.txt  Changes not staged for commit:   (use "git add <file>..." to update what will be committed)   (use "git restore <file>..." to discard changes in working directory) 	modified:   docs/02_30k_master_checklist.md 	modified:   docs/06_job_first.md 	modified:   docs/07_sales_ready.md 	modified:   docs/outstanding_work_job_first.md 	modified:   docs/proof/job_2026-01-24_baseline_gates.txt 
+
+GIT LOG (last 5):
+a484b22 M4.6: capture ultimate host gates + verify docs index after ultimate host proof 756e67f M4.6: index final integrity proof + capture docs index gates 50464f7 M4.6: capture docs index gates after final host verification (ultimate integrity) f4d68f4 M4.6: index final host full gates after all docs (ultimate verification) 5fad0a7 M4.6: index final docs-index gate proof after ultimate proof
+
+## Versions
+PYTHON:
+Python 3.12.3
+
+## Gates
+manage.py check:
+System check identified no issues (0 silenced).
+
+manage.py test:
+Found 63 test(s). System check identified no issues (0 silenced).
+
+run_checks --fail-on-issues:
+Snapshots built for 90 day(s). created=0, updated=90, product_rows_upserted=16 Issues: 0 (open=0, resolved=3)  Breakdown:  - analytics_snapshot_reconciliation / resolved: 1  - invalid_order_state / resolved: 1  - payment_mismatch / resolved: 1  Latest 10 open issues:  - (none open)
+
+makemigrations --check --dry-run:
+No changes detected
+
+## CI workflow: .github/workflows/ci.yml
+name: CI
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    env:
+      DJANGO_SETTINGS_MODULE: "purelaka.settings"
+      PYTHONUNBUFFERED: "1"
+      PAYMENTS_USE_STRIPE: "0"
+      DJANGO_SECRET_KEY: "ci-not-secret"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies (locked)
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Ruff (lint)
+        run: ruff check .
+
+      - name: Ruff (format check)
+        run: ruff format --check .
+
+      - name: pip-audit (runtime)
+        run: pip-audit -r requirements.txt
+
+      - name: Django system check
+        run: python manage.py check
+
+      - name: Migrations check (no missing migrations)
+        run: python manage.py makemigrations --check --dry-run
+
+      - name: Run migrations (CI DB)
+        run: python manage.py migrate --noinput
+
+      - name: Run tests
+        run: python manage.py test
+
+      - name: Run monitoring checks (fail on issues)
+        run: python manage.py run_checks --fail-on-issues
+
