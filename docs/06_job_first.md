@@ -9,7 +9,7 @@ Where something is partially present or contradicted, it remains **Not Done**.
 
 ### J0.1 Deliverable hygiene + clean reviewer bundle
 - [ ] Deliverable hygiene (ZIP-safe): remove from any shared ZIP/package: `.env`, `db.sqlite3`, `.venv/venv`, `.idea/`, `.ruff_cache/`, `__pycache__/`, `*.pyc`, `.pytest_cache/` (**Not Done** — present in uploaded ZIP, including `.env`, `db.sqlite3`, `.venv/`, `.idea/`, `.ruff_cache/`, `__pycache__/`, and `.git/`)
-- [ ] Generate the reviewer ZIP from git only (recommended standard): `git archive -o purelaka_clean_share.zip HEAD` (**Not Done** — cannot be proven from ZIP)
+- [x] Generate the reviewer ZIP from git only (recommended standard): `git archive -o purelaka_clean_share.zip HEAD` (**Done** — proof: `docs/proof/job_2026-01-24_j0_1_clean_share_zip.txt`)
 
 ### J0.2 Correctness landmines (must eliminate)
 - [x] Fix StripeEvent correctness (no properties referencing missing fields) (**Done** — `payments/models.py` contains no reference to `mrr_pennies`)
