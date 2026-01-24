@@ -63,6 +63,33 @@ Supporting docs-index gate proof (earlier checkpoint, retained for completeness)
 
 The milestone closure date and current status are recorded in `docs/STATUS.md`.
 
+## Job-First Closure (2026-01-24)
+
+This section captures the job-first closure evidence: clean deliverable hygiene, claims alignment, reproducible gates, deploy readiness, and CI parity.
+
+### Claims alignment (STATUS vs Acceptance Matrix)
+- `docs/proof/job_2026-01-24_claims_alignment_status_vs_acceptance.txt`
+
+### Closure gates (default settings)
+- `docs/proof/job_2026-01-24_job_first_closure_gates_v3.txt`
+
+### Deploy gate (prod-like settings)
+- `docs/proof/job_2026-01-24_job_first_closure_gates_deploy_fix_v5.txt`
+
+### Reviewer deliverable hygiene (share ZIP)
+- `docs/proof/job_2026-01-24_reviewer_zip_hygiene.txt`
+- `docs/proof/job_2026-01-24_job_first_j01_done.txt`
+
+### Proof pack readability audit (encoding + empty proof cleanup)
+- `docs/proof/job_2026-01-24_proof_pack_readability_audit.txt`
+
+### Subscription status guard (canonical “canceled”)
+- `docs/proof/job_2026-01-24_subscription_status_guard_test.txt`
+
+### CI gates updates
+- `docs/proof/job_2026-01-24_ci_add_deploy_check.txt`
+- `docs/proof/job_2026-01-24_ci_add_analytics_tests.txt`
+
 
 ## 1) Contracts (what we promise)
 
