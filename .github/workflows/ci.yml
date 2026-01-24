@@ -57,5 +57,9 @@ jobs:
       - name: Run tests
         run: python manage.py test
 
+      - name: Run analytics tests (verbose)
+        run: python manage.py test analyticsapp -v 2
+
       - name: Run monitoring checks (fail on issues)
         run: python manage.py run_checks --fail-on-issues
+
