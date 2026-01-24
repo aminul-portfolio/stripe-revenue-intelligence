@@ -1,0 +1,139 @@
+﻿=== Proof pack readability fix (UTF-16 -> UTF-8, remove empty proofs) — 2026-01-24 ===
+
+## Delete empty proof files (0 bytes)
+## Convert UTF-16 BOM proofs to UTF-8 (no BOM)
+UTF16 before: 60
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\analytics_export_customers_audit_2026-01-19.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\analytics_export_kpi_audit_2026-01-19.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\analytics_export_orders_audit_2026-01-19.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\analytics_export_products_audit_2026-01-20.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m1_2026-01-18_pip_audit.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m1_2026-01-18_ruff_check.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m1_2026-01-18_ruff_format.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m1_2026-01-18_run_checks.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m1_2026-01-18_stripeevent_review.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m1_2026-01-18_tests.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m2_2026-01-18_check.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m2_2026-01-18_full_suite.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m2_2026-01-18_run_checks.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m2_2026-01-18_test_accounts.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m2_2026-01-18_test_analyticsapp.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m2_2026-01-18_test_funnel.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m2_2026-01-18_test_monitoring.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m2_2026-01-18_test_orders.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m2_2026-01-18_test_payments.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m2_2026-01-18_test_wishlist.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m2_2026-01-19_ruff_check.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m2_2026-01-19_ruff_format_check.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m2_2026-01-19_run_checks.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m2_2026-01-19_test_subscriptions_app.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m2_2026-01-19_test_subscription_kpis.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m2_2026-01-19_test_subscription_webhooks.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m3_2026-01-21_full_gates.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m3_acceptance_matrix_2026-01-20.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m3_export_contract_tests_2026-01-20.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m3_export_contract_test_verbose_2026-01-20.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m3_kpi_contract_alignment_2026-01-20.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m3_kpi_inventory_2026-01-20.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m3_rbac_surface_contract_2026-01-20.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m3_ruff_format_fail_2026-01-21.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m3_stock_idempotency_tests_2026-01-21.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m3_stock_oversell_prevention_tests_2026-01-21.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-22_compose_web_db_parity_gates.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-22_gunicorn_compose_web_db_parity_gates.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-22_gunicorn_server_header_proof.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-22_m45_prod_compose_full_gates.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-22_m45_prod_compose_host_healthz_headers_200.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-22_prod_compose_deploy_gate.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-22_prod_compose_deploy_gate_after_settings_prod_fix.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-22_prod_compose_full_gates.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-22_prod_compose_full_gates_after_settings_prod_fix.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-22_prod_compose_full_gates_rerun_clean.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-22_prod_compose_healthz_ipv4_smoke.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-22_prod_compose_healthz_redirect_headers.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-22_prod_compose_healthz_smoke.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-22_prod_compose_pid1_cmdline.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-23_m46_docs_index_gates_after_final_host_after_all_docs.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-23_m46_docs_index_gates_after_final_post_push_full_gates.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-23_m46_docs_index_gates_after_host_gates.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-23_m46_docs_index_gates_after_indexing_final_integrity_proof.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-23_m46_docs_index_gates_after_indexing_ultimate_proof.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-23_m46_docs_index_gates_after_indexing_ultimate_proof_indexed_in_docs.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-23_m46_docs_index_gates_after_ultimate_host_full_gates.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-23_m46_final_docs_index_gates_after_final_final.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-23_m46_host_full_gates_default.txt
+Converting: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m4_2026-01-23_m46_post_push_docs_index_gates.txt
+## Re-scan after conversion
+EMPTY COUNT AFTER: 4
+
+
+FullName : C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs
+           \proof\m1_2026-01-18_ci_green.txt
+Length   : 0
+
+FullName : C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs
+           \proof\m2_2026-01-19_pip_audit.txt
+Length   : 0
+
+FullName : C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs
+           \proof\m2_2026-01-19_tests.txt
+Length   : 0
+
+FullName : C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs
+           \proof\ob_2026-01-24_subscription_status_guard.txt
+Length   : 0
+
+
+
+
+UTF16 COUNT AFTER: 0
+## Done
+## Reference scan for current empty proof files
+## Deleting empty proof files (0 bytes) confirmed unreferenced
+## Re-scan after empty deletions
+EMPTY COUNT AFTER DELETE: 4
+UTF16 COUNT AFTER DELETE: 0
+## Empty proof files (authoritative list just before delete)
+EMPTY FILES NOW COUNT: 4
+
+
+FullName : C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs
+           \proof\m1_2026-01-18_ci_green.txt
+Length   : 0
+
+FullName : C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs
+           \proof\m2_2026-01-19_pip_audit.txt
+Length   : 0
+
+FullName : C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs
+           \proof\m2_2026-01-19_tests.txt
+Length   : 0
+
+FullName : C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs
+           \proof\ob_2026-01-24_subscription_status_guard.txt
+Length   : 0
+
+
+
+
+## Reference scan for empty proof files
+---- docs/proof/m1_2026-01-18_ci_green.txt ----
+::
+---- docs/proof/m2_2026-01-19_pip_audit.txt ----
+::
+---- docs/proof/m2_2026-01-19_tests.txt ----
+::
+---- docs/proof/ob_2026-01-24_subscription_status_guard.txt ----
+::
+## Deleting empty proof files (force) + verifying each deletion
+Attempt delete: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m1_2026-01-18_ci_green.txt (Length=0)
+Deleted OK: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m1_2026-01-18_ci_green.txt still_exists=False
+Attempt delete: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m2_2026-01-19_pip_audit.txt (Length=0)
+Deleted OK: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m2_2026-01-19_pip_audit.txt still_exists=False
+Attempt delete: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m2_2026-01-19_tests.txt (Length=0)
+Deleted OK: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\m2_2026-01-19_tests.txt still_exists=False
+Attempt delete: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\ob_2026-01-24_subscription_status_guard.txt (Length=0)
+Deleted OK: C:\Users\sumon\OneDrive\Desktop\PureLaka_Commerce_Platform_LAUNCH_READY\docs\proof\ob_2026-01-24_subscription_status_guard.txt still_exists=False
+## Re-scan after forced deletion
+EMPTY COUNT AFTER FORCED DELETE: 0
+UTF16 COUNT AFTER FORCED DELETE: 0
