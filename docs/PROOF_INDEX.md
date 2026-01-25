@@ -16,12 +16,16 @@
 - Acceptance Matrix (claims): `docs/acceptance_matrix.md`
 - Job-First Checklist (status): `docs/06_job_first.md`
 - Current Status: `docs/STATUS.md`
+- Demo Walkthrough (5–10 min): `docs/demo_walkthrough.md`
 
-## Proof links (open these)
+## Proof links (highest signal)
 - CI workflow: `.github/workflows/ci.yml`
 - Proof folder: `docs/proof/`
-- J0.1 clean reviewer ZIP proof: `docs/proof/job_2026-01-24_j0_1_clean_share_zip.txt`
-- Proof normalization commit reference (readable proofs): see latest proof files under `docs/proof/`
+- Job-First closure gates (anchored): `docs/proof/job_2026-01-24_job_first_closure_gates_HEAD.txt`
+- Deploy gate proof: `docs/proof/job_2026-01-24_job_first_deploy_gate_HEAD.txt`
+- Orders canceled normalization proof: `docs/proof/job_2026-01-24_orders_canceled_normalization_gates.txt`
+- Monitoring fail-then-pass proof: `docs/proof/job_2026-01-24_monitoring_fail_then_pass.txt`
+- Clean reviewer ZIP proof: `docs/proof/job_2026-01-24_j0_1_clean_share_zip.txt`
 
 ## Reproduce locally (copy/paste)
 - `python manage.py check`
