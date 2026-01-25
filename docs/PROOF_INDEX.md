@@ -26,6 +26,7 @@
 - Orders canceled normalization proof: `docs/proof/job_2026-01-24_orders_canceled_normalization_gates.txt`
 - Monitoring fail-then-pass proof: `docs/proof/job_2026-01-24_monitoring_fail_then_pass.txt`
 - Clean reviewer ZIP proof: `docs/proof/job_2026-01-24_j0_1_clean_share_zip.txt`
+- Health endpoint proof (HEAD 200): `docs/proof/m4_2026-01-25_healthz_head_200.txt`
 
 ## Reproduce locally (copy/paste)
 - `python manage.py check`
