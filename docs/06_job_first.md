@@ -85,7 +85,8 @@ Where something is partially present or contradicted, it remains **Not Done**.
 
 - [ ] Add `docs/demo_walkthrough.md` (5–10 minute demo script by role) (**Not Done** — missing)
 - [x] `seed_demo` command exists (`core/management/commands/seed_demo.py`) (**Done**)
-- [ ] Improve `seed_demo` realism to support the walkthrough (minimum: orders pending/paid/refunded; optional subscriptions only if claimed) (**Not Done** — not evidenced)
+- [x] Improve `seed_demo` realism to support the walkthrough (minimum: orders pending/paid/refund-tracked; optional subscriptions only if claimed) (**Done** — `core/management/commands/seed_demo.py` creates pending/paid/fulfilled + refund-tracked order with mock payment refs)
+
 
 ---
 
