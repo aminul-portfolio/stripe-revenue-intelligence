@@ -1,0 +1,4 @@
+﻿URL=http://127.0.0.1:8000/healthz/
+STATUS=200
+DATE_UTC=2026-01-25T13:55:40Z
+SERVER=WSGIServer/0.2 CPython/3.12.3
