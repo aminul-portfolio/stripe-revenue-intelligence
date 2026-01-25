@@ -94,14 +94,20 @@ Where something is partially present or contradicted, it remains **Not Done**.
 
 These are **outputs** you capture once J0–J5 are green. Store evidence under `docs/proof/demo/` with dated filenames.
 
-- [ ] `seed_demo` run output captured (roles created + counts) (**Not Done**)
-- [ ] 1 screenshot per role login: Admin / Ops / Analyst / Customer (**Not Done**)
-- [ ] Signature screenshot: Executive dashboard (KPIs + trends) (**Not Done**)
-- [ ] Signature proof: `run_checks --fail-on-issues` output showing **0 open issues** (**Not Done**)
-- [ ] Signature screenshot: Exports page + one CSV header opened (finance pack / BI pack) (**Not Done**)
-- [ ] Evidence stored in `docs/proof/demo/` (dated filenames) (**Not Done**)
+- [x] `seed_demo` run output captured (roles created + counts) (**Done** — `docs/proof/demo/demo_2026-01-24_seed_demo_output.txt`)
+- [x] Signature proof: `run_checks --fail-on-issues` output showing **0 open issues** (**Done** — `docs/proof/demo/demo_2026-01-24_run_checks_green.txt`)
+- [x] Orders export header captured (CSV contract visible) (**Done** — `docs/proof/demo/demo_2026-01-24_export_orders_header.txt`)
+- [x] KPI summary export header captured (exec KPI contract visible) (**Done** — `docs/proof/demo/demo_2026-01-24_export_kpi_summary_header.txt`)
+- [x] Evidence plan for screenshots exists (**Done** — `docs/proof/demo/README_SCREENSHOTS_PLAN.md`)
 
----
+### Screenshot evidence (stored under `docs/proof/demo/`)
+- [x] Admin login screenshot (**Done** — `docs/proof/demo/demo_2026-01-24_screenshot_login_admin.png`)
+- [x] Ops view screenshot (**Done** — `docs/proof/demo/demo_2026-01-24_screenshot_login_ops.png`)
+- [x] Analyst dashboard screenshot (**Done** — `docs/proof/demo/demo_2026-01-24_screenshot_login_analyst.png`)
+- [x] Executive dashboard screenshot (**Done** — `docs/proof/demo/demo_2026-01-24_screenshot_dashboard_exec.png`)
+- [x] Exports page screenshot (**Done** — `docs/proof/demo/demo_2026-01-24_screenshot_exports_page.png`)
+- [x] CSV header opened screenshot (**Done** — `docs/proof/demo/demo_2026-01-24_screenshot_csv_header_opened.png`)
+
 
 ## J7) `docs/PROOF_INDEX.md` (reviewer navigation index)
 
