@@ -1,0 +1,4 @@
+URL=/analytics/export/kpi-summary/?days=30
+STATUS=200
+CONTENT_TYPE=text/csv
+HEADER=window_days,latest_snapshot_day,revenue,orders,aov,refunded_amount,refunded_orders,refund_rate_orders_pct,unique_customers,repeat_customers,repeat_rate_pct,wishlisted_users,purchased_users
