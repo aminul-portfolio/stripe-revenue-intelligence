@@ -57,8 +57,9 @@ Where something is partially present or contradicted, it remains **Not Done**.
 - [x] `README.md` exists (setup context present) (**Done**)
 - [x] `.env.example` exists (**Done**)
 - [x] README links the acceptance matrix (`docs/acceptance_matrix.md`) so reviewers can verify claims quickly (**Done** — link present in `README.md`)
-- [ ] `docs/runbook.md` complete and runnable (webhooks, ops, triage, troubleshooting) (**Not Done** — file exists but is not yet end-to-end complete/runnable as an ops runbook)
-- [ ] `docs/deployment.md` complete and runnable (prod-like settings, env vars, CSRF/hosts) (**Not Done** — file exists and covers many areas, but completeness/runnability is not fully evidenced; static files/release checklist details are not covered)
+- [x] `docs/runbook.md` complete and runnable (webhooks, ops, triage, troubleshooting) (**Done** — committed: `716fc7335e078e8858fce59c56805b66f1344ff9`)
+- [x] `docs/deployment.md` complete and runnable (prod-like settings, env vars, CSRF/hosts) (**Done** — committed: `2ea6d4f4cd0db42548f2e27f081bd1ac43518c30`)
+
 
 ---
 
