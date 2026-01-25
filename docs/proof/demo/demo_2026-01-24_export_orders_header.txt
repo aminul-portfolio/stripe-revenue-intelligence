@@ -1,0 +1,4 @@
+URL=/analytics/export/orders/?days=30
+STATUS=200
+CONTENT_TYPE=text/csv
+HEADER=OrderID,Email,Total,Status,CreatedAt,RefundStatus,RefundPennies,RefundedAt
