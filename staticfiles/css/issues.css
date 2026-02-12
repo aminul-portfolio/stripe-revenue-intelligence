@@ -1,0 +1,134 @@
+/* File: static/css/issues.css */
+
+/* Scope EVERYTHING to the Issues page only */
+body.issues-page .issues {
+  margin-top: 8px;
+}
+
+body.issues-page .issues__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 14px;
+}
+
+body.issues-page .issues__h1 {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+body.issues-page .issues__sub {
+  margin: 8px 0 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+body.issues-page .issues__code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 13px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+/* Button polish (still uses your global .btn styles; we only add extras) */
+body.issues-page .issues__run {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+body.issues-page .issues__spinner {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: rgba(255,255,255,0.95);
+  display: none;
+  animation: issues-spin 900ms linear infinite;
+}
+
+body.issues-page .issues__run.is-loading .issues__spinner {
+  display: inline-block;
+}
+
+@keyframes issues-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Card/table: crisp enterprise density */
+body.issues-page .issues__card {
+  overflow: hidden; /* keeps header radius tidy */
+}
+
+body.issues-page .issues__tablewrap {
+  overflow: auto;
+}
+
+body.issues-page .issues__table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* Denser rows + clearer hierarchy */
+body.issues-page .issues__th {
+  position: sticky;
+  top: 0;
+  background: rgba(248, 250, 252, 0.92);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #334155;
+  padding: 12px 14px;
+  z-index: 1;
+}
+
+body.issues-page .issues__td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  font-size: 14px;
+}
+
+body.issues-page .issues__tr:hover .issues__td {
+  background: rgba(15, 23, 42, 0.02);
+}
+
+body.issues-page .issues__td--muted {
+  color: var(--muted);
+}
+
+body.issues-page .issues__td--mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+body.issues-page .issues__td--nowrap {
+  white-space: nowrap;
+}
+
+body.issues-page .issues__empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 18px 14px;
+  font-size: 14px;
+}
+
+/* Column sizing: keeps it “enterprise tidy” */
+body.issues-page .issues__th--detected,
+body.issues-page .issues__td--detected { min-width: 170px; }
+
+body.issues-page .issues__th--type { min-width: 160px; }
+body.issues-page .issues__th--ref  { min-width: 140px; }
+body.issues-page .issues__th--resolved { min-width: 110px; }
+body.issues-page .issues__th--desc { min-width: 320px; }
