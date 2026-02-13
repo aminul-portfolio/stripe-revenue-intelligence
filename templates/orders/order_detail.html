@@ -1,96 +1,284 @@
+{# File: templates/orders/order_detail.html #}
 {% extends "base.html" %}
+{% load static %}
+
 {% block title %}Order #{{ order.id }} | PureLaka{% endblock %}
+{% block body_class %}orders-page orders-detail-page{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/orders.css' %}">
+{% endblock %}
 
 {% block content %}
-<section class="page-head">
-  <h1>Order #{{ order.id }}</h1>
-</section>
+<div class="orders-detail" data-orders-root data-orders-detail-root>
 
-<div class="card">
-  <div class="row" style="display:flex; gap:18px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap;">
-    <div>
-      <div><strong>Status:</strong> {{ order.status|title }}</div>
-      <div><strong>Total:</strong> £{{ order.total }}</div>
+  <header class="page-head">
+    <div class="page-head__left">
+      <div class="page-eyebrow">Orders</div>
 
-      {% if order.stripe_payment_intent %}
-        <div style="margin-top:8px;">
-          <span class="muted">PaymentIntent:</span>
-          <code>{{ order.stripe_payment_intent }}</code>
-        </div>
-      {% endif %}
+      <h1 class="page-title">
+        Order <span class="mono">#{{ order.id }}</span>
 
-      {% if order.stripe_charge_id %}
-        <div style="margin-top:6px;">
-          <span class="muted">Charge:</span>
-          <code>{{ order.stripe_charge_id }}</code>
-        </div>
-      {% endif %}
+        <code class="code mono" id="oid">{{ order.id }}</code>
+        <button class="btn ghost btn-sm" type="button" data-copy="#oid" aria-label="Copy order ID">
+          Copy ID
+        </button>
 
-      {% if order.refund_status and order.refund_status != "none" %}
-        <div style="margin-top:10px;">
-          <span class="muted">Refund:</span>
-          <strong>{{ order.refund_status|title }}</strong>
-          <span class="muted">({{ order.refund_amount_pennies }} pennies)</span>
-          {% if order.refunded_at %}
-            <div class="muted" style="margin-top:4px;">Refunded at: {{ order.refunded_at }}</div>
-          {% endif %}
-        </div>
-      {% endif %}
+        <span class="status-pill status-{{ order.status }}">
+          {{ order.status|title }}
+        </span>
+      </h1>
+
+      <p class="page-subtitle">
+        Created <span class="mono">{{ order.created_at }}</span>
+        • Total <span class="money">£{{ order.total }}</span>
+      </p>
     </div>
 
-    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-      {# Customer payment CTA #}
-      {% if order.status == "pending" %}
-        <a class="btn primary" href="{% url 'start-payment' order.id %}">Pay now</a>
-      {% elif order.status == "paid" %}
-        <span class="msg success" style="margin:0;">Payment received.</span>
-      {% elif order.status == "canceled" %}
-        <span class="msg warning" style="margin:0;">This order is canceled.</span>
-      {% elif order.status == "fulfilled" %}
-        <span class="msg info" style="margin:0;">This order is fulfilled.</span>
-      {% endif %}
+    <div class="page-head__right">
+      <div class="actions" role="group" aria-label="Order actions">
 
-      {# Ops/Admin lifecycle actions (POST-only) #}
-      {% if request.user.is_authenticated and request.user.is_staff %}
+        <a class="btn" href="{% url 'orders-list' %}">Back to Orders</a>
+
         {% if order.status == "pending" %}
-          <form method="post" action="{% url 'order-cancel' order.id %}" style="display:inline;">
-            {% csrf_token %}
-            <input type="hidden" name="reason" value="Cancelled from order detail (staff)" />
-            <button type="submit" class="btn danger">Cancel</button>
-          </form>
+          <a class="btn primary" href="{% url 'start-payment' order_id=order.id %}">Pay now</a>
+        {% elif order.status == "paid" %}
+          <span class="badge badge-success" role="status">Payment received</span>
+        {% elif order.status == "canceled" %}
+          <span class="badge badge-warning" role="status">Canceled</span>
+        {% elif order.status == "fulfilled" %}
+          <span class="badge badge-info" role="status">Fulfilled</span>
+        {% else %}
+          <span class="badge" role="status">Status unknown</span>
         {% endif %}
 
-        {% if order.status == "paid" %}
-          <form method="post" action="{% url 'order-fulfill' order.id %}" style="display:inline;">
-            {% csrf_token %}
-            <input type="hidden" name="note" value="Fulfilled from order detail (staff)" />
-            <button type="submit" class="btn success">Mark fulfilled</button>
-          </form>
+        {% if request.user.is_authenticated and request.user.is_staff %}
+          {% if order.status == "pending" %}
+            <form method="post" action="{% url 'order-cancel' order.id %}" class="inline-form">
+              {% csrf_token %}
+              <input type="hidden" name="reason" value="Cancelled from order detail (staff)" />
+              <button type="submit" class="btn danger" data-confirm="Cancel this order? This cannot be undone.">
+                Cancel
+              </button>
+            </form>
+          {% endif %}
+
+          {% if order.status == "paid" %}
+            <form method="post" action="{% url 'order-fulfill' order.id %}" class="inline-form">
+              {% csrf_token %}
+              <input type="hidden" name="note" value="Fulfilled from order detail (staff)" />
+              <button type="submit" class="btn" data-confirm="Mark this order as fulfilled?">
+                Mark fulfilled
+              </button>
+            </form>
+          {% endif %}
         {% endif %}
-      {% endif %}
+      </div>
     </div>
-  </div>
+  </header>
+    {# Required warning state: Missing Stripe references #}
+    {% if order.status != "pending" %}
+    {% if not order.stripe_payment_intent or not order.stripe_charge_id %}
+    <div class="nt-alert nt-alert--warn" role="alert">
+        <div class="nt-alert__title">Payment reference missing</div>
+        <div class="nt-alert__body">
+            This order is <strong>{{ order.status|title }}</strong>, but one or more Stripe references are missing:
+            <ul class="nt-alert__list">
+                {% if not order.stripe_payment_intent %}
+                <li>PaymentIntent</li>
+                {% endif %}
+                {% if not order.stripe_charge_id %}
+                <li>Charge ID</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+    {% endif %}
 
-  <hr>
+  <section class="grid" aria-label="Order detail panels">
 
-  <h3>Items</h3>
-  <ul>
-    {% for i in order.items.all %}
-      <li>{{ i.product_name }} — {{ i.qty }} x £{{ i.unit_price }} = £{{ i.line_total }}</li>
-    {% empty %}
-      <li class="muted">No items found.</li>
-    {% endfor %}
-  </ul>
+    {# Summary #}
+    <article class="card panel">
+      <header class="panel__head">
+        <h2 class="panel__title">Summary</h2>
+        <div class="panel__meta">
+          <span class="mono">#{{ order.id }}</span>
+        </div>
+      </header>
 
-  {% if order.status == "pending" %}
-    <p class="muted" style="margin-top:12px;">
-      Click <strong>Pay now</strong> to complete payment.
-      {% if PAYMENTS_USE_STRIPE %}
-        Stripe will confirm payment and the webhook will mark the order as <strong>paid</strong>.
-      {% else %}
-        You are in <strong>mock mode</strong>; clicking Pay now will mark the order as <strong>paid</strong> immediately.
-      {% endif %}
-    </p>
-  {% endif %}
+      <dl class="kv">
+        <div class="kv__row">
+          <dt>Status</dt>
+          <dd>{{ order.status|title }}</dd>
+        </div>
+        <div class="kv__row">
+          <dt>Subtotal</dt>
+          <dd class="money">£{{ order.subtotal }}</dd>
+        </div>
+        <div class="kv__row">
+          <dt>Total</dt>
+          <dd class="money">£{{ order.total }}</dd>
+        </div>
+        <div class="kv__row">
+          <dt>Email</dt>
+          <dd class="mono">{{ order.email|default:"—" }}</dd>
+        </div>
+        <div class="kv__row">
+          <dt>Updated</dt>
+          <dd class="mono">{{ order.updated_at }}</dd>
+        </div>
+      </dl>
+
+      <div class="panel__divider"></div>
+
+      <h3 class="panel__subtitle">Shipping</h3>
+      <dl class="kv">
+        <div class="kv__row"><dt>Name</dt><dd class="mono">{{ order.shipping_name|default:"—" }}</dd></div>
+        <div class="kv__row"><dt>Address</dt><dd class="mono">{{ order.shipping_line1|default:"—" }}</dd></div>
+        <div class="kv__row"><dt>City</dt><dd class="mono">{{ order.shipping_city|default:"—" }}</dd></div>
+        <div class="kv__row"><dt>Postcode</dt><dd class="mono">{{ order.shipping_postcode|default:"—" }}</dd></div>
+        <div class="kv__row"><dt>Country</dt><dd class="mono">{{ order.shipping_country|default:"—" }}</dd></div>
+      </dl>
+    </article>
+
+    {# Items #}
+    <article class="card panel">
+      <header class="panel__head">
+        <h2 class="panel__title">Items</h2>
+        <div class="panel__meta">
+          <span class="mono">{{ order.items.count|default:0 }}</span>
+        </div>
+      </header>
+
+      <div class="table-wrap" tabindex="0" aria-label="Order items table container">
+        <table class="table" aria-label="Order items">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th class="nowrap">SKU</th>
+              <th class="num nowrap">Qty</th>
+              <th class="num nowrap">Unit</th>
+              <th class="num nowrap">Line total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in order.items.all %}
+              <tr>
+                <td>
+                  <div class="cell-title">{{ i.product_name }}</div>
+                  {% if i.variant_id %}
+                    <div class="cell-sub">Variant ID: <span class="mono">{{ i.variant_id }}</span></div>
+                  {% endif %}
+                </td>
+                <td class="mono nowrap">{{ i.sku|default:"—" }}</td>
+                <td class="num mono">{{ i.qty }}</td>
+                <td class="num mono">£{{ i.unit_price }}</td>
+                <td class="num mono">£{{ i.line_total }}</td>
+              </tr>
+            {% empty %}
+              <tr>
+                <td colspan="5" class="cell-sub">No items found.</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    {# Payment #}
+    <article class="card panel">
+      <header class="panel__head">
+        <h2 class="panel__title">Payment</h2>
+        <div class="panel__meta">
+          <span class="mono">stripe</span>
+        </div>
+      </header>
+
+      <dl class="kv">
+        <div class="kv__row">
+          <dt>PaymentIntent</dt>
+          <dd>
+            {% if order.stripe_payment_intent %}
+              <div class="copy-row">
+                <code class="code mono" id="pi">{{ order.stripe_payment_intent }}</code>
+                <button class="btn ghost btn-sm" type="button" data-copy="#pi">Copy</button>
+              </div>
+            {% else %}
+              <span class="cell-sub">—</span>
+            {% endif %}
+          </dd>
+        </div>
+
+        <div class="kv__row">
+          <dt>Charge</dt>
+          <dd>
+            {% if order.stripe_charge_id %}
+              <div class="copy-row">
+                <code class="code mono" id="ch">{{ order.stripe_charge_id }}</code>
+                <button class="btn ghost btn-sm" type="button" data-copy="#ch">Copy</button>
+              </div>
+            {% else %}
+              <span class="cell-sub">—</span>
+            {% endif %}
+          </dd>
+        </div>
+
+        <div class="kv__row">
+          <dt>Refund</dt>
+          <dd>
+            {% if order.refund_status and order.refund_status != "none" %}
+              <span class="badge badge-refund">Refund: {{ order.refund_status|title }}</span>
+
+              {% if order.refund_amount_pennies %}
+                <div class="cell-sub">
+                  Amount: <span class="mono">{{ order.refund_amount_pennies }}</span> pennies
+                </div>
+              {% endif %}
+
+              {% if order.refunded_at %}
+                <div class="cell-sub">
+                  Refunded at: <span class="mono">{{ order.refunded_at }}</span>
+                </div>
+              {% endif %}
+            {% else %}
+              <span class="badge badge-refund-ok">No refunds</span>
+            {% endif %}
+          </dd>
+        </div>
+      </dl>
+    </article>
+
+    {# Audit #}
+    <article class="card panel">
+      <header class="panel__head">
+        <h2 class="panel__title">Audit</h2>
+        <div class="panel__meta">
+          <span class="mono">{{ request.user.username|default:"guest" }}</span>
+        </div>
+      </header>
+
+      <dl class="kv">
+        <div class="kv__row">
+          <dt>Created</dt>
+          <dd class="mono">{{ order.created_at }}</dd>
+        </div>
+        <div class="kv__row">
+          <dt>Updated</dt>
+          <dd class="mono">{{ order.updated_at }}</dd>
+        </div>
+        <div class="kv__row">
+          <dt>Access</dt>
+          <dd class="cell-sub">Enforced by server-side order access policy.</dd>
+        </div>
+      </dl>
+    </article>
+
+  </section>
 </div>
+
+{% endblock %}
+
+{% block extra_js %}
+  <script defer src="{% static 'js/orders.js' %}"></script>
 {% endblock %}
